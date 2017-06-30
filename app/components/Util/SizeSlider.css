@@ -1,0 +1,74 @@
+/*
+ * grid
+ */
+/*
+ * Fonts
+ */
+/*
+ * Colors
+ */
+html, body, h1, h2, h3, h4, h5, h6, hr, li, ul, p, a, img, button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: "Pingfang SC", "Open Sans", "Lantinghei SC", "Microsoft Yahei Light", "Microsoft Yahei", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 200;
+  list-style: none; }
+
+* {
+  position: relative; }
+
+.size_slider {
+  height: 100%; }
+
+.slider_wrapper {
+  position: absolute;
+  display: inline-block;
+  margin: 0 26px;
+  left: 0;
+  right: 0;
+  height: 100%; }
+
+.slider {
+  margin: 22px 0;
+  border-top: 2px solid #F9F9F9;
+  border-bottom: 2px solid #F9F9F9; }
+
+.slider_wrapper :global .ant-slider-handle {
+  top: 2px; }
+.slider_wrapper :global .ant-slider-step {
+  height: 8px; }
+.slider_wrapper :global .ant-slider-track {
+  height: 8px;
+  background-color: #DDDDDD; }
+.slider_wrapper :global .ant-slider:hover .ant-slider-track {
+  background-color: #DDDDDD; }
+.slider_wrapper :global .ant-slider-handle {
+  border: none;
+  -webkit-box-shadow: 0 0 0.3px 0 rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 0 0.3px 0 rgba(0, 0, 0, 0.5);
+  -ms-box-shadow: 0 0 0.3px 0 rgba(0, 0, 0, 0.5);
+  -o-box-shadow: 0 0 0.3px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 0.3px 0 rgba(0, 0, 0, 0.5); }
+
+.icon {
+  position: absolute;
+  height: 100%;
+  color: #B3B3B3; }
+  .icon:before {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    font-size: 0; }
+  .icon > * {
+    vertical-align: middle;
+    font-size: 14px; }
+
+.left {
+  left: 0; }
+
+.right {
+  right: 0; }
+
+/*# sourceMappingURL=SizeSlider.css.map */

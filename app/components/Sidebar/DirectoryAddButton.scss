@@ -1,0 +1,10 @@
+@import "../../assets/scss/mixin";
+@import "../../assets/scss/variables";
+@import "../../assets/scss/base";
+
+.add_button {
+  background-color: transparent;
+  color: $gray-color;
+  outline: none;
+  cursor: pointer;
+}

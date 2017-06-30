@@ -1,0 +1,70 @@
+/*
+ * grid
+ */
+/*
+ * Fonts
+ */
+/*
+ * Colors
+ */
+html, body, h1, h2, h3, h4, h5, h6, hr, li, ul, p, a, img, button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: "Pingfang SC", "Open Sans", "Lantinghei SC", "Microsoft Yahei Light", "Microsoft Yahei", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 200;
+  list-style: none; }
+
+* {
+  position: relative; }
+
+.top {
+  height: 100%;
+  margin: 0 20px; }
+
+.text_wrapper {
+  position: absolute;
+  height: 100%;
+  left: 0; }
+  .text_wrapper h5 {
+    display: inline-block;
+    height: 100%;
+    line-height: 100%;
+    color: #808080;
+    font-size: 16px;
+    font-weight: 500; }
+    .text_wrapper h5:before {
+      content: "";
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+      font-size: 0; }
+    .text_wrapper h5 > * {
+      vertical-align: middle;
+      font-size: 14px; }
+  .text_wrapper span {
+    display: inline-block;
+    margin-left: 20px;
+    height: 100%;
+    line-height: 100%;
+    color: #DDDDDD;
+    font-size: 12px; }
+    .text_wrapper span:before {
+      content: "";
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+      font-size: 0; }
+    .text_wrapper span > * {
+      vertical-align: middle;
+      font-size: 14px; }
+
+.right {
+  position: absolute;
+  height: 100%;
+  right: 0; }
+
+.slider {
+  width: 180px; }
+
+/*# sourceMappingURL=ImagesTop.css.map */

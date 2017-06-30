@@ -1,0 +1,59 @@
+@import "../../assets/scss/mixin";
+@import "../../assets/scss/variables";
+@import "../../assets/scss/base";
+
+
+.size_slider {
+  height: 100%;
+}
+
+.slider_wrapper {
+  position: absolute;
+  display: inline-block;
+  margin: 0 26px;
+  left: 0;
+  right: 0;
+  height: 100%;
+}
+.slider {
+  margin: 22px 0;
+  border-top: 2px solid $gray-color-white;
+  border-bottom: 2px solid $gray-color-white;
+}
+
+.slider_wrapper {
+  :global {
+    .ant-slider-handle {
+      top: 2px;
+    }
+    .ant-slider-step {
+      height: 8px;
+    }
+    .ant-slider-track {
+      height: 8px;
+      background-color: $gray-color-light;
+    }
+    .ant-slider:hover .ant-slider-track {
+      background-color: $gray-color-light;
+    }
+    .ant-slider-handle {
+      border: none;
+      @include box-shadow(0 0 0.3px 0 $shadow-color);
+    }
+  }
+}
+
+.icon {
+  position: absolute;
+  height: 100%;
+  color: $gray-color;
+  @include vertical-align();
+}
+
+.left {
+  left: 0;
+}
+
+.right {
+  right: 0;
+}

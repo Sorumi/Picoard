@@ -1,0 +1,17 @@
+{
+  "name": "Picoard",
+  "productName": "Picoard",
+  "version": "0.0.1",
+  "description": "An image viewer application powered by Electron & React.",
+  "main": "./main.prod.js",
+  "author": {
+    "name": "Sorumi",
+    "email": "Sorumi33@gmail.com",
+    "url": "https://github.com/Sorumi"
+  },
+  "scripts": {
+    "postinstall": "npm rebuild --runtime=electron --target=1.6.6 --disturl=https://atom.io/download/atom-shell --build-from-source"
+  },
+  "license": "MIT",
+  "dependencies": {}
+}

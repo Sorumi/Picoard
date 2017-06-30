@@ -1,0 +1,16 @@
+.list {
+  position: absolute;
+  column-gap: 0;
+  counter-reset: item-counter;
+}
+.item {
+  //width: 100px;
+  box-sizing: border-box;
+  break-inside: avoid;
+  padding: 10px;
+  counter-increment: item-counter;
+  -webkit-user-select: none;
+  img {
+    width: 100%;
+  }
+}

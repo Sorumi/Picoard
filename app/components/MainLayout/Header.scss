@@ -1,0 +1,8 @@
+@import "../../assets/scss/mixin";
+@import "../../assets/scss/variables";
+@import "../../assets/scss/base";
+
+.header {
+  background-color: $title-bar-color;
+  @include box-shadow(0 0 0.3px 0 $shadow-color);
+}

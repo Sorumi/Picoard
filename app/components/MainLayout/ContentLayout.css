@@ -1,0 +1,19 @@
+.layout {
+  width: 100%;
+  height: 100%; }
+
+.top {
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+  height: 60px; }
+
+.main {
+  position: absolute;
+  width: 100%;
+  margin-top: 60px;
+  top: 0;
+  bottom: 0;
+  overflow: auto; }
+
+/*# sourceMappingURL=ContentLayout.css.map */

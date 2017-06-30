@@ -1,0 +1,15 @@
+.list {
+  position: absolute;
+  column-gap: 0;
+  counter-reset: item-counter; }
+
+.item {
+  box-sizing: border-box;
+  break-inside: avoid;
+  padding: 10px;
+  counter-increment: item-counter;
+  -webkit-user-select: none; }
+  .item img {
+    width: 100%; }
+
+/*# sourceMappingURL=Images.css.map */

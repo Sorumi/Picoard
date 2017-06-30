@@ -1,0 +1,43 @@
+@import "../../assets/scss/mixin";
+@import "../../assets/scss/variables";
+@import "../../assets/scss/base";
+
+.top {
+  height: 100%;
+  margin: 0 20px;
+}
+.text_wrapper {
+  position: absolute;
+  height: 100%;
+  left: 0;
+
+  h5 {
+    display: inline-block;
+    height: 100%;
+    line-height: 100%;
+    color: $gray-color-dark;
+    font-size: 16px;
+    font-weight: $font-weight-medium;
+    @include vertical-align();
+  }
+
+  span {
+    display: inline-block;
+    margin-left: 20px;
+    height: 100%;
+    line-height: 100%;
+    color: $gray-color-light;
+    font-size: 12px;
+    @include vertical-align();
+  }
+}
+
+.right {
+  position: absolute;
+  height: 100%;
+  right: 0;
+}
+
+.slider {
+  width: 180px;
+}
