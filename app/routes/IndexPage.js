@@ -11,66 +11,74 @@ import ImageList from '../components/Images/ImageList';
 
 class App extends Component {
 
-    componentWillMount() {
-        ipcRenderer.on('window-resize', (evt, data) => {
-            const size = {
-                width: parseInt(data[0]),
-                height: parseInt(data[1]),
-            };
-            // console.log(size);
-            this.props.handleChangeWindowSize(size)
-        });
-    }
+  componentWillMount() {
+    ipcRenderer.on('window-resize', (evt, data) => {
+      const size = {
+        width: window.innerWidth,
+        height: window.innerHeight,
+      };
+      // console.log(size);
+      this.props.handleChangeWindowSize(size)
+    });
+  }
 
-    componentDidMount() {
+  componentDidMount() {
+    this.props.handleChangeWindowSize({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    })
+  }
 
-    }
-
-    render() {
-        const {images, size, sidebarWidth, offsetX} = this.props;
-        return (
-            <div>
-                <MainLayout>
-                    <SideLayout
-                         sidebar={<Sidebar/>}
-                    >
-                        <ContentLayout
-                             top={<ImagesTop/>}
-                        >
-                            {images ?
-                                <ImageList
-                                    width={size.width - sidebarWidth - offsetX}
-                                    path={images.path}
-                                    names={images.images}
-                                /> : null }
-                        </ContentLayout>
-                    </SideLayout>
-                </MainLayout>
-            </div>
-        );
-    }
+  render() {
+    const {path, images, column, imageWidth, size, sidebarWidth, offsetX} = this.props;
+    return (
+      <div>
+        <MainLayout>
+          <SideLayout
+            sidebar={<Sidebar/>}
+          >
+            <ContentLayout
+              top={<ImagesTop/>}
+            >
+              {images ?
+                <ImageList
+                  width={size.width - sidebarWidth - offsetX}
+                  imageWidth={imageWidth}
+                  column={column}
+                  path={path}
+                  names={images}
+                /> : null }
+            </ContentLayout>
+          </SideLayout>
+        </MainLayout>
+      </div>
+    );
+  }
 }
 
 function mapStateToProps(state) {
-    const images = state.images;
+  const {path, images, column, imageWidth} = state.images;
   const {size, sidebarWidth, offsetX} = state.window;
-    return {
-      size,
-      sidebarWidth,
-      offsetX,
-        images
-    };
+  return {
+    path,
+    size,
+    sidebarWidth,
+    offsetX,
+    images,
+    column,
+    imageWidth
+  };
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
-    return {
-        handleChangeWindowSize: (size) => {
-            dispatch({
-                type: 'window/changeWindow',
-                payload: size,
-            })
-        }
+  return {
+    handleChangeWindowSize: (size) => {
+      dispatch({
+        type: 'window/changeWindow',
+        payload: size,
+      })
     }
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

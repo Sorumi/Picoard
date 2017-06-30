@@ -19,6 +19,7 @@ html, body, h1, h2, h3, h4, h5, h6, hr, li, ul, p, a, img, button {
   position: relative; }
 
 .list {
+  width: 100%;
   position: absolute;
   padding: 1px 10px; }
 
@@ -26,9 +27,13 @@ html, body, h1, h2, h3, h4, h5, h6, hr, li, ul, p, a, img, button {
   display: inline-block;
   vertical-align: top;
   font-size: 0; }
-  .column img {
-    width: 100%;
-    margin-bottom: 20px;
+
+.item {
+  width: 100%;
+  margin-bottom: 20px; }
+  .item img {
+    display: block;
+    margin: 0 auto;
     border-radius: 3px;
     background-color: #FFF;
     -webkit-box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5);
@@ -37,11 +42,20 @@ html, body, h1, h2, h3, h4, h5, h6, hr, li, ul, p, a, img, button {
     -o-box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5);
     box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5); }
 
-.col_3 {
+:global .col_1 {
+  width: 100%;
+  padding: 0 10px; }
+:global .col_2 {
+  width: 50%;
+  padding: 0 10px; }
+:global .col_3 {
   width: 33.33%;
   padding: 0 10px; }
-
-.row_5 {
-  box-sizing: border-box; }
+:global .col_4 {
+  width: 25%;
+  padding: 0 10px; }
+:global .col_5 {
+  width: 20%;
+  padding: 0 10px; }
 
 /*# sourceMappingURL=ImageList.css.map */

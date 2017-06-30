@@ -10,28 +10,13 @@ class ImageList extends Component {
       column: 3,
     }
   }
-
-  // function getCol() {
-  //   // console.log(width)
-  //   if (width > 1000)
-  //     return 5;
-  //   else if (width > 800)
-  //     return 4;
-  //   else if (width > 600)
-  //     return 3;
-  //   else if (width > 400)
-  //     return 2;
-  //   else
-  //     return 1;
-  // }
   componentWillMount() {
 
   }
 
   render() {
 
-    const {path, names, width} = this.props;
-    const {column} = this.state;
+    const {path, names, width, column, imageWidth} = this.props;
 
     let columnHeight = [];
     let columnImage = [];
@@ -39,48 +24,37 @@ class ImageList extends Component {
       columnHeight.push(0);
       columnImage.push([]);
     }
-
-    const imgWidth = width / column;
-
     names.map((name) => {
 
       let file = `${path}/${name}`;
-
       let dimensions = sizeOf(file);
-      let imgHeight = imgWidth / dimensions.width * dimensions.height;
+      let imageHeight = imageWidth / dimensions.width * dimensions.height;
       let index = columnHeight.indexOf(Math.min.apply(Math, columnHeight));
-      columnHeight[index] += imgHeight;
+      columnHeight[index] += imageHeight;
       columnImage[index].push(name);
     });
-
-    console.log(columnImage, columnHeight);
     return (
       <div className={styles.list}
            ref="list"
-        // style={{columnCount: getCol()}}
       >
 
         {columnImage.map((images, index) =>
           <div
             key={index}
-            className={styles.column+ ' ' + styles.col_3}>
+            className={styles.column+ ' col_'+ column}>
             {images.map(image =>
+            <div
+              key={image}
+              className={styles.item}>
               <img
-                key={image}
                 src={`file://${path}/${image}`}
                 draggable={false}
+                width={imageWidth}
               />
+            </div>
             )}
           </div>
         )}
-        {/*{names.map((name) =>*/}
-        {/*<div key={name} className={styles.item}>*/}
-        {/*<img src={`file://${path}/${name}`}*/}
-        {/*draggable={false}*/}
-        {/*// width={'20%'}*/}
-        {/*/>*/}
-        {/*</div>*/}
-        {/*)}*/}
       </div>
     );
   }

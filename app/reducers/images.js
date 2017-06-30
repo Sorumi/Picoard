@@ -2,6 +2,8 @@ const namespace = 'images';
 
 const initialState = {
   ratio: 0,
+  column: 5,
+  imageWidth: 0,
   path: null,
   images: [],
 };
@@ -21,13 +23,19 @@ function images(state = initialState, {type, payload}) {
         path,
         images,
       };
-    case 'changeRatio':
+    case 'saveRatio':
       const ratio = payload;
       return {
         ...state,
         ratio
       };
-
+    case 'saveSize':
+      const {column, imageWidth} = payload;
+      return {
+        ...state,
+        column,
+        imageWidth,
+      };
     default:
       return state;
   }
