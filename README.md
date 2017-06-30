@@ -1,4 +1,4 @@
-# electron-react-boilerplate
+# Picoard
 
 #### An image viewer application powered by Electron & React.
 
