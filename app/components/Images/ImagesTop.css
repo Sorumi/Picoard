@@ -20,7 +20,8 @@ html, body, h1, h2, h3, h4, h5, h6, hr, li, ul, p, a, img, button {
 
 .top {
   height: 100%;
-  margin: 0 20px; }
+  margin: 0 20px;
+  -webkit-user-select: none; }
 
 .text_wrapper {
   position: absolute;

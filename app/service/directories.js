@@ -1,6 +1,6 @@
 import Store from '../utils/store';
 import {remote} from 'electron';
-
+import {arrayMove} from 'react-sortable-hoc';
 
 export function addDirectory(path) {
     const directory = {
@@ -25,6 +25,7 @@ export function addDirectory(path) {
 }
 
 export function loadDirectories() {
+  // Store.clear();
     let hasDirectories = Store.has('directories');
     if (hasDirectories) {
         const directories = Store.get('directories');
@@ -50,4 +51,13 @@ export function getDirectoryByIndex(index) {
             return directories[index];
         }
     }
+}
+
+export function sortDirectories(oldIndex, newIndex) {
+  let hasDirectories = Store.has('directories');
+  if (hasDirectories) {
+    const directories = Store.get('directories');
+    const newDirectories = arrayMove(directories, oldIndex, newIndex);
+    Store.set('directories', newDirectories);
+  }
 }

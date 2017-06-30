@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {arrayMove} from 'react-sortable-hoc';
 import {connect} from 'react-redux';
 
 import electron from 'electron';
@@ -14,24 +13,29 @@ const {dialog} = electron.remote;
 
 class Sidebar extends Component {
 
+  constructor() {
+    super();
+    this.onClickAddDirectory = this.onClickAddDirectory.bind(this);
+    this.onSortEnd = this.onSortEnd.bind(this);
+  }
     componentWillMount() {
         this.props.handleLoadingDirectories();
         this.props.handleClickDirectory(0);
     }
 
     onSortEnd({oldIndex, newIndex}) {
-        const items = arrayMove(directories, oldIndex, newIndex);
-        this.props.handleSortEnd(items);
+      // const {directories} = this.props;
+        // const items = arrayMove(directories, oldIndex, newIndex);
+        this.props.handleSortDirectories(oldIndex, newIndex);
     }
 
 
     onClickAddDirectory() {
-        let {handleAddDirectory} = this.props;
+        const {handleAddDirectory} = this.props;
         dialog.showOpenDialog({
             properties: ['openDirectory']
         }, function (files) {
             if (files) {
-                // console.log(files[0]);
                 handleAddDirectory(files[0]);
             }
         });
@@ -46,7 +50,7 @@ class Sidebar extends Component {
                     <div className={styles.title}>
                         <h5>Directory</h5>
                         <div className={styles.title_right}>
-                            <DirectoryAddButton onClick={this.onClickAddDirectory.bind(this)}/>
+                            <DirectoryAddButton onClick={this.onClickAddDirectory}/>
                         </div>
                     </div>
 
@@ -76,10 +80,13 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch, ownProps) {
     return {
-        handleSortEnd: (items) => {
+        handleSortDirectories: (oldIndex, newIndex) => {
             dispatch({
-                type: 'directories/saveDirectories',
-                payload: items,
+                type: 'directories/sortDirectories',
+                payload: {
+                  oldIndex,
+                  newIndex
+                },
             });
         },
         handleLoadingDirectories: () => {

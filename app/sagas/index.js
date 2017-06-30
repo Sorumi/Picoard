@@ -14,6 +14,7 @@ function* saga() {
     yield takeLatest("directories/addDirectory", directoriesEffect.addDirectory);
     yield takeLatest("directories/loadDirectories", directoriesEffect.loadDirectories);
     yield takeLatest("directories/activeDirectory", directoriesEffect.activeDirectory);
+    yield takeLatest("directories/sortDirectories", directoriesEffect.sortDirectories);
 
     yield takeLatest("images/fetchImagesInPath", imagesEffect.fetchImagesInPath)
 

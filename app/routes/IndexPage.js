@@ -27,7 +27,7 @@ class App extends Component {
     }
 
     render() {
-        // const {images} = this.props;
+        const {images} = this.props;
         return (
             <div>
                 <MainLayout>
@@ -37,12 +37,12 @@ class App extends Component {
                         <ContentLayout
                              top={<ImagesTop/>}
                         >
-                            {/*{images ?*/}
-                                {/*<ImageList*/}
-                                    {/*// width={size.width - sidebarWidth - offsetX}*/}
-                                    {/*path={images.path}*/}
-                                    {/*names={images.images}*/}
-                                {/*/> : null }*/}
+                            {images ?
+                                <ImageList
+                                    // width={size.width - sidebarWidth - offsetX}
+                                    path={images.path}
+                                    names={images.images}
+                                /> : null }
                         </ContentLayout>
                     </SideLayout>
                 </MainLayout>
