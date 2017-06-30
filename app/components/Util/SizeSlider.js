@@ -3,7 +3,7 @@ import {Slider} from 'antd';
 
 import styles from './SizeSlider.css';
 
-function SizeSlider({className}) {
+function SizeSlider({className, defaultValue, onChange}) {
     return (
         <div className={styles.size_slider + ' ' + className}>
             <div className={styles.icon + ' ' + styles.left}>
@@ -12,8 +12,8 @@ function SizeSlider({className}) {
             <div className={styles.slider_wrapper}>
                 <Slider
                     className={styles.slider}
-                    defaultValue={20}
-                    // onChange={this.handleChange}
+                    defaultValue={defaultValue}
+                    onChange={onChange}
                     // value={this.state.sliderValue}
                 />
             </div>

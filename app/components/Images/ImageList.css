@@ -1,15 +1,47 @@
+/*
+ * grid
+ */
+/*
+ * Fonts
+ */
+/*
+ * Colors
+ */
+html, body, h1, h2, h3, h4, h5, h6, hr, li, ul, p, a, img, button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: "Pingfang SC", "Open Sans", "Lantinghei SC", "Microsoft Yahei Light", "Microsoft Yahei", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 200;
+  list-style: none; }
+
+* {
+  position: relative; }
+
 .list {
   position: absolute;
-  column-gap: 0;
-  counter-reset: item-counter; }
+  padding: 1px 10px; }
 
-.item {
-  box-sizing: border-box;
-  break-inside: avoid;
-  padding: 10px;
-  counter-increment: item-counter;
-  -webkit-user-select: none; }
-  .item img {
-    width: 100%; }
+.column {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 0; }
+  .column img {
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 3px;
+    background-color: #FFF;
+    -webkit-box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5);
+    -ms-box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5);
+    -o-box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5); }
 
-/*# sourceMappingURL=Images.css.map */
+.col_3 {
+  width: 33.33%;
+  padding: 0 10px; }
+
+.row_5 {
+  box-sizing: border-box; }
+
+/*# sourceMappingURL=ImageList.css.map */

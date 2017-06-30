@@ -27,7 +27,7 @@ class App extends Component {
     }
 
     render() {
-        const {images} = this.props;
+        const {images, size, sidebarWidth, offsetX} = this.props;
         return (
             <div>
                 <MainLayout>
@@ -39,7 +39,7 @@ class App extends Component {
                         >
                             {images ?
                                 <ImageList
-                                    // width={size.width - sidebarWidth - offsetX}
+                                    width={size.width - sidebarWidth - offsetX}
                                     path={images.path}
                                     names={images.images}
                                 /> : null }
@@ -53,7 +53,11 @@ class App extends Component {
 
 function mapStateToProps(state) {
     const images = state.images;
+  const {size, sidebarWidth, offsetX} = state.window;
     return {
+      size,
+      sidebarWidth,
+      offsetX,
         images
     };
 }
