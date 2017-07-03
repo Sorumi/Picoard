@@ -18,98 +18,106 @@ class Sidebar extends Component {
     this.onClickAddDirectory = this.onClickAddDirectory.bind(this);
     this.onSortEnd = this.onSortEnd.bind(this);
   }
-    componentWillMount() {
-        this.props.handleLoadingDirectories();
-        this.props.handleClickDirectory(0);
-    }
 
-    onSortEnd({oldIndex, newIndex}) {
-      // const {directories} = this.props;
-        // const items = arrayMove(directories, oldIndex, newIndex);
-        this.props.handleSortDirectories(oldIndex, newIndex);
-    }
+  componentWillMount() {
+    this.props.handleLoadingDirectories();
+    this.props.handleClickDirectory(0);
+  }
+
+  onSortEnd({oldIndex, newIndex}) {
+    // const {directories} = this.props;
+    // const items = arrayMove(directories, oldIndex, newIndex);
+    this.props.handleSortDirectories(oldIndex, newIndex);
+  }
 
 
-    onClickAddDirectory() {
-        const {handleAddDirectory} = this.props;
-        dialog.showOpenDialog({
-            properties: ['openDirectory']
-        }, function (files) {
-            if (files) {
-                handleAddDirectory(files[0]);
-            }
-        });
-    }
+  onClickAddDirectory() {
+    const {handleAddDirectory} = this.props;
+    dialog.showOpenDialog({
+      properties: ['openDirectory']
+    }, function (files) {
+      if (files && files.length > 0) {
+        handleAddDirectory(files[0]);
+      }
+    });
+  }
 
-    render() {
-        const {directories, currentDirIndex, handleClickDirectory} = this.props;
-        return (
+  render() {
+    const {directories, currentDirIndex, handleClickDirectory, handleRemoveDirectory} = this.props;
+    return (
 
-            <div className={styles.sidebar}>
-                <div className={styles.part}>
-                    <div className={styles.title}>
-                        <h5>Directory</h5>
-                        <div className={styles.title_right}>
-                            <DirectoryAddButton onClick={this.onClickAddDirectory}/>
-                        </div>
-                    </div>
-
-                  {directories ?
-                    <DirectoryList
-                        items={directories}
-                        lockAxis="y"
-                        onSortEnd={this.onSortEnd}
-                        useDragHandle={true}
-                        helperClass="directory_item_drag"
-                        onItemClick={handleClickDirectory}
-                        currentIndex={currentDirIndex}
-                    /> : null }
-                </div>
+      <div className={styles.sidebar}>
+        <div className={styles.part}>
+          <div className={styles.title}>
+            <h5>Directory</h5>
+            <div className={styles.title_right}>
+              <DirectoryAddButton onClick={this.onClickAddDirectory}/>
             </div>
-        );
-    }
+          </div>
+
+          {directories ?
+            <DirectoryList
+              items={directories}
+              lockAxis="y"
+              onSortEnd={this.onSortEnd}
+              useDragHandle={true}
+              helperClass="directory_item_drag"
+              onItemClick={handleClickDirectory}
+              onItemClickRemove={handleRemoveDirectory}
+              currentIndex={currentDirIndex}
+            /> : null }
+        </div>
+      </div>
+    );
+  }
 }
 
 function mapStateToProps(state) {
-    const {directories, currentDirIndex} = state.directories;
-    return {
-        directories,
-        currentDirIndex
-    };
+  const {directories, currentDirIndex} = state.directories;
+  return {
+    directories,
+    currentDirIndex
+  };
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
-    return {
-        handleSortDirectories: (oldIndex, newIndex) => {
-            dispatch({
-                type: 'directories/sortDirectories',
-                payload: {
-                  oldIndex,
-                  newIndex
-                },
-            });
+  return {
+    handleSortDirectories: (oldIndex, newIndex) => {
+      dispatch({
+        type: 'directories/sortDirectories',
+        payload: {
+          oldIndex,
+          newIndex
         },
-        handleLoadingDirectories: () => {
-            dispatch({
-                type: 'directories/loadDirectories',
-                payload: {}
-            });
-        },
-        handleAddDirectory: (file) => {
-            dispatch({
-                type: 'directories/addDirectory',
-                payload: file
-            });
-        },
-        handleClickDirectory: (index) => {
+      });
+    },
+    handleLoadingDirectories: () => {
+      dispatch({
+        type: 'directories/loadDirectories',
+        payload: {}
+      });
+    },
+    handleAddDirectory: (file) => {
+      dispatch({
+        type: 'directories/addDirectory',
+        payload: file
+      });
+    },
+    handleRemoveDirectory: (index) => {
+      dispatch({
+        type: 'directories/removeDirectory',
+        payload: index
+      });
+    },
+    handleClickDirectory: (index) => {
 
-            dispatch({
-                type: 'directories/activeDirectory',
-                payload: index
-            })
-        }
-
+      dispatch({
+        type: 'directories/activeDirectory',
+        payload: index
+      })
     }
+
+  }
 
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

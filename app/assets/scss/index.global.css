@@ -18,11 +18,15 @@ html, body, h1, h2, h3, h4, h5, h6, hr, li, ul, p, a, img, button {
 * {
   position: relative; }
 
+button {
+  background-color: transparent;
+  outline: none; }
+
 @font-face {
   font-family: "iconfont";
-  src: url("../fonts/iconfont.eot?t=1498380631324");
+  src: url("../fonts/iconfont.eot?t=1498978185614");
   /* IE9*/
-  src: url("../fonts/iconfont.eot?t=1498380631324#iefix") format("embedded-opentype"), url("../fonts/iconfont.woff?t=1498380631324") format("woff"), url("../fonts/iconfont.ttf?t=1498380631324") format("truetype"), url("../fonts/iconfont.svg?t=1498380631324#iconfont") format("svg");
+  src: url("../fonts/iconfont.eot?t=1498978185614#iefix") format("embedded-opentype"), url("../fonts/iconfont.woff?t=1498978185614") format("woff"), url("../fonts/iconfont.ttf?t=1498978185614") format("truetype"), url("../fonts/iconfont.svg?t=1498978185614#iconfont") format("svg");
   /* iOS 4.1- */ }
 .iconfont {
   font-family: "iconfont" !important;
@@ -30,6 +34,9 @@ html, body, h1, h2, h3, h4, h5, h6, hr, li, ul, p, a, img, button {
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
+
+.icon-more:before {
+  content: "\e606"; }
 
 .icon-move:before {
   content: "\e601"; }
@@ -46,4 +53,4 @@ html, body, h1, h2, h3, h4, h5, h6, hr, li, ul, p, a, img, button {
 .icon-left:before {
   content: "\e605"; }
 
-/*# sourceMappingURL=index.cssss.map */
+/*# sourceMappingURL=index.global.css.map */

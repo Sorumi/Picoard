@@ -18,6 +18,10 @@ html, body, h1, h2, h3, h4, h5, h6, hr, li, ul, p, a, img, button {
 * {
   position: relative; }
 
+button {
+  background-color: transparent;
+  outline: none; }
+
 .header {
   background-color: #F0F0F0;
   -webkit-box-shadow: 0 0 0.3px 0 rgba(0, 0, 0, 0.5);

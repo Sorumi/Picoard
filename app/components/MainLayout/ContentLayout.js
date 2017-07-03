@@ -11,7 +11,10 @@ function ContentLayout({top, children}) {
             <div className={styles.top}>
                 {top}
             </div>
-            <div className={styles.main}>
+            <div className={styles.main}
+            onScroll={() => {
+              // console.log('!!!!');
+            }}>
                 {children}
             </div>
         </div>

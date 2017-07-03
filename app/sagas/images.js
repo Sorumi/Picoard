@@ -37,7 +37,7 @@ export function *refreshSize() {
   const fitWidth = (maxWidth - minWidth) * ratio + minWidth;
   let column = Math.floor((maxWidth + 20) / (fitWidth + 20));
   column = column > 5 ? 5 : column;
-  console.log(minWidth, maxWidth);
+  // console.log(minWidth, maxWidth);
 
   yield put({
     type: 'images/saveSize',

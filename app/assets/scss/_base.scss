@@ -14,3 +14,8 @@ html, body, h1, h2, h3, h4, h5, h6, hr, li, ul, p, a, img, button {
   position: relative;
   //@include box-sizing(border-box);
 }
+
+button {
+  background-color: transparent;
+  outline: none;
+}

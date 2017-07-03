@@ -4,7 +4,6 @@ const namespace = 'directories';
 const initialState = {
     directories: [],
     currentDirIndex: 0,
-
 };
 
 function directories(state = initialState, {type, payload}) {

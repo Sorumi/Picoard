@@ -24,6 +24,16 @@ export function addDirectory(path) {
     }
 }
 
+export function removeDirectory(index) {
+  let hasDirectories = Store.has('directories');
+  if (hasDirectories) {
+    let directories = Store.get('directories');
+    directories.splice(index, 1);
+    Store.set('directories', directories);
+  }
+}
+
+
 export function loadDirectories() {
   // Store.clear();
     let hasDirectories = Store.has('directories');

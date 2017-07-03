@@ -1,0 +1,22 @@
+@import "../../assets/scss/mixin";
+@import "../../assets/scss/variables";
+@import "../../assets/scss/base";
+
+.menu {
+  border: none;
+
+  :global {
+	.ant-menu-item {
+	  color: $gray-color-dark;
+	}
+	.ant-menu-item-active, .ant-menu-item-selected {
+	  //font-weight: $font-weight-medium;
+	  color: $gray-color-dark;
+	  background-color: $gray-color-ultra-light;
+	}
+  }
+
+  button {
+	cursor: pointer;
+  }
+}

@@ -43,6 +43,7 @@ class App extends Component {
               {images ?
                 <ImageList
                   width={size.width - sidebarWidth - offsetX}
+                  height={size.height - 120}
                   imageWidth={imageWidth}
                   column={column}
                   path={path}

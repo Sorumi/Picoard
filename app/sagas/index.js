@@ -12,6 +12,7 @@ function* saga() {
   yield takeLatest("window/changeOffsetX", windowEffect.changeOffsetX)
 
   yield takeLatest("directories/addDirectory", directoriesEffect.addDirectory);
+  yield takeLatest("directories/removeDirectory", directoriesEffect.removeDirectory);
   yield takeLatest("directories/loadDirectories", directoriesEffect.loadDirectories);
   yield takeLatest("directories/activeDirectory", directoriesEffect.activeDirectory);
   yield takeLatest("directories/sortDirectories", directoriesEffect.sortDirectories);

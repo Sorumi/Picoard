@@ -5,7 +5,7 @@ import DirectoryItem from './DirectoryItem';
 
 import styles from './DirectoryList.css';
 
-function DirectoryList({items, onItemClick, currentIndex}) {
+function DirectoryList({items, onItemClick, onItemClickRemove, currentIndex}) {
 
     return (
         <div className={styles.list}>
@@ -16,6 +16,7 @@ function DirectoryList({items, onItemClick, currentIndex}) {
                     item={item}
                     active={index === currentIndex}
                     onClick={() => onItemClick(index)}
+                    onClickRemove={() => onItemClickRemove(index)}
                 />
             ))}
         </div>

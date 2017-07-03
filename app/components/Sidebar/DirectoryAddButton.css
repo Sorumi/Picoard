@@ -18,6 +18,10 @@ html, body, h1, h2, h3, h4, h5, h6, hr, li, ul, p, a, img, button {
 * {
   position: relative; }
 
+button {
+  background-color: transparent;
+  outline: none; }
+
 .add_button {
   background-color: transparent;
   color: #B3B3B3;
