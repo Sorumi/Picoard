@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {push} from 'react-router-redux'
 
 import electron from 'electron';
 
@@ -140,6 +141,7 @@ function mapDispatchToProps(dispatch, ownProps) {
       });
     },
     handleClickDirectory: (index) => {
+      dispatch(push('/images'))
       dispatch({
         type: 'directories/activeDirectory',
         payload: index

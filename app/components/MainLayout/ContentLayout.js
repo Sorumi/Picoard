@@ -24,7 +24,9 @@ class ContentLayout extends Component {
                  scrollHeight,
                  scrollTop,
                };
-               onContentScroll(height);
+               if (onContentScroll) {
+                 onContentScroll(height);
+               }
              }}>
           {children}
         </div>

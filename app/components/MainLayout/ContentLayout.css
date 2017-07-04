@@ -40,7 +40,8 @@ button {
   bottom: 0;
   overflow: auto; }
   .main::-webkit-scrollbar {
-    width: 10px; }
+    width: 10px;
+    height: 10px; }
   .main::-webkit-scrollbar-thumb {
     background: #B3B3B3;
     border-radius: 20px; }

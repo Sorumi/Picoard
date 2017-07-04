@@ -156,6 +156,8 @@ button {
   .input:hover, .input:focus {
     border-color: #DDDDDD;
     box-shadow: none; }
+  .input::selection {
+    background: #B3B3B3; }
 
 .button_wrapper {
   float: right;

@@ -22,7 +22,7 @@ function directories(state = initialState, {type, payload}) {
       const directories = payload;
       return {
         ...state,
-        directories: directories
+        directories,
       };
     case 'saveCurrentDirIndex':
       const currentDirIndex = payload;

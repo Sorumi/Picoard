@@ -2,24 +2,10 @@
 @import "../../assets/scss/variables";
 @import "../../assets/scss/base";
 
-.list {
-  width: 100%;
-  position: absolute;
-  padding: 1px 0;
-}
-
-.column {
-  display: inline-block;
-  vertical-align: top;
-  font-size: 0;
-
-}
-
-.item {
-  width: 100%;
-  margin-bottom: 20px;
+.wrapper {
   img {
 	display: block;
+	margin: 0 auto;
 	border-radius: 3px;
 	background-color: $white-color;
 	@include box-shadow(0 0 1px 0 $shadow-color);

@@ -4,6 +4,8 @@ import {call, put, select} from 'redux-saga/effects'
 export function* changeWindow({payload: size}) {
 
   const {size: lastSize, sidebarWidth: lastSidebarWidth, offsetX: lastOffsetX} = yield select(state => state.window);
+  const {location} = yield select(state => state.router);
+
   const ratio = (lastSidebarWidth + lastOffsetX) / lastSize.width;
 
   yield put({
@@ -13,10 +15,17 @@ export function* changeWindow({payload: size}) {
       sidebarWidth: size.width * ratio - lastOffsetX,
     },
   });
-  yield put({
-    type: 'images/refreshSize',
-    payload: {}
-  });
+  if (location.pathname === '/images') {
+    yield put({
+      type: 'images/refreshSize',
+      payload: {}
+    });
+  } else if (location.pathname === '/image') {
+    yield put({
+      type: 'image/refreshSize',
+      payload: {}
+    });
+  }
 }
 
 

@@ -8,16 +8,6 @@ function DirectoryMenu({onClick, onClickOpen, onClickEdit, onClickRemove}) {
   const MenuItem = Menu.Item;
   const MenuDivider = Menu.Divider;
 
-  // function onEditClick(event) {
-  //   // event.stopPropagation();
-  //   onClickEdit();
-  // }
-  //
-  // function onRemoveClick(event) {
-  //   // event.stopPropagation();
-  //   onClickRemove();
-  // }
-
   return (
     <Menu className={styles.menu}
           onClick={onClick}

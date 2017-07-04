@@ -6,6 +6,7 @@ import {takeEvery, takeLatest} from 'redux-saga/effects'
 import * as windowEffect from './window';
 import * as directoriesEffect from './directories';
 import * as imagesEffect from './images';
+import * as imageEffect from './image';
 
 function* saga() {
   yield takeLatest("window/changeWindow", windowEffect.changeWindow);
@@ -25,6 +26,8 @@ function* saga() {
   yield takeLatest("images/loadShowImages", imagesEffect.loadShowImages);
   yield takeLatest("images/loadMoreShowImages", imagesEffect.loadMoreShowImages);
 
+  yield takeLatest("image/changeRatio", imageEffect.changeRatio);
+  yield takeLatest("image/refreshSize", imageEffect.refreshSize);
 }
 
 export default saga;
