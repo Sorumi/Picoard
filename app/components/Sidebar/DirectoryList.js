@@ -5,7 +5,7 @@ import DirectoryItem from './DirectoryItem';
 
 import styles from './DirectoryList.css';
 
-function DirectoryList({items, onItemClick, onItemClickEdit, onItemChangeEdit, onItemClickRemove, onItemClickSave, onItemClickCancel, currentIndex, editIndex, editItem}) {
+function DirectoryList({items, onItemClick, onItemClickOpen, onItemClickEdit, onItemChangeEdit, onItemClickRemove, onItemClickSave, onItemClickCancel, currentIndex, editIndex, editItem}) {
 
   return (
     <div className={styles.list}>
@@ -18,6 +18,7 @@ function DirectoryList({items, onItemClick, onItemClickEdit, onItemChangeEdit, o
           edit={index === editIndex}
           editItem={editItem}
           onClick={() => onItemClick(index)}
+          onClickOpen={() =>onItemClickOpen(item.path)}
           onClickEdit={() => onItemClickEdit(index)}
           onChangeEdit={onItemChangeEdit}
           onClickRemove={() => onItemClickRemove(index)}

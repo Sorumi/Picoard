@@ -30,14 +30,14 @@ class DirectoryItem extends Component {
 
   handleColorSelectClick = (e) => {
     this.setState({colorSelectVisible: false});
-    this.props.onChangeEdit({color:e.key})
+    this.props.onChangeEdit({color: e.key})
   };
 
   handleColorSelectVisibleChange = (flag) => {
     this.setState({colorSelectVisible: flag});
   };
   handleInputChange = (e) => {
-    this.props.onChangeEdit({name:e.target.value})
+    this.props.onChangeEdit({name: e.target.value})
   };
 
   handleClickSave = (e) => {
@@ -51,7 +51,10 @@ class DirectoryItem extends Component {
   };
 
   render() {
-    const {item, active = false, edit = false, editItem, onClick, onClickEdit, onClickRemove} = this.props;
+    const {
+      item, active = false, edit = false, editItem,
+      onClick, onClickOpen, onClickEdit, onClickRemove
+    } = this.props;
     const {color, name} = editItem
 
     const DragHandle = SortableHandle(() =>
@@ -126,6 +129,7 @@ class DirectoryItem extends Component {
               overlayClassName={styles.dropdown}
               overlay={<DirectoryMenu
                 onClick={this.handleMenuClick}
+                onClickOpen={onClickOpen}
                 onClickEdit={onClickEdit}
                 onClickRemove={onClickRemove}/>
               }

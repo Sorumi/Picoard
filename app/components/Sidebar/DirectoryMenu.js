@@ -3,39 +3,40 @@ import {Menu} from 'antd';
 
 import styles from './DirectoryMenu.css';
 
-function DirectoryMenu({onClick, onClickEdit, onClickRemove}) {
+function DirectoryMenu({onClick, onClickOpen, onClickEdit, onClickRemove}) {
 
   const MenuItem = Menu.Item;
   const MenuDivider = Menu.Divider;
 
-  function onEditClick(event) {
-    // event.stopPropagation();
-    onClickEdit();
-  }
-
-  function onRemoveClick(event) {
-    // event.stopPropagation();
-    onClickRemove();
-  }
+  // function onEditClick(event) {
+  //   // event.stopPropagation();
+  //   onClickEdit();
+  // }
+  //
+  // function onRemoveClick(event) {
+  //   // event.stopPropagation();
+  //   onClickRemove();
+  // }
 
   return (
     <Menu className={styles.menu}
           onClick={onClick}
           selectedKeys={[]}>
       <MenuItem key="0">
-        <button onClick={onEditClick}>
-          Edit Directory
+        <button onClick={onClickOpen}>
+          Reveal in Finder
         </button>
       </MenuItem>
 
       <MenuItem key="1">
-        2nd menu item
+        <button onClick={onClickEdit}>
+          Edit Directory
+        </button>
       </MenuItem>
-
       <MenuDivider />
 
       <MenuItem key="3">
-        <button onClick={onRemoveClick}>
+        <button onClick={onClickRemove}>
           Remove Directory
         </button>
       </MenuItem>

@@ -10,6 +10,7 @@ import styles from './Sidebar.css';
 
 
 const {dialog} = electron.remote;
+const {shell} = electron;
 
 class Sidebar extends Component {
 
@@ -42,6 +43,10 @@ class Sidebar extends Component {
     });
   }
 
+  onOpenDirectory(path) {
+    shell.showItemInFolder(path)
+  }
+
   render() {
     const {
       directories, currentDirIndex, editDirIndex,editItem,
@@ -66,6 +71,7 @@ class Sidebar extends Component {
               useDragHandle={true}
               helperClass="directory_item_drag"
               onItemClick={handleClickDirectory}
+              onItemClickOpen={this.onOpenDirectory}
               onItemClickEdit={handleEditDirectory}
               onItemChangeEdit={handleChangeEditDirectory}
               onItemClickRemove={handleRemoveDirectory}
@@ -120,6 +126,7 @@ function mapDispatchToProps(dispatch, ownProps) {
         payload: editItem
       });
     },
+
     handleEditDirectory: (index) => {
       dispatch({
         type: 'directories/editDirectory',
