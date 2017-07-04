@@ -119,6 +119,7 @@ export default merge.smart(baseConfig, {
           }
         ]
       },
+      // Add LESS
       {
         test: /\.less$/,
         loader: `style-loader!css-loader!less-loader`,
