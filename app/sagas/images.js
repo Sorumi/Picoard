@@ -42,18 +42,22 @@ export function *refreshSize() {
 
   const {size, sidebarWidth, offsetX} = yield select(state => state.window);
   const {ratio} = yield select(state => state.images);
-  const maxWidth = size.width - sidebarWidth - offsetX - 40;
+  const listWidth = size.width - sidebarWidth - offsetX;
+  const maxWidth = listWidth - 40;
   const minWidth = (maxWidth + 20) / 5 - 20;
-  const fitWidth = (maxWidth - minWidth) * ratio + minWidth;
-  let column = Math.floor((maxWidth + 20) / (fitWidth + 20));
-  column = column > 5 ? 5 : column;
-  // console.log(minWidth, maxWidth);
+  const imageWidth = (maxWidth - minWidth) * ratio + minWidth;
+  let column = Math.floor((maxWidth + 20) / (imageWidth + 20));
 
+
+  column = column > 5 ? 5 : column;
+  const imageMargin = (listWidth - imageWidth * column ) / (column + 1);
+  
   yield put({
     type: 'images/saveSize',
     payload: {
       column,
-      imageWidth: fitWidth
+      imageWidth,
+      imageMargin,
     },
   });
 
@@ -76,19 +80,17 @@ export function *loadShowImages() {
 
   let currentIndex = 0;
 
-  console.log('last', lastIndex);
   for (let i = currentIndex; i < images.length; i++) {
     const name = images[i];
     let file = `${path}/${name}`;
     let dimensions = sizeOf(file);
     let imageHeight = imageWidth / dimensions.width * dimensions.height;
     let index = columnHeight.indexOf(Math.min.apply(Math, columnHeight));
-    columnHeight[index] += (imageHeight+20);
+    columnHeight[index] += (imageHeight + 20);
     columnImages[index].push(name);
     currentIndex++;
     if (currentIndex >= lastIndex &&
       columnHeight.filter(h => h < listHeight).length === 0) {
-      console.log(currentIndex);
       break;
     }
   }
@@ -113,14 +115,11 @@ export function *loadMoreShowImages() {
     payload: newListHeight,
   });
 
-  console.log('!!!!');
-
   let columnHeight = showImages.columnHeight;
   let columnImages = showImages.columnImages;
   let lastIndex = showImages.lastIndex;
 
   let currentIndex = lastIndex;
-
 
   for (let i = currentIndex; i < images.length; i++) {
     const name = images[i];
@@ -128,7 +127,7 @@ export function *loadMoreShowImages() {
     let dimensions = sizeOf(file);
     let imageHeight = imageWidth / dimensions.width * dimensions.height;
     let index = columnHeight.indexOf(Math.min.apply(Math, columnHeight));
-    columnHeight[index] += (imageHeight+20);
+    columnHeight[index] += (imageHeight + 20);
     columnImages[index].push(name);
     currentIndex++;
     if (currentIndex >= lastIndex &&

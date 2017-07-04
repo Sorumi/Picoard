@@ -25,7 +25,7 @@ button {
 .list {
   width: 100%;
   position: absolute;
-  padding: 1px 10px; }
+  padding: 1px 0; }
 
 .column {
   display: inline-block;
@@ -37,7 +37,6 @@ button {
   margin-bottom: 20px; }
   .item img {
     display: block;
-    margin: 0 auto;
     border-radius: 3px;
     background-color: #FFF;
     -webkit-box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5);
@@ -45,21 +44,5 @@ button {
     -ms-box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5);
     -o-box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5);
     box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5); }
-
-:global .col_1 {
-  width: 100%;
-  padding: 0 10px; }
-:global .col_2 {
-  width: 50%;
-  padding: 0 10px; }
-:global .col_3 {
-  width: 33.33%;
-  padding: 0 10px; }
-:global .col_4 {
-  width: 25%;
-  padding: 0 10px; }
-:global .col_5 {
-  width: 20%;
-  padding: 0 10px; }
 
 /*# sourceMappingURL=ImageList.css.map */

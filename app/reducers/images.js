@@ -7,6 +7,7 @@ const initialState = {
   ratio: 0.3,
   column: 5,
   imageWidth: 0,
+  imageMargin: 20,
   listHeight: 700,
 
   showImages : {
@@ -44,11 +45,12 @@ function images(state = initialState, {type, payload}) {
         ratio
       };
     case 'saveSize':
-      const {column, imageWidth} = payload;
+      const {column, imageWidth, imageMargin} = payload;
       return {
         ...state,
         column,
         imageWidth,
+        imageMargin
       };
     case 'saveListHeight':
       const {height} = payload;

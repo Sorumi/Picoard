@@ -12,20 +12,17 @@ class ImageList extends Component {
   // }
   render() {
 
-    const {path, columnImages, imageWidth} = this.props;
+    const {path, columnImages, imageWidth, imageMargin} = this.props;
     const column = columnImages.length;
 
     return (
-      <div className={styles.list}
-           onScroll={() => {
-             console.log('!!!!');
-           }}
-      >
+      <div className={styles.list}>
 
         {columnImages.map((images, index) =>
           <div
             key={index}
-            className={styles.column + ' col_' + column}>
+            className={styles.column}
+            style={{marginLeft: imageMargin}}>
             {images.map(image =>
               <div
                 key={image}

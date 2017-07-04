@@ -31,13 +31,13 @@ class App extends Component {
 
   handleListScroll = (height) => {
     // console.log(height);
-    if (height.scrollTop+height.offsetHeight === height.scrollHeight) {
+    if (height.scrollTop + height.offsetHeight === height.scrollHeight) {
       this.props.handleLoadMoreImage();
     }
   };
 
   render() {
-    const {path, column, imageWidth, showImages, size, sidebarWidth, offsetX} = this.props;
+    const {path, imageWidth, imageMargin, showImages, size, sidebarWidth, offsetX} = this.props;
     return (
       <div>
         <MainLayout>
@@ -53,9 +53,8 @@ class App extends Component {
                   width={size.width - sidebarWidth - offsetX}
                   height={size.height - 120}
                   imageWidth={imageWidth}
-                  // column={column}
+                  imageMargin={imageMargin}
                   path={path}
-                  // names={images}
                   columnImages={showImages.columnImages}
                 /> : null }
             </ContentLayout>
@@ -67,7 +66,7 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-  const {path, images, column, imageWidth, showImages} = state.images;
+  const {path, images, column, imageWidth, imageMargin, showImages} = state.images;
   const {size, sidebarWidth, offsetX} = state.window;
   return {
     path,
@@ -77,6 +76,7 @@ function mapStateToProps(state) {
     images,
     column,
     imageWidth,
+    imageMargin,
     showImages
   };
 }
