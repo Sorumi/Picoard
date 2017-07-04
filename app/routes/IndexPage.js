@@ -29,8 +29,15 @@ class App extends Component {
     })
   }
 
+  handleListScroll = (height) => {
+    // console.log(height);
+    if (height.scrollTop+height.offsetHeight === height.scrollHeight) {
+      this.props.handleLoadMoreImage();
+    }
+  };
+
   render() {
-    const {path, images, column, imageWidth, size, sidebarWidth, offsetX} = this.props;
+    const {path, column, imageWidth, showImages, size, sidebarWidth, offsetX} = this.props;
     return (
       <div>
         <MainLayout>
@@ -39,15 +46,17 @@ class App extends Component {
           >
             <ContentLayout
               top={<ImagesTop/>}
+              onContentScroll={this.handleListScroll}
             >
-              {images ?
+              {showImages.columnImages ?
                 <ImageList
                   width={size.width - sidebarWidth - offsetX}
                   height={size.height - 120}
                   imageWidth={imageWidth}
-                  column={column}
+                  // column={column}
                   path={path}
-                  names={images}
+                  // names={images}
+                  columnImages={showImages.columnImages}
                 /> : null }
             </ContentLayout>
           </SideLayout>
@@ -58,7 +67,7 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-  const {path, images, column, imageWidth} = state.images;
+  const {path, images, column, imageWidth, showImages} = state.images;
   const {size, sidebarWidth, offsetX} = state.window;
   return {
     path,
@@ -67,7 +76,8 @@ function mapStateToProps(state) {
     offsetX,
     images,
     column,
-    imageWidth
+    imageWidth,
+    showImages
   };
 }
 
@@ -77,6 +87,12 @@ function mapDispatchToProps(dispatch, ownProps) {
       dispatch({
         type: 'window/changeWindow',
         payload: size,
+      })
+    },
+    handleLoadMoreImage: () => {
+      dispatch({
+        type: 'images/loadMoreShowImages',
+        payload: {},
       })
     }
   }

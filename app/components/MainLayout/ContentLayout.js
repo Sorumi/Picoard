@@ -5,20 +5,32 @@ import React, {Component} from 'react';
 
 import styles from './ContentLayout.css';
 
-function ContentLayout({top, children}) {
-    return(
-        <div className={styles.layout}>
-            <div className={styles.top}>
-                {top}
-            </div>
-            <div className={styles.main}
-            onScroll={() => {
-              // console.log('!!!!');
-            }}>
-                {children}
-            </div>
+class ContentLayout extends Component {
+  render() {
+
+    const {top, children, onContentScroll} = this.props;
+
+    return (
+      <div className={styles.layout}>
+        <div className={styles.top}>
+          {top}
         </div>
-    )
+        <div className={styles.main}
+             ref="content"
+             onScroll={() => {
+               const {offsetHeight, scrollTop, scrollHeight} = this.refs.content;
+               const height = {
+                 offsetHeight,
+                 scrollHeight,
+                 scrollTop,
+               };
+               onContentScroll(height);
+             }}>
+          {children}
+        </div>
+      </div>
+    );
+  }
 }
 
 export default ContentLayout;

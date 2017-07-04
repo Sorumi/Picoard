@@ -1,11 +1,19 @@
 const namespace = 'images';
 
 const initialState = {
-  ratio: 0,
-  column: 5,
-  imageWidth: 0,
   path: null,
   images: [],
+
+  ratio: 0.3,
+  column: 5,
+  imageWidth: 0,
+  listHeight: 700,
+
+  showImages : {
+    lastIndex: 0,
+    columnHeight: [],
+    columnImages: [],
+  }
 };
 
 function images(state = initialState, {type, payload}) {
@@ -23,6 +31,12 @@ function images(state = initialState, {type, payload}) {
         path,
         images,
       };
+    case 'saveListHeight':
+      const listHeight = payload;
+      return {
+        ...state,
+        listHeight
+      };
     case 'saveRatio':
       const ratio = payload;
       return {
@@ -35,6 +49,18 @@ function images(state = initialState, {type, payload}) {
         ...state,
         column,
         imageWidth,
+      };
+    case 'saveListHeight':
+      const {height} = payload;
+      return {
+        ...state,
+        listHeight: height,
+      };
+    case 'saveShowImages':
+      const showImages = payload;
+      return {
+        ...state,
+        showImages,
       };
     default:
       return state;

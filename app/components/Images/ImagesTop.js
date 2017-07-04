@@ -16,15 +16,13 @@ function ImagesTop({ratio, handleSliderChange}) {
                   className={styles.slider}
                   onChange={handleSliderChange}
                   value={ratio*100}
-
                 />
             </div>
         </div>
     )
 }
 function mapStateToProps(state) {
-  const ratio = state.images;
-  // const {size, sidebarWidth, offsetX} = state.window;
+  const {ratio} = state.images;
   return {
     ratio
   };
