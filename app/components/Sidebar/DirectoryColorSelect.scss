@@ -1,0 +1,119 @@
+@import "../../assets/scss/mixin";
+@import "../../assets/scss/variables";
+@import "../../assets/scss/base";
+
+@mixin dot($color) {
+  background-color: $color;
+  border-color: $color;
+  &:hover {
+	border-color: $color;
+	background-color: transparent;
+  }
+  &.ant-menu-item-active, &.ant-menu-item-selected {
+	border-color: $color;
+	background-color: transparent;
+  }
+}
+
+.menu {
+  width: 140px;
+  padding: 10px;
+  border: none;
+
+  :global {
+	.ant-menu-item {
+	  width: 10px;
+	  height: 10px;
+	  margin: 10px;
+
+	  padding: 0;
+	  line-height: 10px;
+	  border-radius: 50%;
+	  text-align: center;
+	  color: $gray-color-dark;
+	  transition: none;
+	  &:hover {
+		border-style: solid;
+		border-width: 2px;
+		color: $gray-color-dark;
+		background-color: transparent;
+	  }
+	}
+	.ant-menu-item-active, .ant-menu-item-selected {
+	  border-style: solid;
+	  border-width: 2px;
+	  color: $gray-color-dark;
+	  background-color: transparent;
+	}
+
+  }
+
+  button {
+	cursor: pointer;
+  }
+}
+
+:global {
+  .ant-menu-horizontal {
+	.dot-1 {
+	  @include dot($color-1)
+	}
+	.dot-2 {
+	  @include dot($color-2)
+	}
+	.dot-3 {
+	  @include dot($color-3)
+	}
+	.dot-4 {
+	  @include dot($color-4)
+	}
+	.dot-5 {
+	  @include dot($color-5)
+	}
+	.dot-6 {
+	  @include dot($color-6)
+	}
+	.dot-7 {
+	  @include dot($color-7)
+	}
+	.dot-8 {
+	  @include dot($color-8)
+	}
+	.dot-9 {
+	  @include dot($color-9)
+	}
+	.dot-10 {
+	  @include dot($color-10)
+	}
+	.dot-11 {
+	  @include dot($color-11)
+	}
+	.dot-12 {
+	  @include dot($color-12)
+	}
+	.dot-13 {
+	  @include dot($color-13)
+	}
+	.dot-14 {
+	  @include dot($color-14)
+	}
+	.dot-15 {
+	  @include dot($color-15)
+	}
+	.dot-16 {
+	  @include dot($color-16)
+	}
+	.dot-17 {
+	  @include dot($color-17)
+	}
+	.dot-18 {
+	  @include dot($color-18)
+	}
+	.dot-19 {
+	  @include dot($color-19)
+	}
+	.dot-20 {
+	  @include dot($color-20)
+	}
+  }
+}

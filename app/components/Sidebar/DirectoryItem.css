@@ -32,7 +32,7 @@ button {
   position: absolute;
   display: inline-block;
   vertical-align: top;
-  width: 40px;
+  width: 30px;
   height: 100%;
   line-height: 40px; }
 
@@ -40,29 +40,35 @@ button {
   width: 100%;
   height: 100%;
   display: none;
-  text-align: center;
+  text-align: right;
   color: #DDDDDD;
   cursor: move; }
+  .handle i {
+    font-size: 13px; }
+
+.right_wrapper {
+  margin-left: 30px; }
 
 .dot_wrapper {
   position: absolute;
   display: inline-block;
-  left: 40px;
+  top: 0;
+  left: 0;
   height: 100%; }
 
 .dot {
-  margin: 14px 0;
+  margin: 14px 0 14px 10px;
   width: 10px;
   height: 10px;
   line-height: 40px;
   border-radius: 50%;
-  background-color: #E3645A;
-  border: solid 2px #E3645A; }
+  border-style: solid;
+  border-width: 2px; }
 
 .name {
   vertical-align: top;
   line-height: 40px;
-  margin-left: 66px;
+  margin-left: 26px;
   margin-right: 70px;
   color: #808080;
   font-size: 16px;
@@ -117,9 +123,9 @@ button {
 
 .item_active {
   background-color: #F9F9F9; }
-  .item_active .dot {
+  .item_active .normal .dot {
     background-color: transparent; }
-  .item_active .name {
+  .item_active .normal .name {
     font-weight: 500; }
 
 .dropdown {
@@ -131,10 +137,373 @@ button {
   -o-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5); }
 
+.item_edit {
+  height: 80px; }
+  .item_edit .dot {
+    cursor: pointer; }
+
+.input_wrapper {
+  margin-right: 30px; }
+
+.input {
+  margin-top: 4px;
+  padding-left: 25px;
+  border-radius: 2px;
+  border-color: #DDDDDD;
+  color: #808080;
+  font-size: 16px;
+  font-weight: 300; }
+  .input:hover, .input:focus {
+    border-color: #DDDDDD;
+    box-shadow: none; }
+
+.button_wrapper {
+  float: right;
+  margin-top: 6px;
+  margin-right: 30px; }
+  .button_wrapper button {
+    margin-left: 10px;
+    padding: 2px 10px;
+    border-radius: 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 12px;
+    font-weight: 300;
+    cursor: pointer;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s; }
+  .button_wrapper .save_button {
+    color: #FFF; }
+
 :global .directory_item_drag {
   z-index: 11;
   opacity: 0.7; }
   :global .directory_item_drag :local .handle {
     display: inline-block; }
+
+.dot_wrapper :global .dot-1 {
+  color: #E3645A;
+  background-color: #E3645A;
+  border-color: #E3645A; }
+.dot_wrapper :global .dot-2 {
+  color: #F48984;
+  background-color: #F48984;
+  border-color: #F48984; }
+.dot_wrapper :global .dot-3 {
+  color: #FDB8A1;
+  background-color: #FDB8A1;
+  border-color: #FDB8A1; }
+.dot_wrapper :global .dot-4 {
+  color: #F7CC9B;
+  background-color: #F7CC9B;
+  border-color: #F7CC9B; }
+.dot_wrapper :global .dot-5 {
+  color: #F8D76E;
+  background-color: #F8D76E;
+  border-color: #F8D76E; }
+.dot_wrapper :global .dot-6 {
+  color: #FEE9A5;
+  background-color: #FEE9A5;
+  border-color: #FEE9A5; }
+.dot_wrapper :global .dot-7 {
+  color: #F0E0BC;
+  background-color: #F0E0BC;
+  border-color: #F0E0BC; }
+.dot_wrapper :global .dot-8 {
+  color: #D1CCC6;
+  background-color: #D1CCC6;
+  border-color: #D1CCC6; }
+.dot_wrapper :global .dot-9 {
+  color: #B6D7B3;
+  background-color: #B6D7B3;
+  border-color: #B6D7B3; }
+.dot_wrapper :global .dot-10 {
+  color: #BEE1DA;
+  background-color: #BEE1DA;
+  border-color: #BEE1DA; }
+.dot_wrapper :global .dot-11 {
+  color: #A7DAD8;
+  background-color: #A7DAD8;
+  border-color: #A7DAD8; }
+.dot_wrapper :global .dot-12 {
+  color: #92BCC3;
+  background-color: #92BCC3;
+  border-color: #92BCC3; }
+.dot_wrapper :global .dot-13 {
+  color: #93A9BD;
+  background-color: #93A9BD;
+  border-color: #93A9BD; }
+.dot_wrapper :global .dot-14 {
+  color: #B9CDDC;
+  background-color: #B9CDDC;
+  border-color: #B9CDDC; }
+.dot_wrapper :global .dot-15 {
+  color: #BABBDE;
+  background-color: #BABBDE;
+  border-color: #BABBDE; }
+.dot_wrapper :global .dot-16 {
+  color: #928BA9;
+  background-color: #928BA9;
+  border-color: #928BA9; }
+.dot_wrapper :global .dot-17 {
+  color: #CA9ECE;
+  background-color: #CA9ECE;
+  border-color: #CA9ECE; }
+.dot_wrapper :global .dot-18 {
+  color: #EFCEED;
+  background-color: #EFCEED;
+  border-color: #EFCEED; }
+.dot_wrapper :global .dot-19 {
+  color: #FECEDC;
+  background-color: #FECEDC;
+  border-color: #FECEDC; }
+.dot_wrapper :global .dot-20 {
+  color: #FAA5B3;
+  background-color: #FAA5B3;
+  border-color: #FAA5B3; }
+
+.button_wrapper :global .button-1 {
+  border-color: #E3645A;
+  color: #E3645A; }
+  .button_wrapper :global .button-1.primary {
+    color: #FFF;
+    background-color: #E3645A; }
+    .button_wrapper :global .button-1.primary:hover {
+      color: #FFF;
+      background-color: #ea8d86; }
+  .button_wrapper :global .button-1:hover {
+    color: #ea8d86;
+    border-color: #ea8d86; }
+.button_wrapper :global .button-2 {
+  border-color: #F48984;
+  color: #F48984; }
+  .button_wrapper :global .button-2.primary {
+    color: #FFF;
+    background-color: #F48984; }
+    .button_wrapper :global .button-2.primary:hover {
+      color: #FFF;
+      background-color: #f8b6b3; }
+  .button_wrapper :global .button-2:hover {
+    color: #f8b6b3;
+    border-color: #f8b6b3; }
+.button_wrapper :global .button-3 {
+  border-color: #FDB8A1;
+  color: #FDB8A1; }
+  .button_wrapper :global .button-3.primary {
+    color: #FFF;
+    background-color: #FDB8A1; }
+    .button_wrapper :global .button-3.primary:hover {
+      color: #FFF;
+      background-color: #feded3; }
+  .button_wrapper :global .button-3:hover {
+    color: #feded3;
+    border-color: #feded3; }
+.button_wrapper :global .button-4 {
+  border-color: #F7CC9B;
+  color: #F7CC9B; }
+  .button_wrapper :global .button-4.primary {
+    color: #FFF;
+    background-color: #F7CC9B; }
+    .button_wrapper :global .button-4.primary:hover {
+      color: #FFF;
+      background-color: #fbe4ca; }
+  .button_wrapper :global .button-4:hover {
+    color: #fbe4ca;
+    border-color: #fbe4ca; }
+.button_wrapper :global .button-5 {
+  border-color: #F8D76E;
+  color: #F8D76E; }
+  .button_wrapper :global .button-5.primary {
+    color: #FFF;
+    background-color: #F8D76E; }
+    .button_wrapper :global .button-5.primary:hover {
+      color: #FFF;
+      background-color: #fae49f; }
+  .button_wrapper :global .button-5:hover {
+    color: #fae49f;
+    border-color: #fae49f; }
+.button_wrapper :global .button-6 {
+  border-color: #FEE9A5;
+  color: #FEE9A5; }
+  .button_wrapper :global .button-6.primary {
+    color: #FFF;
+    background-color: #FEE9A5; }
+    .button_wrapper :global .button-6.primary:hover {
+      color: #FFF;
+      background-color: #fff5d7; }
+  .button_wrapper :global .button-6:hover {
+    color: #fff5d7;
+    border-color: #fff5d7; }
+.button_wrapper :global .button-7 {
+  border-color: #F0E0BC;
+  color: #F0E0BC; }
+  .button_wrapper :global .button-7.primary {
+    color: #FFF;
+    background-color: #F0E0BC; }
+    .button_wrapper :global .button-7.primary:hover {
+      color: #FFF;
+      background-color: #f9f3e6; }
+  .button_wrapper :global .button-7:hover {
+    color: #f9f3e6;
+    border-color: #f9f3e6; }
+.button_wrapper :global .button-8 {
+  border-color: #D1CCC6;
+  color: #D1CCC6; }
+  .button_wrapper :global .button-8.primary {
+    color: #FFF;
+    background-color: #D1CCC6; }
+    .button_wrapper :global .button-8.primary:hover {
+      color: #FFF;
+      background-color: #e8e5e2; }
+  .button_wrapper :global .button-8:hover {
+    color: #e8e5e2;
+    border-color: #e8e5e2; }
+.button_wrapper :global .button-9 {
+  border-color: #B6D7B3;
+  color: #B6D7B3; }
+  .button_wrapper :global .button-9.primary {
+    color: #FFF;
+    background-color: #B6D7B3; }
+    .button_wrapper :global .button-9.primary:hover {
+      color: #FFF;
+      background-color: #d6e9d4; }
+  .button_wrapper :global .button-9:hover {
+    color: #d6e9d4;
+    border-color: #d6e9d4; }
+.button_wrapper :global .button-10 {
+  border-color: #BEE1DA;
+  color: #BEE1DA; }
+  .button_wrapper :global .button-10.primary {
+    color: #FFF;
+    background-color: #BEE1DA; }
+    .button_wrapper :global .button-10.primary:hover {
+      color: #FFF;
+      background-color: #e1f1ee; }
+  .button_wrapper :global .button-10:hover {
+    color: #e1f1ee;
+    border-color: #e1f1ee; }
+.button_wrapper :global .button-11 {
+  border-color: #A7DAD8;
+  color: #A7DAD8; }
+  .button_wrapper :global .button-11.primary {
+    color: #FFF;
+    background-color: #A7DAD8; }
+    .button_wrapper :global .button-11.primary:hover {
+      color: #FFF;
+      background-color: #cbe9e8; }
+  .button_wrapper :global .button-11:hover {
+    color: #cbe9e8;
+    border-color: #cbe9e8; }
+.button_wrapper :global .button-12 {
+  border-color: #92BCC3;
+  color: #92BCC3; }
+  .button_wrapper :global .button-12.primary {
+    color: #FFF;
+    background-color: #92BCC3; }
+    .button_wrapper :global .button-12.primary:hover {
+      color: #FFF;
+      background-color: #b3d0d5; }
+  .button_wrapper :global .button-12:hover {
+    color: #b3d0d5;
+    border-color: #b3d0d5; }
+.button_wrapper :global .button-13 {
+  border-color: #93A9BD;
+  color: #93A9BD; }
+  .button_wrapper :global .button-13.primary {
+    color: #FFF;
+    background-color: #93A9BD; }
+    .button_wrapper :global .button-13.primary:hover {
+      color: #FFF;
+      background-color: #b3c2d0; }
+  .button_wrapper :global .button-13:hover {
+    color: #b3c2d0;
+    border-color: #b3c2d0; }
+.button_wrapper :global .button-14 {
+  border-color: #B9CDDC;
+  color: #B9CDDC; }
+  .button_wrapper :global .button-14.primary {
+    color: #FFF;
+    background-color: #B9CDDC; }
+    .button_wrapper :global .button-14.primary:hover {
+      color: #FFF;
+      background-color: #dbe5ed; }
+  .button_wrapper :global .button-14:hover {
+    color: #dbe5ed;
+    border-color: #dbe5ed; }
+.button_wrapper :global .button-15 {
+  border-color: #BABBDE;
+  color: #BABBDE; }
+  .button_wrapper :global .button-15.primary {
+    color: #FFF;
+    background-color: #BABBDE; }
+    .button_wrapper :global .button-15.primary:hover {
+      color: #FFF;
+      background-color: #ddddef; }
+  .button_wrapper :global .button-15:hover {
+    color: #ddddef;
+    border-color: #ddddef; }
+.button_wrapper :global .button-16 {
+  border-color: #928BA9;
+  color: #928BA9; }
+  .button_wrapper :global .button-16.primary {
+    color: #FFF;
+    background-color: #928BA9; }
+    .button_wrapper :global .button-16.primary:hover {
+      color: #FFF;
+      background-color: #aea8bf; }
+  .button_wrapper :global .button-16:hover {
+    color: #aea8bf;
+    border-color: #aea8bf; }
+.button_wrapper :global .button-17 {
+  border-color: #CA9ECE;
+  color: #CA9ECE; }
+  .button_wrapper :global .button-17.primary {
+    color: #FFF;
+    background-color: #CA9ECE; }
+    .button_wrapper :global .button-17.primary:hover {
+      color: #FFF;
+      background-color: #ddc0df; }
+  .button_wrapper :global .button-17:hover {
+    color: #ddc0df;
+    border-color: #ddc0df; }
+.button_wrapper :global .button-18 {
+  border-color: #EFCEED;
+  color: #EFCEED; }
+  .button_wrapper :global .button-18.primary {
+    color: #FFF;
+    background-color: #EFCEED; }
+    .button_wrapper :global .button-18.primary:hover {
+      color: #FFF;
+      background-color: #fcf4fb; }
+  .button_wrapper :global .button-18:hover {
+    color: #fcf4fb;
+    border-color: #fcf4fb; }
+.button_wrapper :global .button-19 {
+  border-color: #FECEDC;
+  color: #FECEDC; }
+  .button_wrapper :global .button-19.primary {
+    color: #FFF;
+    background-color: #FECEDC; }
+    .button_wrapper :global .button-19.primary:hover {
+      color: #FFF;
+      background-color: white; }
+  .button_wrapper :global .button-19:hover {
+    color: white;
+    border-color: white; }
+.button_wrapper :global .button-20 {
+  border-color: #FAA5B3;
+  color: #FAA5B3; }
+  .button_wrapper :global .button-20.primary {
+    color: #FFF;
+    background-color: #FAA5B3; }
+    .button_wrapper :global .button-20.primary:hover {
+      color: #FFF;
+      background-color: #fdd5dc; }
+  .button_wrapper :global .button-20:hover {
+    color: #fdd5dc;
+    border-color: #fdd5dc; }
 
 /*# sourceMappingURL=DirectoryItem.css.map */

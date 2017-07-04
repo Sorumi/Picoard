@@ -2,6 +2,30 @@
 @import "../../assets/scss/variables";
 @import "../../assets/scss/base";
 
+@mixin dot($color) {
+  color: $color;
+  background-color: $color;
+  border-color: $color;
+}
+
+@mixin button($color) {
+  border-color: $color;
+  color: $color;
+  &.primary {
+	color: $white-color;
+	background-color: $color;
+	&:hover {
+	  color: $white-color;
+	  background-color: lighten($color, 10%);
+	}
+  }
+  &:hover {
+	color: lighten($color, 10%);
+	border-color: lighten($color, 10%);
+  }
+
+}
+
 .item {
   width: 100%;
   height: 40px;
@@ -13,38 +37,49 @@
   position: absolute;
   display: inline-block;
   vertical-align: top;
-  width: 40px;
+  width: 30px;
   height: 100%;
   line-height: 40px;
 }
+
 .handle {
   width: 100%;
   height: 100%;
   display: none;
-  text-align: center;
+  text-align: right;
   color: $gray-color-light;
   cursor: move;
+  i {
+	font-size: 13px;
+  }
 }
+
+.right_wrapper {
+  margin-left: 30px;
+}
+
 .dot_wrapper {
   position: absolute;
   display: inline-block;
-  left: 40px;
+  top: 0;
+  left: 0;
   height: 100%;
 }
+
 .dot {
-  margin: 14px 0;
+  margin: 14px 0 14px 10px;
   width: 10px;
   height: 10px;
   line-height: 40px;
   border-radius: 50%;
-  background-color: $color-1;
-  border: solid 2px $color-1;
+  border-style: solid;
+  border-width: 2px;
 }
 
 .name {
   vertical-align: top;
   line-height: 40px;
-  margin-left: 66px;
+  margin-left: 26px;
   margin-right: 70px;
   color: $gray-color-dark;
   font-size: 16px;
@@ -65,9 +100,10 @@
   background-color: $gray-color-white;
   font-size: 12px;
 }
+
 .item:hover {
   .handle {
-    display: inline-block;
+	display: inline-block;
   }
   .quantity {
 	display: none;
@@ -95,11 +131,13 @@
 
 .item_active {
   background-color: $gray-color-white;
-  .dot {
-    background-color: transparent;
-  }
-  .name {
-    font-weight: $font-weight-medium;
+  .normal {
+	.dot {
+	  background-color: transparent;
+	}
+	.name {
+	  font-weight: $font-weight-medium;
+	}
   }
 }
 
@@ -109,15 +147,198 @@
   @include box-shadow(0 0 2px 0 $shadow-color)
 }
 
+.item_edit {
+  height: 80px;
+  .dot {
+	cursor: pointer;
+  }
+}
+
+.input_wrapper {
+  margin-right: 30px;
+}
+
+.input {
+  margin-top: 4px;
+  padding-left: 25px;
+  border-radius: 2px;
+  border-color: $gray-color-light;
+  color: $gray-color-dark;
+  font-size: 16px;
+  font-weight: $font-weight-light;
+  &:hover, &:focus {
+	border-color: $gray-color-light;
+	box-shadow: none;
+  }
+}
+
+.button_wrapper {
+  float: right;
+  margin-top: 6px;
+  margin-right: 30px;
+  button {
+	margin-left: 10px;
+	padding: 2px 10px;
+	border-radius: 2px;
+	border-style: solid;
+	border-width: 1px;
+	font-size: 12px;
+	font-weight: $font-weight-light;
+	cursor: pointer;
+	@include transition(all .3s);
+	//&:hover {
+	//  opacity: 0.8;
+	//}
+  }
+
+  .save_button {
+	color: $white-color;
+  }
+  .cancel_button {
+
+  }
+}
+
 :global {
   .directory_item_drag {
-    z-index: 11;
-    opacity: 0.7;
-    :local {
-      .handle {
-        display: inline-block;
+	z-index: 11;
+	opacity: 0.7;
+	:local {
+	  .handle {
+		display: inline-block;
 
-      }
-    }
+	  }
+	}
+  }
+}
+
+
+.dot_wrapper {
+  :global {
+	.dot-1 {
+	  @include dot($color-1)
+	}
+	.dot-2 {
+	  @include dot($color-2)
+	}
+	.dot-3 {
+	  @include dot($color-3)
+	}
+	.dot-4 {
+	  @include dot($color-4)
+	}
+	.dot-5 {
+	  @include dot($color-5)
+	}
+	.dot-6 {
+	  @include dot($color-6)
+	}
+	.dot-7 {
+	  @include dot($color-7)
+	}
+	.dot-8 {
+	  @include dot($color-8)
+	}
+	.dot-9 {
+	  @include dot($color-9)
+	}
+	.dot-10 {
+	  @include dot($color-10)
+	}
+	.dot-11 {
+	  @include dot($color-11)
+	}
+	.dot-12 {
+	  @include dot($color-12)
+	}
+	.dot-13 {
+	  @include dot($color-13)
+	}
+	.dot-14 {
+	  @include dot($color-14)
+	}
+	.dot-15 {
+	  @include dot($color-15)
+	}
+	.dot-16 {
+	  @include dot($color-16)
+	}
+	.dot-17 {
+	  @include dot($color-17)
+	}
+	.dot-18 {
+	  @include dot($color-18)
+	}
+	.dot-19 {
+	  @include dot($color-19)
+	}
+	.dot-20 {
+	  @include dot($color-20)
+	}
+  }
+}
+
+.button_wrapper{
+  :global {
+	.button-1 {
+	  @include button($color-1)
+	}
+	.button-2 {
+	  @include button($color-2)
+	}
+	.button-3 {
+	  @include button($color-3)
+	}
+	.button-4 {
+	  @include button($color-4)
+	}
+	.button-5 {
+	  @include button($color-5)
+	}
+	.button-6 {
+	  @include button($color-6)
+	}
+	.button-7 {
+	  @include button($color-7)
+	}
+	.button-8 {
+	  @include button($color-8)
+	}
+	.button-9 {
+	  @include button($color-9)
+	}
+	.button-10 {
+	  @include button($color-10)
+	}
+	.button-11 {
+	  @include button($color-11)
+	}
+	.button-12 {
+	  @include button($color-12)
+	}
+	.button-13 {
+	  @include button($color-13)
+	}
+	.button-14 {
+	  @include button($color-14)
+	}
+	.button-15 {
+	  @include button($color-15)
+	}
+	.button-16 {
+	  @include button($color-16)
+	}
+	.button-17 {
+	  @include button($color-17)
+	}
+	.button-18 {
+	  @include button($color-18)
+	}
+	.button-19 {
+	  @include button($color-19)
+	}
+	.button-20 {
+	  @include button($color-20)
+	}
   }
 }

@@ -37,7 +37,7 @@ class App extends Component {
   };
 
   render() {
-    const {path, imageWidth, imageMargin, showImages, size, sidebarWidth, offsetX} = this.props;
+    const {path, imageWidth, imageMargin, showImages, size, sidebarWidth, offsetX, directories, currentDirIndex} = this.props;
     return (
       <div>
         <MainLayout>
@@ -45,7 +45,9 @@ class App extends Component {
             sidebar={<Sidebar/>}
           >
             <ContentLayout
-              top={<ImagesTop/>}
+              top={<ImagesTop
+                directory={directories[currentDirIndex]}
+              />}
               onContentScroll={this.handleListScroll}
             >
               {showImages.columnImages ?
@@ -68,6 +70,7 @@ class App extends Component {
 function mapStateToProps(state) {
   const {path, images, column, imageWidth, imageMargin, showImages} = state.images;
   const {size, sidebarWidth, offsetX} = state.window;
+  const {directories, currentDirIndex} = state.directories;
   return {
     path,
     size,
@@ -77,7 +80,9 @@ function mapStateToProps(state) {
     column,
     imageWidth,
     imageMargin,
-    showImages
+    showImages,
+    directories,
+    currentDirIndex
   };
 }
 

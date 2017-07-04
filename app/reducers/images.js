@@ -29,6 +29,7 @@ function images(state = initialState, {type, payload}) {
       const {path, images} = payload;
       return {
         ...state,
+        name,
         path,
         images,
       };

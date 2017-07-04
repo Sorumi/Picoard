@@ -1,0 +1,233 @@
+/*
+ * grid
+ */
+/*
+ * Fonts
+ */
+/*
+ * Colors
+ */
+html, body, h1, h2, h3, h4, h5, h6, hr, li, ul, p, a, img, button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: "Pingfang SC", "Open Sans", "Lantinghei SC", "Microsoft Yahei Light", "Microsoft Yahei", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 200;
+  list-style: none; }
+
+* {
+  position: relative; }
+
+button {
+  background-color: transparent;
+  outline: none; }
+
+.menu {
+  width: 140px;
+  padding: 10px;
+  border: none; }
+  .menu :global .ant-menu-item {
+    width: 10px;
+    height: 10px;
+    margin: 10px;
+    padding: 0;
+    line-height: 10px;
+    border-radius: 50%;
+    text-align: center;
+    color: #808080;
+    transition: none; }
+    .menu :global .ant-menu-item:hover {
+      border-style: solid;
+      border-width: 2px;
+      color: #808080;
+      background-color: transparent; }
+  .menu :global .ant-menu-item-active, .menu :global .ant-menu-item-selected {
+    border-style: solid;
+    border-width: 2px;
+    color: #808080;
+    background-color: transparent; }
+  .menu button {
+    cursor: pointer; }
+
+:global .ant-menu-horizontal .dot-1 {
+  background-color: #E3645A;
+  border-color: #E3645A; }
+  :global .ant-menu-horizontal .dot-1:hover {
+    border-color: #E3645A;
+    background-color: transparent; }
+  :global .ant-menu-horizontal .dot-1.ant-menu-item-active, :global .ant-menu-horizontal .dot-1.ant-menu-item-selected {
+    border-color: #E3645A;
+    background-color: transparent; }
+:global .ant-menu-horizontal .dot-2 {
+  background-color: #F48984;
+  border-color: #F48984; }
+  :global .ant-menu-horizontal .dot-2:hover {
+    border-color: #F48984;
+    background-color: transparent; }
+  :global .ant-menu-horizontal .dot-2.ant-menu-item-active, :global .ant-menu-horizontal .dot-2.ant-menu-item-selected {
+    border-color: #F48984;
+    background-color: transparent; }
+:global .ant-menu-horizontal .dot-3 {
+  background-color: #FDB8A1;
+  border-color: #FDB8A1; }
+  :global .ant-menu-horizontal .dot-3:hover {
+    border-color: #FDB8A1;
+    background-color: transparent; }
+  :global .ant-menu-horizontal .dot-3.ant-menu-item-active, :global .ant-menu-horizontal .dot-3.ant-menu-item-selected {
+    border-color: #FDB8A1;
+    background-color: transparent; }
+:global .ant-menu-horizontal .dot-4 {
+  background-color: #F7CC9B;
+  border-color: #F7CC9B; }
+  :global .ant-menu-horizontal .dot-4:hover {
+    border-color: #F7CC9B;
+    background-color: transparent; }
+  :global .ant-menu-horizontal .dot-4.ant-menu-item-active, :global .ant-menu-horizontal .dot-4.ant-menu-item-selected {
+    border-color: #F7CC9B;
+    background-color: transparent; }
+:global .ant-menu-horizontal .dot-5 {
+  background-color: #F8D76E;
+  border-color: #F8D76E; }
+  :global .ant-menu-horizontal .dot-5:hover {
+    border-color: #F8D76E;
+    background-color: transparent; }
+  :global .ant-menu-horizontal .dot-5.ant-menu-item-active, :global .ant-menu-horizontal .dot-5.ant-menu-item-selected {
+    border-color: #F8D76E;
+    background-color: transparent; }
+:global .ant-menu-horizontal .dot-6 {
+  background-color: #FEE9A5;
+  border-color: #FEE9A5; }
+  :global .ant-menu-horizontal .dot-6:hover {
+    border-color: #FEE9A5;
+    background-color: transparent; }
+  :global .ant-menu-horizontal .dot-6.ant-menu-item-active, :global .ant-menu-horizontal .dot-6.ant-menu-item-selected {
+    border-color: #FEE9A5;
+    background-color: transparent; }
+:global .ant-menu-horizontal .dot-7 {
+  background-color: #F0E0BC;
+  border-color: #F0E0BC; }
+  :global .ant-menu-horizontal .dot-7:hover {
+    border-color: #F0E0BC;
+    background-color: transparent; }
+  :global .ant-menu-horizontal .dot-7.ant-menu-item-active, :global .ant-menu-horizontal .dot-7.ant-menu-item-selected {
+    border-color: #F0E0BC;
+    background-color: transparent; }
+:global .ant-menu-horizontal .dot-8 {
+  background-color: #D1CCC6;
+  border-color: #D1CCC6; }
+  :global .ant-menu-horizontal .dot-8:hover {
+    border-color: #D1CCC6;
+    background-color: transparent; }
+  :global .ant-menu-horizontal .dot-8.ant-menu-item-active, :global .ant-menu-horizontal .dot-8.ant-menu-item-selected {
+    border-color: #D1CCC6;
+    background-color: transparent; }
+:global .ant-menu-horizontal .dot-9 {
+  background-color: #B6D7B3;
+  border-color: #B6D7B3; }
+  :global .ant-menu-horizontal .dot-9:hover {
+    border-color: #B6D7B3;
+    background-color: transparent; }
+  :global .ant-menu-horizontal .dot-9.ant-menu-item-active, :global .ant-menu-horizontal .dot-9.ant-menu-item-selected {
+    border-color: #B6D7B3;
+    background-color: transparent; }
+:global .ant-menu-horizontal .dot-10 {
+  background-color: #BEE1DA;
+  border-color: #BEE1DA; }
+  :global .ant-menu-horizontal .dot-10:hover {
+    border-color: #BEE1DA;
+    background-color: transparent; }
+  :global .ant-menu-horizontal .dot-10.ant-menu-item-active, :global .ant-menu-horizontal .dot-10.ant-menu-item-selected {
+    border-color: #BEE1DA;
+    background-color: transparent; }
+:global .ant-menu-horizontal .dot-11 {
+  background-color: #A7DAD8;
+  border-color: #A7DAD8; }
+  :global .ant-menu-horizontal .dot-11:hover {
+    border-color: #A7DAD8;
+    background-color: transparent; }
+  :global .ant-menu-horizontal .dot-11.ant-menu-item-active, :global .ant-menu-horizontal .dot-11.ant-menu-item-selected {
+    border-color: #A7DAD8;
+    background-color: transparent; }
+:global .ant-menu-horizontal .dot-12 {
+  background-color: #92BCC3;
+  border-color: #92BCC3; }
+  :global .ant-menu-horizontal .dot-12:hover {
+    border-color: #92BCC3;
+    background-color: transparent; }
+  :global .ant-menu-horizontal .dot-12.ant-menu-item-active, :global .ant-menu-horizontal .dot-12.ant-menu-item-selected {
+    border-color: #92BCC3;
+    background-color: transparent; }
+:global .ant-menu-horizontal .dot-13 {
+  background-color: #93A9BD;
+  border-color: #93A9BD; }
+  :global .ant-menu-horizontal .dot-13:hover {
+    border-color: #93A9BD;
+    background-color: transparent; }
+  :global .ant-menu-horizontal .dot-13.ant-menu-item-active, :global .ant-menu-horizontal .dot-13.ant-menu-item-selected {
+    border-color: #93A9BD;
+    background-color: transparent; }
+:global .ant-menu-horizontal .dot-14 {
+  background-color: #B9CDDC;
+  border-color: #B9CDDC; }
+  :global .ant-menu-horizontal .dot-14:hover {
+    border-color: #B9CDDC;
+    background-color: transparent; }
+  :global .ant-menu-horizontal .dot-14.ant-menu-item-active, :global .ant-menu-horizontal .dot-14.ant-menu-item-selected {
+    border-color: #B9CDDC;
+    background-color: transparent; }
+:global .ant-menu-horizontal .dot-15 {
+  background-color: #BABBDE;
+  border-color: #BABBDE; }
+  :global .ant-menu-horizontal .dot-15:hover {
+    border-color: #BABBDE;
+    background-color: transparent; }
+  :global .ant-menu-horizontal .dot-15.ant-menu-item-active, :global .ant-menu-horizontal .dot-15.ant-menu-item-selected {
+    border-color: #BABBDE;
+    background-color: transparent; }
+:global .ant-menu-horizontal .dot-16 {
+  background-color: #928BA9;
+  border-color: #928BA9; }
+  :global .ant-menu-horizontal .dot-16:hover {
+    border-color: #928BA9;
+    background-color: transparent; }
+  :global .ant-menu-horizontal .dot-16.ant-menu-item-active, :global .ant-menu-horizontal .dot-16.ant-menu-item-selected {
+    border-color: #928BA9;
+    background-color: transparent; }
+:global .ant-menu-horizontal .dot-17 {
+  background-color: #CA9ECE;
+  border-color: #CA9ECE; }
+  :global .ant-menu-horizontal .dot-17:hover {
+    border-color: #CA9ECE;
+    background-color: transparent; }
+  :global .ant-menu-horizontal .dot-17.ant-menu-item-active, :global .ant-menu-horizontal .dot-17.ant-menu-item-selected {
+    border-color: #CA9ECE;
+    background-color: transparent; }
+:global .ant-menu-horizontal .dot-18 {
+  background-color: #EFCEED;
+  border-color: #EFCEED; }
+  :global .ant-menu-horizontal .dot-18:hover {
+    border-color: #EFCEED;
+    background-color: transparent; }
+  :global .ant-menu-horizontal .dot-18.ant-menu-item-active, :global .ant-menu-horizontal .dot-18.ant-menu-item-selected {
+    border-color: #EFCEED;
+    background-color: transparent; }
+:global .ant-menu-horizontal .dot-19 {
+  background-color: #FECEDC;
+  border-color: #FECEDC; }
+  :global .ant-menu-horizontal .dot-19:hover {
+    border-color: #FECEDC;
+    background-color: transparent; }
+  :global .ant-menu-horizontal .dot-19.ant-menu-item-active, :global .ant-menu-horizontal .dot-19.ant-menu-item-selected {
+    border-color: #FECEDC;
+    background-color: transparent; }
+:global .ant-menu-horizontal .dot-20 {
+  background-color: #FAA5B3;
+  border-color: #FAA5B3; }
+  :global .ant-menu-horizontal .dot-20:hover {
+    border-color: #FAA5B3;
+    background-color: transparent; }
+  :global .ant-menu-horizontal .dot-20.ant-menu-item-active, :global .ant-menu-horizontal .dot-20.ant-menu-item-selected {
+    border-color: #FAA5B3;
+    background-color: transparent; }
+
+/*# sourceMappingURL=DirectoryColorSelect.css.map */

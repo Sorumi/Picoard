@@ -20,7 +20,7 @@ export function* removeDirectory({payload: index}) {
   const {currentDirIndex, directories} = yield select(state => state.directories);
 
   if (currentDirIndex === index && index === directories.length) {
-    newCurrentDirIndex = directories.length-1;
+    newCurrentDirIndex = directories.length - 1;
   } else if (currentDirIndex === index) {
     newCurrentDirIndex = currentDirIndex
   } else if (currentDirIndex >= index) {
@@ -63,9 +63,9 @@ export function* sortDirectories({payload: {oldIndex, newIndex}}) {
   yield call(directoriesService.sortDirectories, oldIndex, newIndex);
 
   yield *loadDirectories();
+  const {currentDirIndex, editDirIndex} = yield select(state => state.directories);
 
   let newCurrentDirIndex;
-  const {currentDirIndex} = yield select(state => state.directories);
   if (currentDirIndex === oldIndex) {
     newCurrentDirIndex = newIndex;
   } else if (currentDirIndex >= newIndex && currentDirIndex < oldIndex) {
@@ -79,4 +79,58 @@ export function* sortDirectories({payload: {oldIndex, newIndex}}) {
     type: 'directories/saveCurrentDirIndex',
     payload: newCurrentDirIndex,
   });
+
+  let newEditDirIndex;
+  if (editDirIndex === null) {
+    return;
+  } else if (currentDirIndex === oldIndex) {
+    newEditDirIndex = newIndex;
+  } else if (currentDirIndex >= newIndex && currentDirIndex < oldIndex) {
+    newEditDirIndex = currentDirIndex + 1;
+  } else if (currentDirIndex <= newIndex && currentDirIndex > oldIndex) {
+    newEditDirIndex = currentDirIndex - 1;
+  } else {
+    return;
+  }
+  yield put({
+    type: 'directories/saveEditDirIndex',
+    payload: newEditDirIndex,
+  });
+}
+
+export function *editDirectory({payload: index}) {
+  console.log(index);
+  const directory = yield call(directoriesService.getDirectoryByIndex, index);
+
+  yield put({
+    type: 'directories/saveEditDirIndex',
+    payload: index
+  });
+
+  yield put({
+    type: 'directories/saveEditItem',
+    payload: {
+      color: directory.color,
+      name: directory.name,
+    }
+  });
+}
+
+export function *saveDirectory() {
+  const {editDirIndex, editItem} = yield select(state => state.directories);
+  yield call(directoriesService.saveDirectory, editDirIndex, editItem.color, editItem.name);
+  yield put({
+    type: 'directories/saveEditDirIndex',
+    payload: null
+  });
+  yield put({
+    type: 'directories/saveEditItem',
+    payload: {
+      color: null,
+      name: null,
+    }
+  });
+
+
+  yield *loadDirectories();
 }

@@ -24,9 +24,9 @@ button {
 
 @font-face {
   font-family: "iconfont";
-  src: url("../fonts/iconfont.eot?t=1498978185614");
+  src: url("../fonts/iconfont.eot?t=1499165175814");
   /* IE9*/
-  src: url("../fonts/iconfont.eot?t=1498978185614#iefix") format("embedded-opentype"), url("../fonts/iconfont.woff?t=1498978185614") format("woff"), url("../fonts/iconfont.ttf?t=1498978185614") format("truetype"), url("../fonts/iconfont.svg?t=1498978185614#iconfont") format("svg");
+  src: url("../fonts/iconfont.eot?t=1499165175814#iefix") format("embedded-opentype"), url("../fonts/iconfont.woff?t=1499165175814") format("woff"), url("../fonts/iconfont.ttf?t=1499165175814") format("truetype"), url("../fonts/iconfont.svg?t=1499165175814#iconfont") format("svg");
   /* iOS 4.1- */ }
 .iconfont {
   font-family: "iconfont" !important;
@@ -38,19 +38,19 @@ button {
 .icon-more:before {
   content: "\e606"; }
 
-.icon-move:before {
-  content: "\e601"; }
-
-.icon-large:before {
-  content: "\e602"; }
-
-.icon-small:before {
-  content: "\e603"; }
-
 .icon-add:before {
   content: "\e604"; }
 
 .icon-left:before {
   content: "\e605"; }
+
+.icon-small:before {
+  content: "\e603"; }
+
+.icon-large:before {
+  content: "\e602"; }
+
+.icon-move:before {
+  content: "\e601"; }
 
 /*# sourceMappingURL=index.global.css.map */

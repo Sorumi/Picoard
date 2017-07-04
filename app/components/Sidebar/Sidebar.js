@@ -43,7 +43,10 @@ class Sidebar extends Component {
   }
 
   render() {
-    const {directories, currentDirIndex, handleClickDirectory, handleRemoveDirectory} = this.props;
+    const {
+      directories, currentDirIndex, editDirIndex,editItem,
+      handleClickDirectory, handleEditDirectory, handleChangeEditDirectory, handleRemoveDirectory, handleSaveDirectory, handleCancelDirectory
+    } = this.props;
     return (
 
       <div className={styles.sidebar}>
@@ -63,8 +66,14 @@ class Sidebar extends Component {
               useDragHandle={true}
               helperClass="directory_item_drag"
               onItemClick={handleClickDirectory}
+              onItemClickEdit={handleEditDirectory}
+              onItemChangeEdit={handleChangeEditDirectory}
               onItemClickRemove={handleRemoveDirectory}
+              onItemClickSave={handleSaveDirectory}
+              onItemClickCancel={handleCancelDirectory}
               currentIndex={currentDirIndex}
+              editIndex={editDirIndex}
+              editItem={editItem}
             /> : null }
         </div>
       </div>
@@ -73,10 +82,12 @@ class Sidebar extends Component {
 }
 
 function mapStateToProps(state) {
-  const {directories, currentDirIndex} = state.directories;
+  const {directories, currentDirIndex, editDirIndex, editItem} = state.directories;
   return {
     directories,
-    currentDirIndex
+    currentDirIndex,
+    editDirIndex,
+    editItem
   };
 }
 
@@ -103,6 +114,18 @@ function mapDispatchToProps(dispatch, ownProps) {
         payload: file
       });
     },
+    handleChangeEditDirectory:(editItem) => {
+      dispatch({
+        type: 'directories/saveEditItem',
+        payload: editItem
+      });
+    },
+    handleEditDirectory: (index) => {
+      dispatch({
+        type: 'directories/editDirectory',
+        payload: index
+      });
+    },
     handleRemoveDirectory: (index) => {
       dispatch({
         type: 'directories/removeDirectory',
@@ -110,11 +133,22 @@ function mapDispatchToProps(dispatch, ownProps) {
       });
     },
     handleClickDirectory: (index) => {
-
       dispatch({
         type: 'directories/activeDirectory',
         payload: index
       })
+    },
+    handleSaveDirectory: () => {
+      dispatch({
+        type: 'directories/saveDirectory',
+        payload: {}
+      });
+    },
+    handleCancelDirectory: () => {
+      dispatch({
+        type: 'directories/saveEditDirIndex',
+        payload: null
+      });
     }
 
   }

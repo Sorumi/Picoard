@@ -3,14 +3,14 @@ import {Menu} from 'antd';
 
 import styles from './DirectoryMenu.css';
 
-function DirectoryMenu({onClick, onClickRemove}) {
+function DirectoryMenu({onClick, onClickEdit, onClickRemove}) {
 
   const MenuItem = Menu.Item;
   const MenuDivider = Menu.Divider;
 
   function onEditClick(event) {
     // event.stopPropagation();
-
+    onClickEdit();
   }
 
   function onRemoveClick(event) {
