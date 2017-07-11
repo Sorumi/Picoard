@@ -10,7 +10,7 @@
  *
  * @flow
  */
-import { app, BrowserWindow } from 'electron';
+import {app, BrowserWindow, webFrame} from 'electron';
 import MenuBuilder from './main/menu';
 import StoreBuilder from './main/store';
 
@@ -42,6 +42,8 @@ const installExtensions = async () => {
 };
 
 
+app.commandLine.appendSwitch('touch-events', 'enabled');
+
 /**
  * Add event listeners...
  */
@@ -59,6 +61,7 @@ app.on('ready', async () => {
   if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
     await installExtensions();
   }
+
 
   mainWindow = new BrowserWindow({
     show: false,
@@ -85,14 +88,28 @@ app.on('ready', async () => {
   });
 
   mainWindow.on('resize', function (event) {
+    console.log('resize', event)
     event.sender.send('window-resize', mainWindow.getSize())
   });
+
+  mainWindow.on('swipe', function (event) {
+    // event.sender.send('window-resize', mainWindow.getSize())
+    console.log('swipe', event)
+  });
+
+
+  mainWindow.on('scroll-touch-begin', function (event) {
+    // event.sender.send('window-resize', mainWindow.getSize())
+    console.log('scroll-touch-begin', event)
+  });
+
 
   const menuBuilder = new MenuBuilder(mainWindow);
   menuBuilder.buildMenu();
 
   StoreBuilder.init();
+
+  webFrame.setVisualZoomLevelLimits(1, 1);
+  webFrame.setLayoutZoomLevelLimits(1, 1);
 });
-
-
 

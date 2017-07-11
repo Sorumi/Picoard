@@ -34,7 +34,8 @@ button {
 
 .item {
   width: 100%;
-  margin-bottom: 20px; }
+  margin-bottom: 20px;
+  -webkit-user-select: none; }
   .item img {
     display: block;
     border-radius: 3px;

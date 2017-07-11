@@ -3,6 +3,8 @@
 @import "../../assets/scss/base";
 
 .wrapper {
+  padding: 20px;
+  -webkit-user-select: none;
   img {
 	display: block;
 	margin: 0 auto;

@@ -62,9 +62,9 @@ function mapDispatchToProps(dispatch, ownProps) {
   return {
     handleClickImage: (path) => {
       dispatch({
-        type: 'image/savePath',
+        type: 'image/fetchImage',
         payload: path,
-      })
+      });
       dispatch(push('/image'));
     },
     handleLoadMoreImage: () => {
