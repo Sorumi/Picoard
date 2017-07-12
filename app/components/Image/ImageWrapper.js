@@ -4,9 +4,7 @@ import styles from './ImageWrapper.css';
 function ImageWrapper({path, width, marginTop}) {
 
   return (
-    <div className={styles.wrapper}
-         // style={{width: width+40}}
-    >
+    <div className={styles.wrapper}>
 
       <img
         src={`file://${path}`}

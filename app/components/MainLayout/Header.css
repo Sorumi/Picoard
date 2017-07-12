@@ -29,5 +29,26 @@ button {
   -ms-box-shadow: 0 0 0.3px 0 rgba(0, 0, 0, 0.5);
   -o-box-shadow: 0 0 0.3px 0 rgba(0, 0, 0, 0.5);
   box-shadow: 0 0 0.3px 0 rgba(0, 0, 0, 0.5); }
+  .header h3 {
+    height: 100%;
+    text-align: center;
+    color: #B3B3B3;
+    font-family: 'Montserrat';
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: 3px; }
+    .header h3:before {
+      content: "";
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+      font-size: 0; }
+    .header h3 > * {
+      vertical-align: middle;
+      font-size: 14px; }
+  .header img {
+    width: 14px;
+    top: -1.5px;
+    margin: 0 3px; }
 
 /*# sourceMappingURL=Header.css.map */

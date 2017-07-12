@@ -5,4 +5,21 @@
 .header {
   background-color: $title-bar-color;
   @include box-shadow(0 0 0.3px 0 $shadow-color);
+
+  h3 {
+	height: 100%;
+	text-align: center;
+	color: $gray-color;
+	font-family: 'Montserrat';
+	font-weight: $font-weight-normal;
+	font-size: 16px;
+	letter-spacing: 3px;
+	@include vertical-align();
+  }
+
+  img {
+	width: 14px;
+	top: -1.5px;
+	margin: 0 3px;
+  }
 }
