@@ -91,6 +91,10 @@ app.on('ready', async () => {
     event.sender.send('window-resize', mainWindow.getSize())
   });
 
+  mainWindow.on('focus', function (event) {
+    event.sender.send('window-focus')
+  });
+
   // mainWindow.on('scroll-touch-begin', function (event) {
   //   event.sender.send('scroll-begin');
   //   console.log('scroll-touch-begin', event)

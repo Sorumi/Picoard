@@ -92,6 +92,30 @@ button {
   background-color: #F9F9F9;
   font-size: 12px; }
 
+.exist_error {
+  position: absolute;
+  display: inline-block;
+  vertical-align: top;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 100%;
+  margin-right: 30px;
+  color: #E3645A;
+  text-align: center;
+  cursor: pointer; }
+  .exist_error:before {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    font-size: 0; }
+  .exist_error > * {
+    vertical-align: middle;
+    font-size: 14px; }
+  .exist_error :global .anticon {
+    font-size: 18px; }
+
 .item:hover .handle {
   display: inline-block; }
 .item:hover .quantity {

@@ -5,16 +5,27 @@ import {TITLE_BAR_HEIGHT, CONTENT_TOP_HEIGHT} from '../constants'
 
 export function* fetchImagesInPath({payload: path}) {
 
-  const images = yield call(imagesService.fetchImagesInPath, path);
+  if (path === null) {
+    yield put({
+      type: 'images/saveImageAndPath',
+      payload: {
+        path: null,
+        images: [],
+      },
+    });
 
-  yield put({
-    type: 'images/saveImageAndPath',
-    payload: {
-      path,
-      images,
-    },
-  });
+  } else {
 
+    const images = yield call(imagesService.fetchImagesInPath, path);
+
+    yield put({
+      type: 'images/saveImageAndPath',
+      payload: {
+        path,
+        images,
+      },
+    });
+  }
 
   const {size} = yield select(state => state.window);
   yield put({
@@ -87,7 +98,7 @@ export function *refreshSizeWithoutColumn() {
   const {lastIndex, columnHeight, columnImages} = showImages;
 
   for (let i = 0; i < column; i++) {
-    let length = columnImages[i].length;
+    let length = columnImages[i] ? columnImages[i].length : 0;
     columnHeight[i] = (columnHeight[i] - 20 * (length - 1)) / imageWidth * newImageWidth + 20 * (length - 1);
   }
 

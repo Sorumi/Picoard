@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {SortableElement, SortableHandle} from 'react-sortable-hoc';
-import {Dropdown, Input, Button} from 'antd';
+import {Dropdown, Input, Icon} from 'antd';
 
 import DirectoryMenu from './DirectoryMenu';
 import DirectoryColorSelect from './DirectoryColorSelect'
@@ -55,7 +55,7 @@ class DirectoryItem extends Component {
       item, active = false, edit = false, editItem,
       onClick, onClickOpen, onClickEdit, onClickRemove
     } = this.props;
-    const {color, name} = editItem
+    const {color, name} = editItem;
 
     const DragHandle = SortableHandle(() =>
       <span className={styles.handle}>
@@ -66,6 +66,7 @@ class DirectoryItem extends Component {
     let className = styles.item;
     className = active ? className + ' ' + styles.item_active : className;
     className = edit ? className + ' ' + styles.item_edit : className;
+    className = item.exist ? className : className + ' ' + styles.not_exist;
     return (
       <div className={className}
            onClick={onClick}
@@ -121,32 +122,61 @@ class DirectoryItem extends Component {
               <div className={styles.dot + " dot-" + item.color}/>
             </div>
             <p className={styles.name}>{item.name}</p>
-            <div className={styles.quantity}>
-              {item.count}
-            </div>
+            {item.exist ?
+              <div className={styles.quantity}>
+                {item.count}
+              </div>
 
-            <Dropdown
-              overlayClassName={styles.dropdown}
-              overlay={<DirectoryMenu
-                onClick={this.handleMenuClick}
-                onClickOpen={onClickOpen}
-                onClickEdit={onClickEdit}
-                onClickRemove={onClickRemove}/>
-              }
-              trigger={['click']}
-              onVisibleChange={this.handleMenuVisibleChange}
-              visible={this.state.menuVisible}
-            >
-              <button
-                className={styles.menu_button}
-                onClick={(e) => {
-                  this.handleMenuVisibleChange(true);
-                  e.stopPropagation();
-                }}
+              :
+
+
+              <Dropdown
+                overlayClassName={styles.dropdown}
+                overlay={<DirectoryMenu
+                  onClick={this.handleMenuClick}
+                  onClickRemove={onClickRemove}
+                  exist={false}/>
+                }
+                trigger={['click']}
+                onVisibleChange={this.handleMenuVisibleChange}
+                visible={this.state.menuVisible}
               >
-                <span className="iconfont icon-more"/>
-              </button>
-            </Dropdown>
+                <button
+                  className={styles.exist_error}
+                  onClick={(e) => {
+                    this.handleMenuVisibleChange(true);
+                    e.stopPropagation();
+                  }}
+                >
+                  <Icon type="exclamation-circle"/>
+                </button>
+              </Dropdown>
+            }
+            {item.exist ?
+              <Dropdown
+                overlayClassName={styles.dropdown}
+                overlay={<DirectoryMenu
+                  onClick={this.handleMenuClick}
+                  onClickOpen={onClickOpen}
+                  onClickEdit={onClickEdit}
+                  onClickRemove={onClickRemove}
+                />
+                }
+                trigger={['click']}
+                onVisibleChange={this.handleMenuVisibleChange}
+                visible={this.state.menuVisible}
+              >
+                <button
+                  className={styles.menu_button}
+                  onClick={(e) => {
+                    this.handleMenuVisibleChange(true);
+                    e.stopPropagation();
+                  }}
+                >
+                  <span className="iconfont icon-more"/>
+                </button>
+              </Dropdown> : null
+            }
           </div>
         }
       </div>

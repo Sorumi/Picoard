@@ -52,11 +52,26 @@ export function* activeDirectory({payload: index}) {
   const directory = yield call(directoriesService.getDirectoryByIndex, index);
 
   if (directory) {
+    const isExist = yield call(directoriesService.existDirectory, directory.path);
+
+    if (!isExist) {
+      yield put({
+        type: 'images/fetchImagesInPath',
+        payload: null,
+      });
+      return;
+    }
+
     yield put({
       type: 'images/fetchImagesInPath',
       payload: directory.path,
     })
   }
+}
+
+export function *reactiveDirectory() {
+  const {currentDirIndex} = yield select(state => state.directories);
+  yield *activeDirectory({payload: currentDirIndex});
 }
 
 export function* sortDirectories({payload: {oldIndex, newIndex}}) {

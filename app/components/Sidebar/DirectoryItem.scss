@@ -101,6 +101,26 @@
   font-size: 12px;
 }
 
+.exist_error {
+  position: absolute;
+  display: inline-block;
+  vertical-align: top;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 100%;
+  margin-right: 30px;
+  color: $color-1;
+  text-align: center;
+  cursor: pointer;
+  @include vertical-align();
+  :global {
+	.anticon {
+	  font-size: 18px;
+	}
+  }
+}
+
 .item:hover {
   .handle {
 	display: inline-block;

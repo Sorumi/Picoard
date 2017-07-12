@@ -14,10 +14,12 @@ class MainPage extends Component {
         width: window.innerWidth,
         height: window.innerHeight,
       };
-      this.props.handleChangeWindowSize(size)
+      this.props.handleChangeWindowSize(size);
     });
 
-
+    ipcRenderer.on('window-focus', (evt) => {
+      this.props.handleFocusWindow();
+    });
 
     let deltaX = 0, deltaY = 0;
 
@@ -94,6 +96,12 @@ function mapDispatchToProps(dispatch, ownProps) {
           factor,
           total
         }
+      })
+    },
+    handleFocusWindow: () => {
+      dispatch({
+        type: 'window/focusWindow',
+        payload: {},
       })
     }
   }

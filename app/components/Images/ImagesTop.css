@@ -63,6 +63,8 @@ button {
     .text_wrapper span > * {
       vertical-align: middle;
       font-size: 14px; }
+    .text_wrapper span.not_exist {
+      color: #E3645A; }
 
 .right {
   position: absolute;

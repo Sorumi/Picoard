@@ -29,6 +29,8 @@ button {
   .menu :global .ant-menu-item-active, .menu :global .ant-menu-item-selected {
     color: #808080;
     background-color: #EEEEEE; }
+  .menu :global .ant-menu-item-disabled {
+    cursor: default; }
   .menu button {
     cursor: pointer; }
 

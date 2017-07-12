@@ -81,5 +81,17 @@ export function *pinchWindow({payload: {factor, total}}) {
       payload: newRatio
     });
   }
-  // console.log(factor, total);
+}
+
+export function *focusWindow() {
+  console.log('focus');
+  yield put({
+    type: 'directories/loadDirectories',
+    payload: {},
+  });
+  yield put({
+    type: 'directories/reactiveDirectory',
+    payload: {},
+  });
+
 }

@@ -3,7 +3,7 @@ import {Menu} from 'antd';
 
 import styles from './DirectoryMenu.css';
 
-function DirectoryMenu({onClick, onClickOpen, onClickEdit, onClickRemove}) {
+function DirectoryMenu({onClick, onClickOpen, onClickEdit, onClickRemove, exist = true}) {
 
   const MenuItem = Menu.Item;
   const MenuDivider = Menu.Divider;
@@ -12,17 +12,26 @@ function DirectoryMenu({onClick, onClickOpen, onClickEdit, onClickRemove}) {
     <Menu className={styles.menu}
           onClick={onClick}
           selectedKeys={[]}>
-      <MenuItem key="0">
-        <button onClick={onClickOpen}>
-          Reveal in Finder
-        </button>
-      </MenuItem>
+      {exist ?
+        <MenuItem key="0">
+          <button onClick={onClickOpen}>
+            Reveal in Finder
+          </button>
+        </MenuItem> : null
+      }
+      {exist ?
+        <MenuItem key="1">
+          <button onClick={onClickEdit}>
+            Edit Directory
+          </button>
+        </MenuItem> : null
+      }
+      {exist ? null :
+        <MenuItem key="2" disabled>
+          This directory does not exist!
+        </MenuItem>
+      }
 
-      <MenuItem key="1">
-        <button onClick={onClickEdit}>
-          Edit Directory
-        </button>
-      </MenuItem>
       <MenuDivider />
 
       <MenuItem key="3">

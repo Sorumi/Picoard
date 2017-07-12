@@ -27,8 +27,6 @@ class Sidebar extends Component {
   }
 
   onSortEnd({oldIndex, newIndex}) {
-    // const {directories} = this.props;
-    // const items = arrayMove(directories, oldIndex, newIndex);
     this.props.handleSortDirectories(oldIndex, newIndex);
   }
 

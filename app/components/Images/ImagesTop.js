@@ -23,7 +23,7 @@ function ImagesTop({directory, ratio, handleSliderSmall, handleSliderLarge, hand
     <div className={styles.top}>
       <div className={styles.text_wrapper}>
         <h5>{directory ? directory.name : ''}</h5>
-        <span>{showPath}</span>
+        <span className={directory && !directory.exist ? styles.not_exist : ''}>{showPath}</span>
       </div>
       <div className={styles.right}>
         <SizeSlider

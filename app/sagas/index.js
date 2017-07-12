@@ -12,11 +12,13 @@ function* saga() {
   yield takeLatest("window/changeWindow", windowEffect.changeWindow);
   yield takeLatest("window/changeOffsetX", windowEffect.changeOffsetX);
   yield takeLatest("window/pinchWindow", windowEffect.pinchWindow);
+  yield takeLatest("window/focusWindow", windowEffect.focusWindow);
 
   yield takeLatest("directories/addDirectory", directoriesEffect.addDirectory);
   yield takeLatest("directories/removeDirectory", directoriesEffect.removeDirectory);
   yield takeLatest("directories/loadDirectories", directoriesEffect.loadDirectories);
   yield takeLatest("directories/activeDirectory", directoriesEffect.activeDirectory);
+  yield takeLatest("directories/reactiveDirectory", directoriesEffect.reactiveDirectory);
   yield takeLatest("directories/sortDirectories", directoriesEffect.sortDirectories);
   yield takeLatest("directories/editDirectory", directoriesEffect.editDirectory);
   yield takeLatest("directories/saveDirectory", directoriesEffect.saveDirectory);

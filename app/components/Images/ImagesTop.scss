@@ -30,6 +30,10 @@
     color: $gray-color;
     font-size: 12px;
     @include vertical-align();
+
+	&.not_exist {
+	  color: $color-1;
+	}
   }
 }
 

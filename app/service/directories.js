@@ -35,22 +35,35 @@ export function removeDirectory(index) {
 
 
 export function loadDirectories() {
-  // Store.clear();
+
+
   let hasDirectories = Store.has('directories');
   if (hasDirectories) {
     const directories = Store.get('directories');
     const fs = remote.require('fs');
+
+    // test
+    // let isExist = fs.existsSync('/Users/Sorumi/Pictures/Pictur');
+    // console.log('!!!!', isExist);
+
     const newDirectories = directories.map((d) => {
+      let isExist = fs.existsSync(d.path);
       return {
         ...d,
-        count: fs.readdirSync(d.path)
+        exist: isExist,
+        count: isExist ? fs.readdirSync(d.path)
           .filter(file =>
             file.toLowerCase().match(/\.(jpe?g|png|gif)$/)
-          ).length,
+          ).length : null,
       }
     });
     return newDirectories;
   }
+}
+
+export function existDirectory(path) {
+  const fs = remote.require('fs');
+  return fs.existsSync(path);
 }
 
 export function getDirectoryByIndex(index) {
