@@ -7,7 +7,7 @@ const initialState = {
   ratio: 0.3,
   column: 5,
   imageWidth: 0,
-  imageMargin: 20,
+  isScroll: false,
   listHeight: 700,
 
   showImages : {
@@ -46,12 +46,11 @@ function images(state = initialState, {type, payload}) {
         ratio
       };
     case 'saveSize':
-      const {column, imageWidth, imageMargin} = payload;
+      const {column, imageWidth} = payload;
       return {
         ...state,
         column,
-        imageWidth,
-        imageMargin
+        imageWidth
       };
     case 'saveListHeight':
       const {height} = payload;
@@ -64,6 +63,12 @@ function images(state = initialState, {type, payload}) {
       return {
         ...state,
         showImages,
+      };
+    case 'saveIsScroll':
+      const isScroll = payload;
+      return {
+        ...state,
+        isScroll,
       };
     default:
       return state;

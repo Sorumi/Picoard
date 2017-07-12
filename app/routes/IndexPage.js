@@ -15,13 +15,15 @@ class IndexPage extends Component {
   };
 
   render() {
-    const {path, imageWidth, imageMargin, showImages, size, sidebarWidth, offsetX, directories, currentDirIndex, handleClickImage} = this.props;
+    const {path, imageWidth, isScroll, showImages, size, sidebarWidth, offsetX, directories, currentDirIndex, handleClickImage} = this.props;
     return (
       <ContentLayout
         top={<ImagesTop
           directory={directories[currentDirIndex]}
         />}
         onContentScroll={this.handleListScroll}
+        hideX={true}
+        isScroll={isScroll}
       >
         {showImages.columnImages ?
           <ImageList
@@ -30,7 +32,6 @@ class IndexPage extends Component {
             width={size.width - sidebarWidth - offsetX}
             height={size.height - 120}
             imageWidth={imageWidth}
-            imageMargin={imageMargin}
             onClickImage={handleClickImage}
           /> : null
         }
@@ -40,7 +41,7 @@ class IndexPage extends Component {
 }
 
 function mapStateToProps(state) {
-  const {path, images, column, imageWidth, imageMargin, showImages} = state.images;
+  const {path, images, column, imageWidth, isScroll, showImages} = state.images;
   const {size, sidebarWidth, offsetX} = state.window;
   const {directories, currentDirIndex} = state.directories;
   return {
@@ -51,7 +52,7 @@ function mapStateToProps(state) {
     images,
     column,
     imageWidth,
-    imageMargin,
+    isScroll,
     showImages,
     directories,
     currentDirIndex

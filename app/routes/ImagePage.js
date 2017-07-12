@@ -18,7 +18,7 @@ class ImagePage extends Component {
 
       <ContentLayout
         top={<ImageTop/>}
-        // onContentScroll={this.handleListScroll}
+        hideX={false}
       >
         {path ?
           <ImageWrapper

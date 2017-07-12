@@ -75,18 +75,12 @@ export function *refreshSizeWithoutColumn() {
   const maxWidth = listWidth - 40;
   const minWidth = (maxWidth + 20) / 5 - 20;
   const newImageWidth = (maxWidth - minWidth) * ratio + minWidth;
-  // let column = Math.floor((maxWidth + 20) / (imageWidth + 20));
-
-
-  // column = column > 5 ? 5 : column;
-  const imageMargin = (listWidth - newImageWidth * column ) / (column + 1);
 
   yield put({
     type: 'images/saveSize',
     payload: {
       column,
       imageWidth: newImageWidth,
-      imageMargin,
     },
   });
 
@@ -94,7 +88,7 @@ export function *refreshSizeWithoutColumn() {
 
   for (let i = 0; i < column; i++) {
     let length = columnImages[i].length;
-    columnHeight[i] = (columnHeight[i] - 20 * (length - 1)) / imageWidth * newImageWidth;
+    columnHeight[i] = (columnHeight[i] - 20 * (length - 1)) / imageWidth * newImageWidth + 20 * (length - 1);
   }
 
   yield put({
@@ -110,6 +104,18 @@ export function *refreshSizeWithoutColumn() {
     columnHeight.filter(h => h < listHeight).length > 0) {
     yield *loadMoreShowImages();
   }
+
+
+  // isScroll
+  const clientHeight = size.height - TITLE_BAR_HEIGHT - CONTENT_TOP_HEIGHT;
+  let isScroll = false;
+  if (columnHeight.filter(h => h > clientHeight).length > 0) {
+    isScroll = true;
+  }
+  yield put({
+    type: 'images/saveIsScroll',
+    payload: isScroll,
+  });
 }
 
 export function *refreshSize() {
@@ -124,14 +130,12 @@ export function *refreshSize() {
 
 
   column = column > 5 ? 5 : column;
-  const imageMargin = (listWidth - imageWidth * column ) / (column + 1);
 
   yield put({
     type: 'images/saveSize',
     payload: {
       column,
       imageWidth,
-      imageMargin,
     },
   });
 
@@ -142,7 +146,8 @@ export function *refreshSize() {
 
 
 export function *loadShowImages() {
-  const {path, column, images, imageWidth, listHeight, showImages} = yield select(state => state.images);
+
+  const {path, column, images, imageWidth, listHeight} = yield select(state => state.images);
   let columnHeight = [];
   let columnImages = [];
   let lastIndex = 0;
@@ -169,6 +174,18 @@ export function *loadShowImages() {
       break;
     }
   }
+
+  // isScroll
+  const {size} = yield select(state => state.window);
+  const clientHeight = size.height - TITLE_BAR_HEIGHT - CONTENT_TOP_HEIGHT;
+  let isScroll = false;
+  if (columnHeight.filter(h => h > clientHeight).length > 0) {
+    isScroll = true;
+  }
+  yield put({
+    type: 'images/saveIsScroll',
+    payload: isScroll,
+  });
 
   yield put({
     type: 'images/saveShowImages',
@@ -211,9 +228,12 @@ export function *loadMoreShowImages() {
     }
   }
 
+  const isScroll = showImages.isScroll;
+
   yield put({
     type: 'images/saveShowImages',
     payload: {
+      isScroll,
       lastIndex: currentIndex,
       columnHeight,
       columnImages,

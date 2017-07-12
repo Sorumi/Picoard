@@ -1,16 +1,17 @@
 import React from 'react';
 import styles from './ImageList.css';
 
-function ImageList({path, columnImages, imageWidth, imageMargin, onClickImage}) {
+function ImageList({path, columnImages, imageWidth, onClickImage}) {
 
   const column = columnImages.length;
+
+
   return (
     <div className={styles.list}>
       {columnImages.map((images, index) =>
         <div
           key={index}
           className={styles.column + ' col_' + column}
-        // style={{marginLeft: imageMargin}}
         >
           {images.map(image =>
 

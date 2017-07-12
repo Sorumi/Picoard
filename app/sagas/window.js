@@ -42,7 +42,7 @@ export function* changeOffsetX({payload: x}) {
     type: 'images/refreshSizeWithoutColumn',
     payload: {}
   });
-  
+
   if (location.pathname === '/image') {
     yield put({
       type: 'image/refreshSize',

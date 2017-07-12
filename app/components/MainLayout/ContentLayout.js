@@ -6,18 +6,22 @@ import React, {Component} from 'react';
 import styles from './ContentLayout.css';
 
 class ContentLayout extends Component {
+
   render() {
 
-    const {top, children, onContentScroll} = this.props;
+    const {top, children, onContentScroll, hideX, isScroll} = this.props;
 
+    let mainClassName = styles.main;
+    mainClassName = hideX ? mainClassName + ' ' +  styles.hide_x : mainClassName;
     return (
       <div className={styles.layout}>
         <div className={styles.top}>
           {top}
         </div>
-        <div className={styles.main}
+        <div className={mainClassName}
              ref="content"
              onScroll={() => {
+
                const {offsetHeight, scrollTop, scrollHeight} = this.refs.content;
                const height = {
                  offsetHeight,
@@ -28,7 +32,10 @@ class ContentLayout extends Component {
                  onContentScroll(height);
                }
              }}>
-          {children}
+          <div
+            style={{marginRight: isScroll ? -10 : 0}}>
+            {children}
+          </div>
         </div>
       </div>
     );
