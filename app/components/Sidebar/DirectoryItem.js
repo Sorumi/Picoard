@@ -30,7 +30,7 @@ class DirectoryItem extends Component {
 
   handleColorSelectClick = (e) => {
     this.setState({colorSelectVisible: false});
-    this.props.onChangeEdit({color: e.key})
+    this.props.onChangeEdit({color: parseInt(e.key)})
   };
 
   handleColorSelectVisibleChange = (flag) => {

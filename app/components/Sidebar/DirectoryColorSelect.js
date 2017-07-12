@@ -16,7 +16,7 @@ function DirectoryColorSelect({onClick, defaultKey}) {
       defaultSelectedKeys={[defaultKey+'']}
     >
       {array.map((index) =>
-        <MenuItem key={index}
+        <MenuItem key={index+1}
                   className={"dot-" + (index+1)}>
         </MenuItem>
       )}

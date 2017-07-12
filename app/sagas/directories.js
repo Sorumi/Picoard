@@ -1,6 +1,6 @@
 import {call, put, select} from 'redux-saga/effects'
 import * as directoriesService from '../service/directories';
-
+import {push} from 'react-router-redux'
 
 export function* addDirectory({payload: path}) {
   yield call(directoriesService.addDirectory, path);
@@ -45,6 +45,8 @@ export function* loadDirectories() {
 }
 
 export function* activeDirectory({payload: index}) {
+
+
   yield put({
     type: 'directories/saveCurrentDirIndex',
     payload: index,
@@ -65,7 +67,12 @@ export function* activeDirectory({payload: index}) {
     yield put({
       type: 'images/fetchImagesInPath',
       payload: directory.path,
-    })
+    });
+
+    const {location} = yield select(state => state.router);
+    if (location.pathname !== '/images') {
+      yield put(push('/images'));
+    }
   }
 }
 
