@@ -25,6 +25,36 @@ export function* fetchImagesInPath({payload: path}) {
   yield *loadShowImages();
 }
 
+export function *normalRatio({payload: type}) {
+
+  const {size, sidebarWidth, offsetX} = yield select(state => state.window);
+  const {ratio, imageWidth, column} = yield select(state => state.images);
+  const listWidth = size.width - sidebarWidth - offsetX;
+
+  const maxWidth = listWidth - 40;
+  const minWidth = (maxWidth + 20) / 5 - 20;
+
+  let newImageWidth = imageWidth;
+  if (type === 'large') {
+    const newColumn = column === 1 ? 1 : column - 1;
+    const newColumnWidth = (maxWidth + 20) / newColumn - 20;
+    const columnWidth = (maxWidth + 20) / column - 20;
+    newImageWidth = imageWidth < columnWidth ? columnWidth : newColumnWidth;
+
+  } else if (type === 'small') {
+    const newColumn = column === 5 ? 5 : column + 1;
+    newImageWidth = (maxWidth + 20) / newColumn - 20;
+  }
+
+  const newRatio = ( newImageWidth - minWidth ) / (maxWidth - minWidth);
+
+  yield put({
+    type: 'images/changeRatio',
+    payload: newRatio
+  });
+
+}
+
 export function *changeRatio({payload: ratio}) {
 
   yield put({
@@ -51,7 +81,7 @@ export function *refreshSize() {
 
   column = column > 5 ? 5 : column;
   const imageMargin = (listWidth - imageWidth * column ) / (column + 1);
-  
+
   yield put({
     type: 'images/saveSize',
     payload: {

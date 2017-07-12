@@ -5,7 +5,7 @@ import os from 'os';
 
 import styles from './ImagesTop.css';
 
-function ImagesTop({directory, ratio, handleSliderChange}) {
+function ImagesTop({directory, ratio, handleSliderSmall, handleSliderLarge, handleSliderChange}) {
 
   const userDir = os.homedir();
   const re = new RegExp(userDir + "\/(\\S+)$");
@@ -29,6 +29,8 @@ function ImagesTop({directory, ratio, handleSliderChange}) {
         <SizeSlider
           className={styles.slider}
           onChange={handleSliderChange}
+          onClickSmall={handleSliderSmall}
+          onClickLarge={handleSliderLarge}
           value={ratio * 100}
         />
       </div>
@@ -44,6 +46,18 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
+    handleSliderSmall: () => {
+      dispatch({
+        type: 'images/normalRatio',
+        payload: 'small',
+      })
+    },
+    handleSliderLarge: () => {
+      dispatch({
+        type: 'images/normalRatio',
+        payload: 'large',
+      })
+    },
     handleSliderChange: (value) => {
       dispatch({
         type: 'images/changeRatio',

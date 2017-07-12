@@ -4,6 +4,7 @@ import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import Root from './containers/Root';
 import { configureStore, history } from './store/configureStore';
+
 // import './app.global.css';
 
 import './assets/scss/index.global.css';
@@ -30,21 +31,3 @@ if (module.hot) {
 }
 
 Electron.webFrame.setZoomLevelLimits(1, 1);
-
-
-document.addEventListener('mousewheel', function(e) {
-  console.log(e);
-});
-
-window.addEventListener('touchstart', (e) => {
-  console.log('start');
-})
-document.addEventListener('touchmove', (e) => {
-  console.log('move');
-})
-document.addEventListener('touchend', (e) => {
-  console.log('end');
-})
-document.addEventListener('mouseup', (e) => {
-  console.log('up');
-})

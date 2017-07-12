@@ -88,20 +88,18 @@ app.on('ready', async () => {
   });
 
   mainWindow.on('resize', function (event) {
-    console.log('resize', event)
     event.sender.send('window-resize', mainWindow.getSize())
   });
 
-  mainWindow.on('swipe', function (event) {
-    // event.sender.send('window-resize', mainWindow.getSize())
-    console.log('swipe', event)
-  });
-
-
-  mainWindow.on('scroll-touch-begin', function (event) {
-    // event.sender.send('window-resize', mainWindow.getSize())
-    console.log('scroll-touch-begin', event)
-  });
+  // mainWindow.on('scroll-touch-begin', function (event) {
+  //   event.sender.send('scroll-begin');
+  //   console.log('scroll-touch-begin', event)
+  // });
+  //
+  // mainWindow.on('scroll-touch-end', function (event) {
+  //   event.sender.send('scroll-end');
+  //   console.log('scroll-touch-end', event)
+  // });
 
 
   const menuBuilder = new MenuBuilder(mainWindow);

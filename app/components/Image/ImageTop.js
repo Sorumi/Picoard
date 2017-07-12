@@ -6,13 +6,13 @@ import SizeSlider from '../Util/SizeSlider';
 
 import styles from './ImageTop.css';
 
-function ImageTop({ratio, handleBack, handleSliderChange}) {
+function ImageTop({ratio, handleBack, handleSliderSmall, handleSliderLarge, handleSliderChange}) {
 
   return (
     <div className={styles.top}>
       <div className={styles.text_wrapper}>
         <button
-        onClick={handleBack}>
+          onClick={handleBack}>
           <span className="iconfont icon-left"/>
         </button>
       </div>
@@ -20,6 +20,8 @@ function ImageTop({ratio, handleBack, handleSliderChange}) {
         <SizeSlider
           className={styles.slider}
           onChange={handleSliderChange}
+          onClickSmall={handleSliderSmall}
+          onClickLarge={handleSliderLarge}
           value={ratio * 100}
         />
       </div>
@@ -37,6 +39,18 @@ function mapDispatchToProps(dispatch, ownProps) {
   return {
     handleBack: () => {
       dispatch(push('/images'));
+    },
+    handleSliderSmall: () => {
+      dispatch({
+        type: 'image/normalRatio',
+        payload: 'small',
+      })
+    },
+    handleSliderLarge: () => {
+      dispatch({
+        type: 'image/normalRatio',
+        payload: 'large',
+      })
     },
     handleSliderChange: (value) => {
       dispatch({

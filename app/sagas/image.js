@@ -1,6 +1,6 @@
 import {call, put, select} from 'redux-saga/effects'
 import sizeOf from 'image-size';
-import {TITLE_BAR_HEIGHT, CONTENT_TOP_HEIGHT, MIN_WIDTH} from '../constants'
+import {TITLE_BAR_HEIGHT, CONTENT_TOP_HEIGHT, MIN_WIDTH, PER_RATIO} from '../constants'
 
 import Electron from 'electron';
 const screen = Electron.screen.getPrimaryDisplay();
@@ -52,7 +52,24 @@ export function *fetchImage({payload: path}) {
   });
 }
 
+export function *normalRatio({payload: type}) {
 
+  const {ratio} = yield select(state => state.image);
+
+  let newRatio = ratio;
+  if (type === 'large') {
+    newRatio = ( ratio + PER_RATIO) > 1 ? 1 : ratio + PER_RATIO;
+
+  } else if (type === 'small') {
+    newRatio = ( ratio - PER_RATIO) < 0 ? 0 : ratio - PER_RATIO;
+  }
+
+  yield put({
+    type: 'image/changeRatio',
+    payload: newRatio
+  });
+
+}
 export function *changeRatio({payload: ratio}) {
 
   yield put({

@@ -13,3 +13,6 @@ export const SIDEBAR_MIN_RATIO = 0.2;
 export const SIDEBAR_MAX_RATIO = 0.4;
 
 export const MIN_WIDTH = 400;
+export const PINCH_MAX = 300;
+
+export const PER_RATIO = 0.2;

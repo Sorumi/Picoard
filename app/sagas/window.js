@@ -1,5 +1,5 @@
 import {call, put, select} from 'redux-saga/effects'
-
+import {PINCH_MAX} from '../constants'
 
 export function* changeWindow({payload: size}) {
 
@@ -43,3 +43,34 @@ export function* changeOffsetX({payload: x}) {
 
 }
 
+export function *pinchWindow({payload: {factor, total}}) {
+  const {location} = yield select(state => state.router);
+
+  if (location.pathname === '/images') {
+    const {ratio} = yield select(state => state.images);
+    let newRatio = ratio - factor / PINCH_MAX;
+    if (newRatio > 1) {
+      newRatio = 1;
+    } else if (newRatio < 0) {
+      newRatio = 0;
+    }
+    yield put({
+      type: 'images/changeRatio',
+      payload: newRatio
+    });
+
+  } else if (location.pathname === '/image') {
+    const {ratio} = yield select(state => state.image);
+    let newRatio = ratio - factor / PINCH_MAX;
+    if (newRatio > 1) {
+      newRatio = 1;
+    } else if (newRatio < 0) {
+      newRatio = 0;
+    }
+    yield put({
+      type: 'image/changeRatio',
+      payload: newRatio
+    });
+  }
+  // console.log(factor, total);
+}

@@ -4,10 +4,7 @@ import {ipcRenderer} from 'electron';
 
 import MainLayout from '../components/MainLayout/MainLayout';
 import SideLayout from '../components/MainLayout/SideLayout';
-// import ContentLayout from '../components/MainLayout/ContentLayout';
 import Sidebar from '../components/Sidebar/Sidebar';
-// import ImagesTop from '../components/Images/ImagesTop';
-// import ImageList from '../components/Images/ImageList';
 
 class MainPage extends Component {
 
@@ -19,6 +16,39 @@ class MainPage extends Component {
       };
       this.props.handleChangeWindowSize(size)
     });
+
+
+
+    let deltaX = 0, deltaY = 0;
+
+    const handlePinch =  this.props.handlePinch;
+
+    document.addEventListener('mousewheel', function(e) {
+      if (e.ctrlKey) {
+        deltaY += e.deltaY;
+        handlePinch(e.deltaY, deltaY);
+      } else {
+        deltaX += e.deltaX;
+        deltaY += e.deltaY;
+      }
+    });
+
+    // ipcRenderer.on('scroll-begin', (evt, sender) => {
+    //   console.log('begin');
+    //   deltaX = deltaY = 0;
+    // });
+    //
+    // ipcRenderer.on('scroll-end', (evt, sender) => {
+    //   console.log('end', deltaX, deltaY);
+    //
+    //   if (Math.abs(deltaY/deltaX) > 1) {
+    //     console.log(deltaY > 0 ? 'up':'down')
+    //   } else if (Math.abs(deltaX/deltaY) > 1) {
+    //     console.log(deltaX > 0 ? 'left':'right')
+    //   }
+    //
+    // });
+
   }
 
   componentDidMount() {
@@ -57,6 +87,15 @@ function mapDispatchToProps(dispatch, ownProps) {
         payload: size,
       })
     },
+    handlePinch: (factor, total) => {
+      dispatch({
+        type:'window/pinchWindow',
+        payload: {
+          factor,
+          total
+        }
+      })
+    }
   }
 }
 
