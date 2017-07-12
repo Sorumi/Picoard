@@ -18,7 +18,7 @@ export function *fetchImage({payload: path}) {
   const minWidth = width > MIN_WIDTH || height > MIN_WIDTH ? MIN_WIDTH : width;
 
   const k = maxWidth - minWidth;
-  
+
   const wrapperRatio = wrapperWidth / wrapperHeight;
   const imageRatio = width / height;
 
@@ -29,8 +29,10 @@ export function *fetchImage({payload: path}) {
     fitWidth = width
   }
 
-  // console.log(width, wrapperWidth, height, wrapperHeight, fitWidth);
+  let fitHeight = fitWidth / imageRatio;
+  // console.log('width:', width, wrapperWidth, 'height: ', height, wrapperHeight, 'fit: ',fitWidth);
 
+  const marginTop = (wrapperHeight - fitHeight) / 2;
   const ratio = (fitWidth - minWidth ) / k;
 
   yield put({
@@ -43,7 +45,10 @@ export function *fetchImage({payload: path}) {
   });
   yield put({
     type: 'image/saveSize',
-    payload: fitWidth,
+    payload: {
+      imageWidth: fitWidth,
+      marginTop
+    },
   });
 }
 
@@ -64,7 +69,7 @@ export function *changeRatio({payload: ratio}) {
 export function *refreshSize() {
 
   const {ratio, path} = yield select(state => state.image);
-
+  const {size} = yield select(state => state.window);
   let {width, height} = sizeOf(path);
 
   const maxWidth = width > screenWidth || height > screenHeight ? width : width * 2;
@@ -73,9 +78,19 @@ export function *refreshSize() {
   const k = maxWidth - minWidth;
   const imageWidth = k * ratio + minWidth;
 
+  const imageRatio = width / height;
+  const wrapperHeight = size.height - TITLE_BAR_HEIGHT - CONTENT_TOP_HEIGHT - 40;
+  const imageHeight = imageWidth / imageRatio;
+
+
+  const marginTop = wrapperHeight > imageHeight ? (wrapperHeight - imageHeight) / 2 : 0;
+
   yield put({
     type: 'image/saveSize',
-    payload: imageWidth,
+    payload: {
+      imageWidth,
+      marginTop
+    },
   });
 
 }
