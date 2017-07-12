@@ -9,8 +9,9 @@ function ImageList({path, columnImages, imageWidth, imageMargin, onClickImage}) 
       {columnImages.map((images, index) =>
         <div
           key={index}
-          className={styles.column}
-          style={{marginLeft: imageMargin}}>
+          className={styles.column + ' col_' + column}
+        // style={{marginLeft: imageMargin}}
+        >
           {images.map(image =>
 
             <div

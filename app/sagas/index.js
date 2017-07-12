@@ -25,6 +25,7 @@ function* saga() {
   yield takeLatest("images/normalRatio", imagesEffect.normalRatio);
   yield takeLatest("images/changeRatio", imagesEffect.changeRatio);
   yield takeLatest("images/refreshSize", imagesEffect.refreshSize);
+  yield takeLatest("images/refreshSizeWithoutColumn", imagesEffect.refreshSizeWithoutColumn);
   yield takeLatest("images/loadShowImages", imagesEffect.loadShowImages);
   yield takeLatest("images/loadMoreShowImages", imagesEffect.loadMoreShowImages);
 

@@ -22,7 +22,7 @@ export function* fetchImagesInPath({payload: path}) {
     payload: size.height - TITLE_BAR_HEIGHT - CONTENT_TOP_HEIGHT,
   });
 
-  yield *loadShowImages();
+  yield *refreshSize();
 }
 
 export function *normalRatio({payload: type}) {
@@ -68,6 +68,50 @@ export function *changeRatio({payload: ratio}) {
   });
 }
 
+export function *refreshSizeWithoutColumn() {
+  const {size, sidebarWidth, offsetX} = yield select(state => state.window);
+  const {images, ratio, column, imageWidth, listHeight, showImages} = yield select(state => state.images);
+  const listWidth = size.width - sidebarWidth - offsetX;
+  const maxWidth = listWidth - 40;
+  const minWidth = (maxWidth + 20) / 5 - 20;
+  const newImageWidth = (maxWidth - minWidth) * ratio + minWidth;
+  // let column = Math.floor((maxWidth + 20) / (imageWidth + 20));
+
+
+  // column = column > 5 ? 5 : column;
+  const imageMargin = (listWidth - newImageWidth * column ) / (column + 1);
+
+  yield put({
+    type: 'images/saveSize',
+    payload: {
+      column,
+      imageWidth: newImageWidth,
+      imageMargin,
+    },
+  });
+
+  const {lastIndex, columnHeight, columnImages} = showImages;
+
+  for (let i = 0; i < column; i++) {
+    let length = columnImages[i].length;
+    columnHeight[i] = (columnHeight[i] - 20 * (length - 1)) / imageWidth * newImageWidth;
+  }
+
+  yield put({
+    type: 'images/saveShowImages',
+    payload: {
+      lastIndex,
+      columnHeight,
+      columnImages,
+    },
+  });
+
+  if (images.length >= lastIndex &&
+    columnHeight.filter(h => h < listHeight).length > 0) {
+    yield *loadMoreShowImages();
+  }
+}
+
 export function *refreshSize() {
 
   const {size, sidebarWidth, offsetX} = yield select(state => state.window);
@@ -90,6 +134,7 @@ export function *refreshSize() {
       imageMargin,
     },
   });
+
 
   yield *loadShowImages();
 

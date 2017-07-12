@@ -15,12 +15,13 @@ export function* changeWindow({payload: size}) {
       sidebarWidth: size.width * ratio - lastOffsetX,
     },
   });
-  if (location.pathname === '/images') {
-    yield put({
-      type: 'images/refreshSize',
-      payload: {}
-    });
-  } else if (location.pathname === '/image') {
+
+  yield put({
+    type: 'images/refreshSizeWithoutColumn',
+    payload: {}
+  });
+
+  if (location.pathname === '/image') {
     yield put({
       type: 'image/refreshSize',
       payload: {}
@@ -30,6 +31,7 @@ export function* changeWindow({payload: size}) {
 
 
 export function* changeOffsetX({payload: x}) {
+  const {location} = yield select(state => state.router);
 
   yield put({
     type: 'window/saveOffsetX',
@@ -37,9 +39,16 @@ export function* changeOffsetX({payload: x}) {
   });
 
   yield put({
-    type: 'images/refreshSize',
+    type: 'images/refreshSizeWithoutColumn',
     payload: {}
   });
+  
+  if (location.pathname === '/image') {
+    yield put({
+      type: 'image/refreshSize',
+      payload: {}
+    });
+  }
 
 }
 
