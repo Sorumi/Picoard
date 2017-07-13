@@ -7,12 +7,12 @@
 Picoard based on [electron-react-boilerplate](https://github.com/chentsulin/electron-react-boilerplate).
 
 
-### Features
+## Features
 - Connect to your local directories.Easy to manage.
 - Beautiful waterfall layout.
 
 
-### License
+## License
 
 MIT
 

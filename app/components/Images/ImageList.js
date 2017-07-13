@@ -24,7 +24,7 @@ function ImageList({path, columnImages, imageWidth, onClickImage}) {
               <ImageItem
                 path={`${path}/${image}`}
                 width={imageWidth}
-                onClick={onClickImage}
+                onClick={() => onClickImage(path, image)}
               />
             </div>
           )}

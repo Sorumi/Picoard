@@ -2,7 +2,9 @@ const namespace = 'image';
 
 const initialState = {
   ratio: 0.1,
+  currentIndex: null,
   path: null,
+  name: null,
   imageWidth: 0,
   imageHeight:0,
   marginTop: 0,
@@ -16,11 +18,13 @@ function directories(state = initialState, {type, payload}) {
     return state;
   }
   switch (type) {
-    case 'savePath':
-      const path = payload;
+    case 'savePathAndIndex':
+      const {path,name, index} = payload;
       return {
         ...state,
-        path
+        path,
+        name,
+        currentIndex: index,
       };
     case 'saveRatio':
       const ratio = payload;

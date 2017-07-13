@@ -13,16 +13,16 @@ import ImageWrapper from '../components/Image/ImageWrapper';
 class ImagePage extends Component {
 
   render() {
-    const {path, imageWidth, imageHeight, marginTop} = this.props;
+    const {path, name, imageWidth, imageHeight, marginTop} = this.props;
     return (
 
       <ContentLayout
         top={<ImageTop/>}
         hideX={false}
       >
-        {path ?
+        {path && name ?
           <ImageWrapper
-            path={path}
+            path={`${path}/${name}`}
             width={imageWidth}
             height={imageHeight}
             marginTop={marginTop}
@@ -35,9 +35,10 @@ class ImagePage extends Component {
 }
 
 function mapStateToProps(state) {
-  const {path, imageWidth, imageHeight, marginTop} = state.image;
+  const {path, name, imageWidth, imageHeight, marginTop} = state.image;
   return {
     path,
+    name,
     imageWidth,
     imageHeight,
     marginTop

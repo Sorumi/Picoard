@@ -1,15 +1,43 @@
 import {call, put, select} from 'redux-saga/effects'
 import sizeOf from 'image-size';
+import * as imagesService from '../service/images';
 import {TITLE_BAR_HEIGHT, CONTENT_TOP_HEIGHT, MIN_WIDTH, PER_RATIO} from '../constants'
 
 import Electron from 'electron';
 const screen = Electron.screen.getPrimaryDisplay();
 const {width: screenWidth, height: screenHeight} = screen.size;
 
-export function *fetchImage({payload: path}) {
+export function *moveFetchImage({payload: type}) {
+  const {currentIndex, path} = yield select(state => state.image);
+  const images = yield call(imagesService.fetchImagesInPath, path);
+  if (!images) return;
+
+  const length = images.length;
+  if (length === 0) return;
+
+  let newIndex = currentIndex;
+
+  if (type === 'prev') {
+    newIndex = (newIndex - 1 + length) % length;
+
+  } else if (type === 'next') {
+    newIndex = (newIndex + 1) % length;
+  }
+
+  const name = images[newIndex];
+
+  yield *fetchImage({payload: {path, name}});
+}
+
+export function *fetchImage({payload: {path, name}}) {
 
   const {size, sidebarWidth, offsetX} = yield select(state => state.window);
-  let {width, height} = sizeOf(path);
+
+  const images = yield call(imagesService.fetchImagesInPath, path);
+  const index = images.indexOf(name);
+
+  const totalPath = `${path}/${name}`;
+  let {width, height} = sizeOf(totalPath);
 
   const wrapperWidth = size.width - sidebarWidth - offsetX - 40;
   const wrapperHeight = size.height - TITLE_BAR_HEIGHT - CONTENT_TOP_HEIGHT - 40;
@@ -36,8 +64,12 @@ export function *fetchImage({payload: path}) {
   const ratio = (fitWidth - minWidth ) / k;
 
   yield put({
-    type: 'image/savePath',
-    payload: path,
+    type: 'image/savePathAndIndex',
+    payload: {
+      path,
+      name,
+      index,
+    }
   });
   yield put({
     type: 'image/saveRatio',
@@ -86,9 +118,11 @@ export function *changeRatio({payload: ratio}) {
 
 export function *refreshSize() {
 
-  const {ratio, path} = yield select(state => state.image);
+  const {ratio, path, name} = yield select(state => state.image);
   const {size} = yield select(state => state.window);
-  let {width, height} = sizeOf(path);
+
+  const totalPath = `${path}/${name}`;
+  let {width, height} = sizeOf(totalPath);
 
   const maxWidth = width > screenWidth || height > screenHeight ? width : width * 2;
   const minWidth = width > MIN_WIDTH || height > MIN_WIDTH ? MIN_WIDTH : width;

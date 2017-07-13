@@ -5,20 +5,36 @@ import styles from './ImageItem.css';
 class ImageItem extends Component {
 
 // function ImageItem() {
+  img;
+  element;
+
 
   componentDidMount() {
+    // const {path} = this.props;
 
-    const {path} = this.props;
+    this.img = new Image();
+    this.element = this.refs.img;
 
-    let img = new Image();
-    const element = this.refs.img;
 
-    img.onload = function () {
+    let {img, element} = this;
+
+
+    this.img.onload = function () {
       element.src = img.src;
     };
 
-    img.src = `file://${path}`;
+    const {path} = this.props;
+
+    this.img.src = `file://${path}`;
   }
+
+  shouldComponentUpdate(props) {
+    this.element.src = '';
+    const {path} = props;
+    this.img.src = `file://${path}`;
+    return true;
+  }
+
 
   render() {
     const {path, width, height, onClick} = this.props;
@@ -29,7 +45,7 @@ class ImageItem extends Component {
         draggable={false}
         width={width}
         height={height}
-        onClick={onClick ? () => onClick(`${path}`) : null}
+        onClick={onClick ? () => onClick(path) : null}
       />
 
     )

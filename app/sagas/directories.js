@@ -80,6 +80,23 @@ export function *reactiveDirectory() {
   yield *activeDirectory({payload: currentDirIndex});
 }
 
+export function *moveActiveDirectory({payload: type}) {
+  const {currentDirIndex, directories} = yield select(state => state.directories);
+  const length = directories.length;
+
+  if (length === 0) return;
+
+  let newIndex = currentDirIndex;
+
+  if (type === 'prev') {
+    newIndex = (newIndex - 1 + length) % length;
+
+  } else if (type === 'next') {
+    newIndex = (newIndex + 1) % length;
+  }
+  yield *activeDirectory({payload: newIndex});
+}
+
 export function* sortDirectories({payload: {oldIndex, newIndex}}) {
   yield call(directoriesService.sortDirectories, oldIndex, newIndex);
 

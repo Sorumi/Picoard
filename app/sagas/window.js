@@ -66,6 +66,52 @@ export function* changeOffsetX({payload: x}) {
 
 }
 
+export function *pressKey({payload: key}) {
+
+  console.log(key);
+  const {location} = yield select(state => state.router);
+
+  if (location.pathname === '/images') {
+    switch (key) {
+      case 'ArrowUp':
+        yield put({
+          type: 'directories/moveActiveDirectory',
+          payload: 'prev'
+        });
+        break;
+      case 'ArrowDown':
+        yield put({
+          type: 'directories/moveActiveDirectory',
+          payload: 'next'
+        });
+        break;
+      default:
+    }
+
+  } else if (location.pathname === '/image') {
+    switch (key) {
+      case 'ArrowUp':
+      case 'ArrowLeft':
+        yield put({
+          type: 'image/moveFetchImage',
+          payload: 'prev'
+        });
+        break;
+      case 'ArrowDown':
+      case 'ArrowRight':
+        yield put({
+          type: 'image/moveFetchImage',
+          payload: 'next'
+        });
+        break;
+      default:
+    }
+
+  }
+
+
+}
+
 export function *pinchWindow({payload: {factor, total}}) {
   const {location} = yield select(state => state.router);
 
@@ -107,4 +153,7 @@ export function *focusWindow() {
     payload: {},
   });
 
+  if (location.pathname === '/image') {
+  
+  }
 }

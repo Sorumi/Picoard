@@ -26,9 +26,9 @@ class MainPage extends Component {
 
     let deltaX = 0, deltaY = 0;
 
-    const handlePinch =  this.props.handlePinch;
+    const handlePinch = this.props.handlePinch;
 
-    document.addEventListener('mousewheel', function(e) {
+    document.addEventListener('mousewheel', function (e) {
       if (e.ctrlKey) {
         deltaY += e.deltaY;
         handlePinch(e.deltaY, deltaY);
@@ -37,6 +37,8 @@ class MainPage extends Component {
         deltaY += e.deltaY;
       }
     });
+
+
   }
 
   componentDidMount() {
@@ -46,11 +48,16 @@ class MainPage extends Component {
     })
   }
 
+  handleKeyPress = (event) => {
+    this.props.handlePressKey(event.key);
+  };
 
   render() {
     const {children} = this.props;
     return (
-      <div>
+      <div tabIndex="0"
+           // onKeyPress={this.handleKeyPress}
+           onKeyDown={this.handleKeyPress}>
         <MainLayout>
           <SideLayout
             sidebar={<Sidebar/>}
@@ -77,7 +84,7 @@ function mapDispatchToProps(dispatch, ownProps) {
     },
     handlePinch: (factor, total) => {
       dispatch({
-        type:'window/pinchWindow',
+        type: 'window/pinchWindow',
         payload: {
           factor,
           total
@@ -88,6 +95,12 @@ function mapDispatchToProps(dispatch, ownProps) {
       dispatch({
         type: 'window/focusWindow',
         payload: {},
+      })
+    },
+    handlePressKey: (key) => {
+      dispatch({
+        type: 'window/pressKey',
+        payload: key,
       })
     }
   }

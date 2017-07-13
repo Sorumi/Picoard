@@ -61,10 +61,13 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    handleClickImage: (path) => {
+    handleClickImage: (path, name) => {
       dispatch({
         type: 'image/fetchImage',
-        payload: path,
+        payload: {
+          path,
+          name
+        }
       });
       dispatch(push('/image'));
     },
