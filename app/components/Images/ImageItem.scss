@@ -1,0 +1,10 @@
+@import "../../assets/scss/mixin";
+@import "../../assets/scss/variables";
+
+.img {
+  display: block;
+  margin: 0 auto;
+  border-radius: 2px;
+  background-color: $white-color;
+  @include box-shadow(0 0 1px 0 $shadow-color);
+}

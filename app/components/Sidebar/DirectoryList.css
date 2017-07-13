@@ -7,19 +7,5 @@
 /*
  * Colors
  */
-html, body, h1, h2, h3, h4, h5, h6, hr, li, ul, p, a, img, button {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-family: "Pingfang SC", "Open Sans", "Lantinghei SC", "Microsoft Yahei Light", "Microsoft Yahei", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-weight: 200;
-  list-style: none; }
-
-* {
-  position: relative; }
-
-button {
-  background-color: transparent;
-  outline: none; }
 
 /*# sourceMappingURL=DirectoryList.css.map */

@@ -4,6 +4,7 @@ const initialState = {
   ratio: 0.1,
   path: null,
   imageWidth: 0,
+  imageHeight:0,
   marginTop: 0,
 };
 
@@ -28,10 +29,11 @@ function directories(state = initialState, {type, payload}) {
         ratio
       };
     case 'saveSize':
-      const {imageWidth, marginTop} = payload;
+      const {imageWidth, imageHeight, marginTop} = payload;
       return{
         ...state,
         imageWidth,
+        imageHeight,
         marginTop
       };
     default:

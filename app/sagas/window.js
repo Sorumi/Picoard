@@ -98,7 +98,6 @@ export function *pinchWindow({payload: {factor, total}}) {
 }
 
 export function *focusWindow() {
-  console.log('focus');
   yield put({
     type: 'directories/loadDirectories',
     payload: {},

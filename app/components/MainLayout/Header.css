@@ -23,6 +23,8 @@ button {
   outline: none; }
 
 .header {
+  -webkit-app-region: drag;
+  -webkit-user-select: none;
   background-color: #F0F0F0;
   -webkit-box-shadow: 0 0 0.3px 0 rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0 0 0.3px 0 rgba(0, 0, 0, 0.5);
@@ -33,7 +35,7 @@ button {
     height: 100%;
     text-align: center;
     color: #999999;
-    font-family: 'Montserrat';
+    font-family: 'DIN Alternate';
     font-weight: 400;
     font-size: 16px;
     letter-spacing: 3px; }

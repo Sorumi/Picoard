@@ -10,11 +10,12 @@
  *
  * @flow
  */
-import {app, BrowserWindow, webFrame} from 'electron';
+import {app, BrowserWindow, webFrame, globalShortcut} from 'electron';
 import MenuBuilder from './main/menu';
 import StoreBuilder from './main/store';
 
 let mainWindow = null;
+let menuBuilder = null;
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -42,6 +43,7 @@ const installExtensions = async () => {
 };
 
 
+app.setName('Picoard');
 app.commandLine.appendSwitch('touch-events', 'enabled');
 
 /**
@@ -62,14 +64,34 @@ app.on('ready', async () => {
     await installExtensions();
   }
 
+  //
+  loadMainWindow();
 
+  menuBuilder = new MenuBuilder(mainWindow, loadMainWindow);
+  menuBuilder.buildMenu();
+
+  StoreBuilder.init();
+
+  webFrame.setVisualZoomLevelLimits(1, 1);
+  webFrame.setLayoutZoomLevelLimits(1, 1);
+});
+
+
+app.on('activate', () => {
+  if (!mainWindow) {
+    loadMainWindow();
+  }
+});
+
+
+function loadMainWindow() {
   mainWindow = new BrowserWindow({
+    title: "Picoard",
     show: false,
     width: 1200,
     height: 800,
     minWidth: 800,
     minHeight: 500,
-
     webPreferences: {webSecurity: false},
     titleBarStyle: 'hiddenInset',
   });
@@ -88,6 +110,7 @@ app.on('ready', async () => {
 
   mainWindow.on('closed', () => {
     mainWindow = null;
+    menuBuilder.mainWindow = null;
   });
 
   mainWindow.on('resize', function (event) {
@@ -108,13 +131,4 @@ app.on('ready', async () => {
   //   console.log('scroll-touch-end', event)
   // });
 
-
-  const menuBuilder = new MenuBuilder(mainWindow);
-  menuBuilder.buildMenu();
-
-  StoreBuilder.init();
-
-  webFrame.setVisualZoomLevelLimits(1, 1);
-  webFrame.setLayoutZoomLevelLimits(1, 1);
-});
-
+}

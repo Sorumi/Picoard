@@ -1,6 +1,5 @@
 @import "../../assets/scss/mixin";
 @import "../../assets/scss/variables";
-@import "../../assets/scss/base";
 
 .list {
   width: 100%;
@@ -19,13 +18,7 @@
   width: 100%;
   margin-bottom: 20px;
   -webkit-user-select: none;
-  img {
-	display: block;
-	margin: 0 auto;
-	border-radius: 3px;
-	background-color: $white-color;
-	@include box-shadow(0 0 1px 0 $shadow-color);
-  }
+
 }
 
 :global .col_1 {

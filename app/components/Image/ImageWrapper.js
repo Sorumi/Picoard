@@ -1,18 +1,18 @@
 import React from 'react';
+import ImageItem from '../Images/ImageItem';
+
 import styles from './ImageWrapper.css';
 
-function ImageWrapper({path, width, marginTop}) {
+function ImageWrapper({path, width, height, marginTop}) {
 
   return (
-    <div className={styles.wrapper}>
-
-      <img
-        src={`file://${path}`}
-        draggable={false}
+    <div className={styles.wrapper}
+         style={{marginTop: marginTop}}>
+      <ImageItem
+        path={`${path}`}
         width={width}
-        style={{marginTop: marginTop}}
+        height={height}
       />
-
     </div>
   )
 }

@@ -1,8 +1,8 @@
 {
   "name": "Picoard",
   "productName": "Picoard",
-  "version": "0.0.1",
-  "description": "An image viewer application powered by Electron & React.",
+  "version": "1.0.0",
+  "description": "An elegant way to organize your inspiration.",
   "main": "./main.prod.js",
   "author": {
     "name": "Sorumi",

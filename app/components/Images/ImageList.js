@@ -1,4 +1,6 @@
 import React from 'react';
+import ImageItem from './ImageItem';
+
 import styles from './ImageList.css';
 
 function ImageList({path, columnImages, imageWidth, onClickImage}) {
@@ -19,11 +21,10 @@ function ImageList({path, columnImages, imageWidth, onClickImage}) {
               key={image}
               className={styles.item}
             >
-              <img
-                src={`file://${path}/${image}`}
-                draggable={false}
+              <ImageItem
+                path={`${path}/${image}`}
                 width={imageWidth}
-                onClick={() => onClickImage(`${path}/${image}`)}
+                onClick={onClickImage}
               />
             </div>
           )}

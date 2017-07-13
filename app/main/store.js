@@ -1,6 +1,6 @@
 
-const Store = require('electron-store');
-const ipcMain = require('electron').ipcMain;
+import Store from 'electron-store';
+import {ipcMain} from 'electron';
 
 const store = new Store();
 

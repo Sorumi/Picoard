@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import electron from 'electron';
+import electron,  {ipcRenderer} from 'electron';
 
 import DirectoryAddButton from './DirectoryAddButton';
 import DirectoryList from './DirectoryList';
@@ -23,6 +23,12 @@ class Sidebar extends Component {
   componentWillMount() {
     this.props.handleLoadingDirectories();
     this.props.handleClickDirectory(0);
+
+    const onClickAddDirectory = this.onClickAddDirectory;
+    ipcRenderer.on('new-directory', function() {
+      console.log('aaaaaa');
+      onClickAddDirectory();
+    });
   }
 
   onSortEnd({oldIndex, newIndex}) {

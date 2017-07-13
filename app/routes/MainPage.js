@@ -23,6 +23,7 @@ class MainPage extends Component {
       this.props.handleFocusWindow();
     });
 
+
     let deltaX = 0, deltaY = 0;
 
     const handlePinch =  this.props.handlePinch;
@@ -36,23 +37,6 @@ class MainPage extends Component {
         deltaY += e.deltaY;
       }
     });
-
-    // ipcRenderer.on('scroll-begin', (evt, sender) => {
-    //   console.log('begin');
-    //   deltaX = deltaY = 0;
-    // });
-    //
-    // ipcRenderer.on('scroll-end', (evt, sender) => {
-    //   console.log('end', deltaX, deltaY);
-    //
-    //   if (Math.abs(deltaY/deltaX) > 1) {
-    //     console.log(deltaY > 0 ? 'up':'down')
-    //   } else if (Math.abs(deltaX/deltaY) > 1) {
-    //     console.log(deltaX > 0 ? 'left':'right')
-    //   }
-    //
-    // });
-
   }
 
   componentDidMount() {

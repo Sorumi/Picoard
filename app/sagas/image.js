@@ -47,6 +47,7 @@ export function *fetchImage({payload: path}) {
     type: 'image/saveSize',
     payload: {
       imageWidth: fitWidth,
+      imageHeight: fitHeight,
       marginTop
     },
   });

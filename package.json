@@ -1,8 +1,8 @@
 {
   "name": "Picoard",
   "productName": "Picoard",
-  "version": "0.0.1",
-  "description": "An image viewer application powered by Electron & React.",
+  "version": "1.0.0",
+  "description": "An elegant way to organize your inspiration.",
   "scripts": {
     "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node --trace-warnings ./test/runTests.js",
     "test-all": "npm run lint && npm run flow && npm run test && npm run build && npm run test-e2e",

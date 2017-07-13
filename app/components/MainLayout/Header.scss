@@ -3,6 +3,8 @@
 @import "../../assets/scss/base";
 
 .header {
+  -webkit-app-region: drag;
+  -webkit-user-select: none;
   background-color: $title-bar-color;
   @include box-shadow(0 0 0.3px 0 $shadow-color);
 
@@ -10,7 +12,7 @@
 	height: 100%;
 	text-align: center;
 	color: #999999;
-	font-family: 'Montserrat';
+	font-family: 'DIN Alternate';
 	font-weight: $font-weight-normal;
 	font-size: 16px;
 	letter-spacing: 3px;
