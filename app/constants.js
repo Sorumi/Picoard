@@ -1,4 +1,4 @@
-export const URL = 'http://localhost:3000';
+export const IMAGE_MATCH = /\.(jpe?g|png|gif|svg)$/;
 
 export const WIN_SIZE = {
     width: 1200,
@@ -11,7 +11,6 @@ export const CONTENT_TOP_HEIGHT = 60;
 export const SIDEBAR_DEFAULT_RATIO = 0.25;
 export const SIDEBAR_MIN_RATIO = 0.2;
 export const SIDEBAR_MAX_RATIO = 0.4;
-export const SIDEBAR_MIN_WIDTH = 200;
 
 export const MIN_WIDTH = 400;
 export const PINCH_MAX = 300;

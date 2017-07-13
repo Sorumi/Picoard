@@ -103,37 +103,39 @@ export function* sortDirectories({payload: {oldIndex, newIndex}}) {
   yield *loadDirectories();
   const {currentDirIndex, editDirIndex} = yield select(state => state.directories);
 
-  let newCurrentDirIndex;
+  let newCurrentDirIndex = null;
   if (currentDirIndex === oldIndex) {
     newCurrentDirIndex = newIndex;
   } else if (currentDirIndex >= newIndex && currentDirIndex < oldIndex) {
     newCurrentDirIndex = currentDirIndex + 1;
   } else if (currentDirIndex <= newIndex && currentDirIndex > oldIndex) {
     newCurrentDirIndex = currentDirIndex - 1;
-  } else {
-    return;
   }
-  yield put({
-    type: 'directories/saveCurrentDirIndex',
-    payload: newCurrentDirIndex,
-  });
 
-  let newEditDirIndex;
-  if (editDirIndex === null) {
-    return;
-  } else if (currentDirIndex === oldIndex) {
-    newEditDirIndex = newIndex;
-  } else if (currentDirIndex >= newIndex && currentDirIndex < oldIndex) {
-    newEditDirIndex = currentDirIndex + 1;
-  } else if (currentDirIndex <= newIndex && currentDirIndex > oldIndex) {
-    newEditDirIndex = currentDirIndex - 1;
-  } else {
-    return;
+  if (newCurrentDirIndex !== null) {
+    yield put({
+      type: 'directories/saveCurrentDirIndex',
+      payload: newCurrentDirIndex,
+    });
   }
-  yield put({
-    type: 'directories/saveEditDirIndex',
-    payload: newEditDirIndex,
-  });
+
+  let newEditDirIndex = null;
+  if (editDirIndex === null) {
+
+  } else if (editDirIndex === oldIndex) {
+    newEditDirIndex = newIndex;
+  } else if (editDirIndex >= newIndex && editDirIndex < oldIndex) {
+    newEditDirIndex = editDirIndex + 1;
+  } else if (editDirIndex <= newIndex && editDirIndex > oldIndex) {
+    newEditDirIndex = editDirIndex - 1;
+  }
+  
+  if (newEditDirIndex !== null) {
+    yield put({
+      type: 'directories/saveEditDirIndex',
+      payload: newEditDirIndex,
+    });
+  }
 }
 
 export function *editDirectory({payload: index}) {

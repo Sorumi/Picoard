@@ -70,7 +70,7 @@ export function* changeOffsetX({payload: x}) {
 
 export function *pressKey({payload: key}) {
 
-  console.log(key);
+  // console.log(key);
   const {location} = yield select(state => state.router);
 
   if (location.pathname === '/images') {

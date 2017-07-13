@@ -2,6 +2,8 @@ import Store from '../utils/store';
 import {remote} from 'electron';
 import {arrayMove} from 'react-sortable-hoc';
 
+import {IMAGE_MATCH} from '../constants'
+
 export function addDirectory(path) {
   const directory = {
     color: 1,
@@ -48,7 +50,7 @@ export function loadDirectories() {
         exist: isExist,
         count: isExist ? fs.readdirSync(d.path)
           .filter(file =>
-            file.toLowerCase().match(/\.(jpe?g|png|gif)$/)
+            file.toLowerCase().match(IMAGE_MATCH)
           ).length : null,
       }
     });
