@@ -9,7 +9,7 @@
 
 .sidebar {
   z-index: 9;
-  position: fixed;
+  position: absolute;
   width: 200px;
   height: 100%;
   background-color: $white-color;

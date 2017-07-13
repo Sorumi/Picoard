@@ -22,7 +22,7 @@ class ImageItem extends Component {
   shouldComponentUpdate(props) {
     const {path: oldPath} = this.props;
     const {path: newPath} = props;
-    console.log(oldPath, newPath)
+    // console.log(oldPath, newPath)
     if (newPath !== oldPath) {
       this.element.src = '';
 

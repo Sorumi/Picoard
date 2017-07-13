@@ -129,7 +129,7 @@ export function* sortDirectories({payload: {oldIndex, newIndex}}) {
   } else if (editDirIndex <= newIndex && editDirIndex > oldIndex) {
     newEditDirIndex = editDirIndex - 1;
   }
-  
+
   if (newEditDirIndex !== null) {
     yield put({
       type: 'directories/saveEditDirIndex',

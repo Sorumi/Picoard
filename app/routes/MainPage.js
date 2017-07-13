@@ -37,8 +37,6 @@ class MainPage extends Component {
         deltaY += e.deltaY;
       }
     });
-
-
   }
 
   componentDidMount() {
@@ -56,8 +54,9 @@ class MainPage extends Component {
     const {children} = this.props;
     return (
       <div tabIndex="0"
-           // onKeyPress={this.handleKeyPress}
-           onKeyDown={this.handleKeyPress}>
+           onKeyDown={this.handleKeyPress}
+           // onDrop={this.handleDrop}
+      >
         <MainLayout>
           <SideLayout
             sidebar={<Sidebar/>}
