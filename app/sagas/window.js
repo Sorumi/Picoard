@@ -1,18 +1,32 @@
 import {call, put, select} from 'redux-saga/effects'
-import {PINCH_MAX} from '../constants'
+import {
+  PINCH_MAX,
+  SIDEBAR_MIN_RATIO,
+  SIDEBAR_MAX_RATIO,
+} from '../constants'
 
 export function* changeWindow({payload: size}) {
 
   const {size: lastSize, sidebarWidth: lastSidebarWidth, offsetX: lastOffsetX} = yield select(state => state.window);
   const {location} = yield select(state => state.router);
 
-  const ratio = (lastSidebarWidth + lastOffsetX) / lastSize.width;
+  let ratio = (lastSidebarWidth + lastOffsetX) / lastSize.width;
+
+  const sidebarWidth = size.width * ratio - lastOffsetX;
+
+  let left = size.width * SIDEBAR_MIN_RATIO - sidebarWidth;
+  let right = size.width * SIDEBAR_MAX_RATIO - sidebarWidth;
+
 
   yield put({
     type: 'window/saveWindow',
     payload: {
       size,
-      sidebarWidth: size.width * ratio - lastOffsetX,
+      sidebarWidth,
+      bounds: {
+        left,
+        right,
+      }
     },
   });
 

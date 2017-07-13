@@ -11,6 +11,8 @@ class MainPage extends Component {
   componentWillMount() {
     ipcRenderer.on('window-resize', (evt, data) => {
       const size = {
+        // width: data[0],
+        // height: data[1],
         width: window.innerWidth,
         height: window.innerHeight,
       };

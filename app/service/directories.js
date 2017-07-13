@@ -36,15 +36,10 @@ export function removeDirectory(index) {
 
 export function loadDirectories() {
 
-
   let hasDirectories = Store.has('directories');
   if (hasDirectories) {
     const directories = Store.get('directories');
     const fs = remote.require('fs');
-
-    // test
-    // let isExist = fs.existsSync('/Users/Sorumi/Pictures/Pictur');
-    // console.log('!!!!', isExist);
 
     const newDirectories = directories.map((d) => {
       let isExist = fs.existsSync(d.path);

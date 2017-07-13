@@ -95,8 +95,8 @@ export function *refreshSizeWithoutColumn() {
     },
   });
 
+  // calculate new column height
   const {lastIndex, columnHeight, columnImages} = showImages;
-
   for (let i = 0; i < column; i++) {
     let length = columnImages[i] ? columnImages[i].length : 0;
     columnHeight[i] = (columnHeight[i] - 20 * (length - 1)) / imageWidth * newImageWidth + 20 * (length - 1);
@@ -111,13 +111,14 @@ export function *refreshSizeWithoutColumn() {
     },
   });
 
+  // load more images
   if (images.length >= lastIndex &&
     columnHeight.filter(h => h < listHeight).length > 0) {
     yield *loadMoreShowImages();
   }
 
 
-  // isScroll
+  // is scroll
   const clientHeight = size.height - TITLE_BAR_HEIGHT - CONTENT_TOP_HEIGHT;
   let isScroll = false;
   if (columnHeight.filter(h => h > clientHeight).length > 0) {
@@ -150,9 +151,7 @@ export function *refreshSize() {
     },
   });
 
-
   yield *loadShowImages();
-
 }
 
 
@@ -186,7 +185,7 @@ export function *loadShowImages() {
     }
   }
 
-  // isScroll
+  // is scroll
   const {size} = yield select(state => state.window);
   const clientHeight = size.height - TITLE_BAR_HEIGHT - CONTENT_TOP_HEIGHT;
   let isScroll = false;

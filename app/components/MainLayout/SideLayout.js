@@ -4,7 +4,7 @@ import Draggable from 'react-draggable';
 
 import styles from './SideLayout.css';
 
-function SideLayout({changeOffsetX, sidebar, size, sidebarWidth, offsetX, children}) {
+function SideLayout({changeOffsetX, sidebar, size, sidebarWidth, offsetX, bounds, children}) {
 
   function handleStart(event, data) {
     // console.log('Start');
@@ -12,11 +12,18 @@ function SideLayout({changeOffsetX, sidebar, size, sidebarWidth, offsetX, childr
 
   function handleDrag(event, data) {
     // console.log(data.x, data.lastX, data.deltaX);
-      changeOffsetX(data.x);
+    let x = data.x;
+    if (x < bounds.left) {
+      x = bounds.left;
+    } else if (x > bounds.right) {
+      x = bounds.right;
+    }
+    changeOffsetX(x);
   }
 
   function handleStop(event, data) {
     // console.log('Stop', data.x);
+    // changeOffsetX(data.x);
   }
 
   return (
@@ -31,12 +38,12 @@ function SideLayout({changeOffsetX, sidebar, size, sidebarWidth, offsetX, childr
 
       <div className={styles.main}
            style={{marginLeft: sidebarWidth + offsetX}}>
-          {children}
+        {children}
       </div>
 
       <Draggable
         axis="x"
-        // bounds={{left: -100, right: 100}}
+        bounds={{left: bounds.left, right: bounds.right}}
         onStart={handleStart}
         onDrag={handleDrag}
         onStop={handleStop}
@@ -53,26 +60,25 @@ function SideLayout({changeOffsetX, sidebar, size, sidebarWidth, offsetX, childr
 }
 
 function mapStateToProps(state) {
-  const {size, sidebarWidth, offsetX} = state.window;
-  // const images = state.images;
+  const {size, sidebarWidth, offsetX, bounds} = state.window;
   return {
     size,
     sidebarWidth,
     offsetX,
-      // images
+    bounds
   };
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
-    return {
-        changeOffsetX: (x) => {
-            dispatch({
-                type: 'window/changeOffsetX',
-                payload: x
-            })
-        },
+  return {
+    changeOffsetX: (x) => {
+      dispatch({
+        type: 'window/changeOffsetX',
+        payload: x
+      })
+    },
 
-    }
+  }
 
 }
 
