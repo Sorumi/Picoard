@@ -12,6 +12,7 @@ function ImageWrapper({path, width, height, marginTop}) {
         path={`${path}`}
         width={width}
         height={height}
+        update={true}
       />
     </div>
   )

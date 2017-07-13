@@ -1,4 +1,6 @@
 import {call, put, select} from 'redux-saga/effects'
+import {push} from 'react-router-redux';
+import * as directoriesService from '../service/directories';
 import {
   PINCH_MAX,
   SIDEBAR_MIN_RATIO,
@@ -144,16 +146,23 @@ export function *pinchWindow({payload: {factor, total}}) {
 }
 
 export function *focusWindow() {
+  const {location} = yield select(state => state.router);
+
   yield put({
     type: 'directories/loadDirectories',
     payload: {},
   });
+
+ if (location.pathname === '/image') {
+    const {path, name} = yield select(state => state.image);
+    const isExist = directoriesService.existDirectory(`${path}/${name}`);
+    if (!isExist) {
+      yield put(push('/images'));
+    }
+  }
+
   yield put({
     type: 'directories/reactiveDirectory',
     payload: {},
   });
-
-  if (location.pathname === '/image') {
-  
-  }
 }

@@ -9,7 +9,8 @@ const {width: screenWidth, height: screenHeight} = screen.size;
 
 export function *moveFetchImage({payload: type}) {
   const {currentIndex, path} = yield select(state => state.image);
-  const images = yield call(imagesService.fetchImagesInPath, path);
+  const {images} = yield select(state => state.images);
+  // const images = yield call(imagesService.fetchImagesInPath, path);
   if (!images) return;
 
   const length = images.length;

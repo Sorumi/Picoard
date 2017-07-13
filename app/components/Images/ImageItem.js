@@ -4,37 +4,32 @@ import styles from './ImageItem.css';
 
 class ImageItem extends Component {
 
-// function ImageItem() {
   img;
   element;
-
-
   componentDidMount() {
-    // const {path} = this.props;
 
     this.img = new Image();
     this.element = this.refs.img;
-
-
     let {img, element} = this;
-
-
     this.img.onload = function () {
       element.src = img.src;
     };
 
     const {path} = this.props;
-
     this.img.src = `file://${path}`;
   }
 
   shouldComponentUpdate(props) {
-    this.element.src = '';
-    const {path} = props;
-    this.img.src = `file://${path}`;
+    const {path: oldPath} = this.props;
+    const {path: newPath} = props;
+    console.log(oldPath, newPath)
+    if (newPath !== oldPath) {
+      this.element.src = '';
+
+      this.img.src = `file://${newPath}`;
+    }
     return true;
   }
-
 
   render() {
     const {path, width, height, onClick} = this.props;

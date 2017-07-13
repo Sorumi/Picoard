@@ -10,7 +10,7 @@ function ImageList({path, columnImages, imageWidth, onClickImage}) {
 
   return (
     <div className={styles.list}>
-      {columnImages.map((images, index) =>
+      {path && columnImages.map((images, index) =>
         <div
           key={index}
           className={styles.column + ' col_' + column}
@@ -21,11 +21,12 @@ function ImageList({path, columnImages, imageWidth, onClickImage}) {
               key={image}
               className={styles.item}
             >
+
               <ImageItem
                 path={`${path}/${image}`}
                 width={imageWidth}
                 onClick={() => onClickImage(path, image)}
-              />
+              /> : null
             </div>
           )}
         </div>
