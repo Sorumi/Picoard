@@ -3,10 +3,32 @@ import ImageItem from './ImageItem';
 
 import styles from './ImageList.css';
 
-function ImageList({path, columnImages, imageWidth, onClickImage}) {
+function ImageList({path, columnImages, activeImages, imageWidth, onClickImage, onDoubleClickImage}) {
 
   const column = columnImages.length;
 
+
+  function handleClickImage(onClick, onDoubleClick, delay) {
+    let timeoutID = null;
+    delay = delay || 250;
+
+    return function (event) {
+
+      const metaKey = event.metaKey;
+
+      if (!timeoutID) {
+        timeoutID = setTimeout(() => {
+          onClick(metaKey);
+          timeoutID = null
+        }, delay);
+      } else {
+        timeoutID = clearTimeout(timeoutID);
+        console.log('d');
+        onDoubleClick();
+      }
+    };
+
+  }
 
   return (
     <div className={styles.list}>
@@ -23,9 +45,13 @@ function ImageList({path, columnImages, imageWidth, onClickImage}) {
             >
 
               <ImageItem
+                active={activeImages.indexOf(image) !== -1}
                 path={`${path}/${image}`}
                 width={imageWidth}
-                onClick={() => onClickImage(path, image)}
+                onClick={handleClickImage(
+                  (metaKey) => onClickImage(metaKey, image),
+                  () => onDoubleClickImage(path, image)
+                )}
               /> : null
             </div>
           )}

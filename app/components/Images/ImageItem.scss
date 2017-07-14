@@ -4,7 +4,33 @@
 .img {
   display: block;
   margin: 0 auto;
+  padding: -3px;
   border-radius: 2px;
   background-color: $gray-color-white;
+  overflow: hidden;
   @include box-shadow(0 0 1px 0 $shadow-color);
+
+  img {
+
+  }
+}
+
+.active {
+  @include box-shadow(0 2px 3px 0 $shadow-color);
+
+  //&:after { content: '';
+  //position: absolute;
+  //border-right: 2px green solid;
+  ////height: 200px;
+  ////width: 200px;
+  //transform: translateX(-50%);
+  //}
+  //&:before { content: '';
+  //position: absolute;
+  //border-bottom: 2px green solid;
+  ////height: 200px;
+  ////width: 200px;
+  //transform: translateY(-50%);
+
+
 }

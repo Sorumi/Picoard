@@ -3,6 +3,7 @@ const namespace = 'images';
 const initialState = {
   path: null,
   images: [],
+  activeImages: [],
 
   ratio: 0.3,
   column: 5,
@@ -14,6 +15,7 @@ const initialState = {
     lastIndex: 0,
     columnHeight: [],
     columnImages: [],
+    // columnIndex: [],
   }
 };
 
@@ -69,6 +71,12 @@ function images(state = initialState, {type, payload}) {
       return {
         ...state,
         isScroll,
+      };
+    case 'saveActiveImages':
+      const activeImages = payload;
+      return {
+        ...state,
+        activeImages,
       };
     default:
       return state;

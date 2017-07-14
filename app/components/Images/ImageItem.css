@@ -10,12 +10,21 @@
 .img {
   display: block;
   margin: 0 auto;
+  padding: -3px;
   border-radius: 2px;
   background-color: #F9F9F9;
+  overflow: hidden;
   -webkit-box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5);
   -ms-box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5);
   -o-box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5);
   box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5); }
+
+.active {
+  -webkit-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
+  -ms-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
+  -o-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5); }
 
 /*# sourceMappingURL=ImageItem.css.map */

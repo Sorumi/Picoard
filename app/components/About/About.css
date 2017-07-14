@@ -20,6 +20,7 @@
     height: 120px;
     padding-top: 60px; }
   .about img {
+    -webkit-app-region: no-drag;
     display: block;
     width: 60px;
     height: 60px;

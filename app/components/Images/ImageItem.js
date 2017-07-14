@@ -6,6 +6,7 @@ class ImageItem extends Component {
 
   img;
   element;
+
   componentDidMount() {
 
     this.img = new Image();
@@ -32,17 +33,20 @@ class ImageItem extends Component {
   }
 
   render() {
-    const {path, width, height, onClick} = this.props;
+    const {active, width, height, onClick} = this.props;
+    let className = styles.img;
+    className = active ? className + ' ' + styles.active : className;
     return (
-      <img
-        className={styles.img}
-        ref="img"
-        draggable={false}
-        width={width}
-        height={height}
-        onClick={onClick ? () => onClick(path) : null}
-      />
 
+        <img
+          className={className}
+          ref="img"
+          draggable={false}
+          width={width}
+          height={height}
+          onClick={onClick ? onClick : null}
+        />
+      // </div>
     )
   }
 }

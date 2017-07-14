@@ -3,6 +3,37 @@ import * as imagesService from '../service/images';
 import sizeOf from 'image-size';
 import {TITLE_BAR_HEIGHT, CONTENT_TOP_HEIGHT} from '../constants'
 
+export function *activeImage({payload: name}) {
+  // const {images, activeImages} = yield select(state => state.images);
+  // if (!images) return;
+
+  // const index = images.indexOf(name);
+  yield put({
+    type: 'images/saveActiveImages',
+    payload: [name]
+  })
+
+}
+
+export function *addActiveImage({payload: name}) {
+  const {images, activeImages} = yield select(state => state.images);
+  // if (!images) return;
+
+  // const index = images.indexOf(name);
+  const index = activeImages.indexOf(name);
+  let newActiveImages = activeImages;
+  if (index === -1) {
+    newActiveImages.push(name);
+  } else {
+    newActiveImages.slice(index, 1);
+  }
+
+  yield put({
+    type: 'images/saveActiveImages',
+    payload: newActiveImages
+  })
+}
+
 export function* fetchImagesInPath({payload: path}) {
 
   yield put({

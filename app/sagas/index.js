@@ -25,6 +25,8 @@ function* saga() {
   yield takeLatest("directories/editDirectory", directoriesEffect.editDirectory);
   yield takeLatest("directories/saveDirectory", directoriesEffect.saveDirectory);
 
+  yield takeLatest("images/activeImage", imagesEffect.activeImage);
+  yield takeLatest("images/addActiveImage", imagesEffect.addActiveImage);
   yield takeLatest("images/fetchImagesInPath", imagesEffect.fetchImagesInPath);
   yield takeLatest("images/normalRatio", imagesEffect.normalRatio);
   yield takeLatest("images/changeRatio", imagesEffect.changeRatio);

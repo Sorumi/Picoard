@@ -15,7 +15,7 @@ class IndexPage extends Component {
   };
 
   render() {
-    const {path, imageWidth, isScroll, showImages, size, sidebarWidth, offsetX, directories, currentDirIndex, handleClickImage} = this.props;
+    const {path, imageWidth, isScroll, activeImages, showImages, size, sidebarWidth, offsetX, directories, currentDirIndex, handleClickImage, handleDoubleClickImage} = this.props;
     return (
       <ContentLayout
         top={<ImagesTop
@@ -27,12 +27,14 @@ class IndexPage extends Component {
       >
         {showImages.columnImages ?
           <ImageList
+            activeImages={activeImages}
             path={path}
             columnImages={showImages.columnImages}
             width={size.width - sidebarWidth - offsetX}
             height={size.height - 120}
             imageWidth={imageWidth}
             onClickImage={handleClickImage}
+            onDoubleClickImage={handleDoubleClickImage}
           /> : null
         }
       </ContentLayout>
@@ -41,7 +43,7 @@ class IndexPage extends Component {
 }
 
 function mapStateToProps(state) {
-  const {path, images, column, imageWidth, isScroll, showImages} = state.images;
+  const {path, images, activeImages, column, imageWidth, isScroll, showImages} = state.images;
   const {size, sidebarWidth, offsetX} = state.window;
   const {directories, currentDirIndex} = state.directories;
   return {
@@ -50,6 +52,7 @@ function mapStateToProps(state) {
     sidebarWidth,
     offsetX,
     images,
+    activeImages,
     column,
     imageWidth,
     isScroll,
@@ -61,7 +64,23 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    handleClickImage: (path, name) => {
+    handleClickImage: (metaKey, name) => {
+
+      if (metaKey) {
+        dispatch({
+          type: 'images/addActiveImage',
+          payload: name
+
+        });
+      } else {
+        dispatch({
+          type: 'images/activeImage',
+          payload: name
+
+        });
+      }
+    },
+    handleDoubleClickImage: (path, name) => {
       dispatch({
         type: 'image/fetchImage',
         payload: {
