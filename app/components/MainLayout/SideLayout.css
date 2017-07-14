@@ -26,7 +26,7 @@ button {
   width: 100%;
   height: 100%; }
 
-.sidebar {
+.sidebar_wrapper {
   z-index: 9;
   position: absolute;
   width: 200px;
@@ -38,6 +38,22 @@ button {
   -o-box-shadow: 0 0 0.3px 0 rgba(0, 0, 0, 0.5);
   box-shadow: 0 0 0.3px 0 rgba(0, 0, 0, 0.5); }
 
+.main_wrapper {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 40px;
+  bottom: 0;
+  margin-left: 210px;
+  overflow: auto;
+  background-color: #F9F9F9; }
+
+.sidebar {
+  height: 100%; }
+
+.main {
+  height: 100%; }
+
 .line {
   z-index: 10;
   position: fixed;
@@ -48,14 +64,35 @@ button {
   height: 100%;
   cursor: col-resize; }
 
-.main {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 40px;
-  bottom: 0;
-  margin-left: 210px;
-  overflow: auto;
-  background-color: #F9F9F9; }
+.drop {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  padding: 10px;
+  pointer-events: none;
+  background-color: rgba(0, 0, 0, 0.03); }
+  .drop .drop_child {
+    width: 100%;
+    height: 100%;
+    border: dashed 1px #B3B3B3;
+    color: #808080;
+    font-size: 14px;
+    text-align: center; }
+    .drop .drop_child:before {
+      content: "";
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+      font-size: 0; }
+    .drop .drop_child > * {
+      vertical-align: middle;
+      font-size: 14px; }
+
+.siderbar_drop .sidebar {
+  opacity: 0.3; }
+
+.main_drop .main {
+  opacity: 0.3; }
 
 /*# sourceMappingURL=SideLayout.css.map */

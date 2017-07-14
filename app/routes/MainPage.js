@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {ipcRenderer} from 'electron';
 
+import * as directoriesService from '../service/directories';
+
 import MainLayout from '../components/MainLayout/MainLayout';
 import SideLayout from '../components/MainLayout/SideLayout';
 import Sidebar from '../components/Sidebar/Sidebar';
@@ -26,7 +28,8 @@ class MainPage extends Component {
 
     let deltaX = 0, deltaY = 0;
 
-    const handlePinch = this.props.handlePinch;
+    const {handlePinch, handlePressKey} = this.props;
+
 
     document.addEventListener('mousewheel', function (e) {
       if (e.ctrlKey) {
@@ -37,6 +40,10 @@ class MainPage extends Component {
         deltaY += e.deltaY;
       }
     });
+
+    document.addEventListener("keydown", function (e) {
+      handlePressKey(e.key);
+    });
   }
 
   componentDidMount() {
@@ -46,20 +53,26 @@ class MainPage extends Component {
     })
   }
 
-  handleKeyPress = (event) => {
-    this.props.handlePressKey(event.key);
+  handleDropDirectories = (files) => {
+    for (let i = 0; i < files.length; ++i) {
+      const isDirectory = directoriesService.isDirectory(files[i].path);
+      if (isDirectory) {
+        this.props.handleAddDirectory(files[i].path);
+      }
+    }
   };
 
   render() {
     const {children} = this.props;
     return (
       <div tabIndex="0"
-           onKeyDown={this.handleKeyPress}
-           // onDrop={this.handleDrop}
+        // onKeyDown={this.handleKeyPress}
+        // onDrop={this.handleDrop}
       >
         <MainLayout>
           <SideLayout
             sidebar={<Sidebar/>}
+            handleDropDirectories={this.handleDropDirectories}
           >
             {children}
           </SideLayout>
@@ -101,7 +114,13 @@ function mapDispatchToProps(dispatch, ownProps) {
         type: 'window/pressKey',
         payload: key,
       })
-    }
+    },
+    handleAddDirectory: (file) => {
+      dispatch({
+        type: 'directories/addDirectory',
+        payload: file
+      });
+    },
   }
 }
 

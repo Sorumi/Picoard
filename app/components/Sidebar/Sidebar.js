@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 
 import electron, {ipcRenderer} from 'electron';
 
+
 import DirectoryAddButton from './DirectoryAddButton';
 import DirectoryList from './DirectoryList';
 
@@ -14,15 +15,6 @@ const {shell} = electron;
 
 class Sidebar extends Component {
 
-  constructor() {
-    super();
-    this.onClickAddDirectory = this.onClickAddDirectory.bind(this);
-    this.onSortEnd = this.onSortEnd.bind(this);
-
-    this.state = {
-      drop: false,
-    }
-  }
 
   componentWillMount() {
     this.props.handleLoadingDirectories();
@@ -30,62 +22,15 @@ class Sidebar extends Component {
 
     const onClickAddDirectory = this.onClickAddDirectory;
     ipcRenderer.on('new-directory', function () {
-      console.log('aaaaaa');
       onClickAddDirectory();
     });
+  };
 
-    const self = this;
-
-    window.ondragover = function (e) {
-
-      e.preventDefault();
-
-      console.log('over');
-      e.dataTransfer.dropEffect = 'copy';
-
-
-      self.setState({
-        drop: true,
-      });
-      return false;
-    };
-
-    window.ondrop = function (e) {
-
-      e.preventDefault();
-
-      console.log('hover');
-      self.setState({
-        drop: false,
-      });
-
-      const files = e.dataTransfer.files;
-      for (let i = 0; i < files.length; ++i) {
-        self.props.handleAddDirectory(files[i].path);
-        // console.log(files[i].path);
-      }
-      return false;
-    };
-
-    window.ondragleave = function (e) {
-      e.preventDefault();
-
-      console.log('leave');
-
-      self.setState({
-        drop: false,
-      });
-      return false;
-    };
-
-  }
-
-  onSortEnd({oldIndex, newIndex}) {
+  onSortEnd = ({oldIndex, newIndex}) => {
     this.props.handleSortDirectories(oldIndex, newIndex);
-  }
+  };
 
-
-  onClickAddDirectory() {
+  onClickAddDirectory = () => {
     const {handleAddDirectory} = this.props;
     dialog.showOpenDialog({
       properties: ['openDirectory']
@@ -94,11 +39,11 @@ class Sidebar extends Component {
         handleAddDirectory(files[0]);
       }
     });
-  }
+  };
 
-  onOpenDirectory(path) {
+  onOpenDirectory = (path) => {
     shell.showItemInFolder(path)
-  }
+  };
 
   render() {
     const {
@@ -106,16 +51,9 @@ class Sidebar extends Component {
       handleClickDirectory, handleEditDirectory, handleChangeEditDirectory, handleRemoveDirectory, handleSaveDirectory, handleCancelDirectory
     } = this.props;
 
-    const {drop} = this.state;
-
-    let className = styles.sidebar;
-    className = drop ? className + ' ' + styles.siderbar_drop : className;
-
     return (
 
-      <div className={className} ref="sidebar">
-
-
+      <div className={styles.sidebar}>
         <div className={styles.part}>
           <div className={styles.title}>
             <h5>Directory</h5>
@@ -143,12 +81,6 @@ class Sidebar extends Component {
               editItem={editItem}
             /> : null }
         </div>
-
-        {drop ?
-          <div className={styles.drop}>
-            <div className={styles.drop_child}/>
-          </div> : null
-        }
 
       </div>
     );

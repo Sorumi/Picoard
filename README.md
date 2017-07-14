@@ -1,4 +1,4 @@
-# [Picoard](http://picoard.sorumi.me/).
+# [Picoard](http://picoard.sorumi.me/)
 
 #### An elegant way to organize your inspiration.
 

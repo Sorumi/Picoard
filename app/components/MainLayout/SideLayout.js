@@ -2,16 +2,89 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux'
 import Draggable from 'react-draggable';
 
+import {TITLE_BAR_HEIGHT} from '../../constants';
+
 import styles from './SideLayout.css';
 
-function SideLayout({changeOffsetX, sidebar, size, sidebarWidth, offsetX, bounds, children}) {
+class SideLayout extends Component {
 
-  function handleStart(event, data) {
-    // console.log('Start');
+  constructor() {
+    super();
+    this.state = {
+      drop: false,
+    }
   }
 
-  function handleDrag(event, data) {
-    // console.log(data.x, data.lastX, data.deltaX);
+  componentWillMount() {
+    const self = this;
+
+    window.ondragenter = function (e) {
+      e.preventDefault();
+
+      console.log('start');
+    };
+
+    window.ondragover = function (e) {
+      e.preventDefault();
+
+      console.log('over');
+      e.dataTransfer.dropEffect = 'copy';
+
+
+      self.setState({
+        drop: true,
+      });
+      return false;
+    };
+
+    window.ondrop = function (e) {
+      e.preventDefault();
+
+      console.log('hover');
+      self.setState({
+        drop: false,
+      });
+
+      self.handleFileDrop(e);
+
+      return false;
+    };
+
+    window.ondragleave = function (e) {
+      e.preventDefault();
+
+      console.log('leave');
+
+      self.setState({
+        drop: false,
+      });
+      return false;
+    };
+  }
+
+  handleFileDrop = (event) => {
+    const {sidebarWidth, offsetX} = this.props;
+
+    const sidebar = sidebarWidth + offsetX;
+
+    const x = event.clientX;
+    // const y = event.clientY-TITLE_BAR_HEIGHT;
+    const files = event.dataTransfer.files;
+
+    if (x <= sidebar) {
+      this.props.handleDropDirectories(files);
+    } else {
+      this.props.handleDropImages(files);
+    }
+
+  };
+
+  handleStart = (event, data) => {
+    // console.log('Start');
+  };
+
+  handleDrag = (event, data) => {
+    const {changeOffsetX, bounds} = this.props;
     let x = data.x;
     if (x < bounds.left) {
       x = bounds.left;
@@ -19,44 +92,72 @@ function SideLayout({changeOffsetX, sidebar, size, sidebarWidth, offsetX, bounds
       x = bounds.right;
     }
     changeOffsetX(x);
-  }
+  };
 
-  function handleStop(event, data) {
+  handleStop = (event, data) => {
     // console.log('Stop', data.x);
-    // changeOffsetX(data.x);
-  }
+  };
 
-  return (
-    <div className={styles.layout}>
+  render() {
+    const {sidebar, sidebarWidth, offsetX, bounds, children} = this.props;
 
-      <div
-        className={styles.sidebar}
-        style={{width: sidebarWidth + offsetX}}
-      >
-        {sidebar}
-      </div>
+    const {drop} = this.state;
 
-      <div className={styles.main}
-           style={{marginLeft: sidebarWidth + offsetX}}>
-        {children}
-      </div>
+    let sidebarClassName = styles.sidebar_wrapper;
+    sidebarClassName = drop ? sidebarClassName + ' ' + styles.siderbar_drop : sidebarClassName;
 
-      <Draggable
-        axis="x"
-        bounds={{left: bounds.left, right: bounds.right}}
-        onStart={handleStart}
-        onDrag={handleDrag}
-        onStop={handleStop}
-      >
+    let mainClassName = styles.main_wrapper;
+    mainClassName = drop ? mainClassName + ' ' + styles.main_drop : mainClassName;
+    return (
+      <div className={styles.layout}>
+
         <div
-          className={styles.line}
-          style={{marginLeft: sidebarWidth - 5}}>
+          className={sidebarClassName}
+          style={{width: sidebarWidth + offsetX}}
+        >
+          <div className={styles.sidebar}>
+            {sidebar}
+          </div>
+          {drop ?
+            <div className={styles.drop}>
+              <div className={styles.drop_child}>
+                Drag directories to add
+              </div>
+            </div> : null
+          }
         </div>
-      </Draggable>
 
-    </div>
-  );
+        <div className={mainClassName}
+             style={{marginLeft: sidebarWidth + offsetX}}
+        >
+          <div className={styles.main}>
+            {children}
+          </div>
+          {drop ?
+            <div className={styles.drop}>
+              <div className={styles.drop_child}>
+                Drag images to copy
+              </div>
+            </div> : null
+          }
+        </div>
 
+        <Draggable
+          axis="x"
+          bounds={{left: bounds.left, right: bounds.right}}
+          onStart={this.handleStart}
+          onDrag={this.handleDrag}
+          onStop={this.handleStop}
+        >
+          <div
+            className={styles.line}
+            style={{marginLeft: sidebarWidth - 5}}>
+          </div>
+        </Draggable>
+
+      </div>
+    );
+  }
 }
 
 function mapStateToProps(state) {

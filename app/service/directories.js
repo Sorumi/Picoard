@@ -2,9 +2,14 @@ import Store from '../utils/store';
 import {remote} from 'electron';
 import {arrayMove} from 'react-sortable-hoc';
 
-import {IMAGE_MATCH} from '../constants'
+import {IMAGE_MATCH} from '../constants';
+
+const fs = remote.require('fs');
 
 export function addDirectory(path) {
+  const isDirectory = fs.lstatSync(path).isDirectory();
+  if (!isDirectory) return;
+
   const directory = {
     color: 1,
     name: path.substr(path.lastIndexOf('/') + 1),
@@ -37,14 +42,11 @@ export function removeDirectory(index) {
 
 
 export function loadDirectories() {
-
   let hasDirectories = Store.has('directories');
   if (hasDirectories) {
     const directories = Store.get('directories');
-    const fs = remote.require('fs');
-
     const newDirectories = directories.map((d) => {
-      let isExist = fs.existsSync(d.path);
+      const isExist = fs.existsSync(d.path);
       return {
         ...d,
         exist: isExist,
@@ -59,10 +61,12 @@ export function loadDirectories() {
 }
 
 export function existDirectory(path) {
-  const fs = remote.require('fs');
   return fs.existsSync(path);
 }
 
+export function isDirectory(path) {
+  return  fs.lstatSync(path).isDirectory();
+}
 export function getDirectoryByIndex(index) {
   let hasDirectories = Store.has('directories');
   if (hasDirectories) {

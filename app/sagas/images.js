@@ -5,6 +5,16 @@ import {TITLE_BAR_HEIGHT, CONTENT_TOP_HEIGHT} from '../constants'
 
 export function* fetchImagesInPath({payload: path}) {
 
+  yield put({
+    type: 'images/saveShowImages',
+    payload: {
+      isScroll: false,
+      lastIndex: 0,
+      columnHeight: [],
+      columnImages: [],
+    },
+  });
+
   if (path === null) {
     yield put({
       type: 'images/saveImageAndPath',
@@ -17,6 +27,7 @@ export function* fetchImagesInPath({payload: path}) {
   } else {
 
     const images = yield call(imagesService.fetchImagesInPath, path);
+
 
     yield put({
       type: 'images/saveImageAndPath',
