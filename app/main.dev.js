@@ -10,11 +10,12 @@
  *
  * @flow
  */
-import {app, BrowserWindow, webFrame, globalShortcut} from 'electron';
+import {app, BrowserWindow} from 'electron';
 import MenuBuilder from './main/menu';
 import StoreBuilder from './main/store';
 
 let mainWindow = null;
+let aboutWindow = null;
 let menuBuilder = null;
 
 if (process.env.NODE_ENV === 'production') {
@@ -64,16 +65,14 @@ app.on('ready', async () => {
     await installExtensions();
   }
 
-  //
+  menuBuilder = new MenuBuilder(loadMainWindow, loadAboutWindow);
+
   loadMainWindow();
 
-  menuBuilder = new MenuBuilder(mainWindow, loadMainWindow);
   menuBuilder.buildMenu();
 
   StoreBuilder.init();
 
-  webFrame.setVisualZoomLevelLimits(1, 1);
-  webFrame.setLayoutZoomLevelLimits(1, 1);
 });
 
 
@@ -97,20 +96,21 @@ function loadMainWindow() {
   });
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
-
+  menuBuilder.setMainWindow(mainWindow);
   // @TODO: Use 'ready-to-show' event
   //        https://github.com/electron/electron/blob/master/docs/api/browser-window.md#using-ready-to-show-event
   mainWindow.webContents.on('did-finish-load', () => {
     if (!mainWindow) {
       throw new Error('"mainWindow" is not defined');
     }
+    mainWindow.webContents.send('main');
     mainWindow.show();
     mainWindow.focus();
   });
 
   mainWindow.on('closed', () => {
     mainWindow = null;
-    menuBuilder.mainWindow = null;
+    menuBuilder.setMainWindow(null);
   });
 
   mainWindow.on('resize', function (event) {
@@ -121,6 +121,7 @@ function loadMainWindow() {
     event.sender.send('window-focus')
   });
 
+  // scroll event
   // mainWindow.on('scroll-touch-begin', function (event) {
   //   event.sender.send('scroll-begin');
   //   console.log('scroll-touch-begin', event)
@@ -131,4 +132,32 @@ function loadMainWindow() {
   //   console.log('scroll-touch-end', event)
   // });
 
+}
+
+function loadAboutWindow() {
+  aboutWindow = new BrowserWindow({
+    title: "About Picoard",
+    show: false,
+    width: 360,
+    height: 400,
+    resizable: false,
+    titleBarStyle: 'hiddenInset',
+  });
+
+  aboutWindow.loadURL(`file://${__dirname}/app.html`);
+  menuBuilder.setAboutWindow(aboutWindow);
+
+  aboutWindow.webContents.on('did-finish-load', () => {
+    if (!aboutWindow) {
+      throw new Error('"aboutWindow" is not defined');
+    }
+    aboutWindow.webContents.send('about');
+    aboutWindow.show();
+    aboutWindow.focus();
+  });
+
+  aboutWindow.on('closed', () => {
+    aboutWindow = null;
+    menuBuilder.setAboutWindow(null);
+  });
 }

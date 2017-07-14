@@ -65,10 +65,7 @@ class MainPage extends Component {
   render() {
     const {children} = this.props;
     return (
-      <div tabIndex="0"
-        // onKeyDown={this.handleKeyPress}
-        // onDrop={this.handleDrop}
-      >
+      <div>
         <MainLayout>
           <SideLayout
             sidebar={<Sidebar/>}

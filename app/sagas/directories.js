@@ -69,8 +69,8 @@ export function* activeDirectory({payload: index}) {
     });
 
     const {location} = yield select(state => state.router);
-    if (location.pathname !== '/images') {
-      yield put(push('/images'));
+    if (location.pathname !== '/main/images') {
+      yield put(push('/main/images'));
     }
   }
 }

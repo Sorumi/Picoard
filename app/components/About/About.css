@@ -1,0 +1,63 @@
+/*
+ * grid
+ */
+/*
+ * Fonts
+ */
+/*
+ * Colors
+ */
+.about {
+  width: 100%;
+  height: 100vh;
+  background-color: #F9F9F9; }
+  .about ::selection {
+    background-color: #808080; }
+  .about header {
+    -webkit-app-region: drag;
+    -webkit-user-select: none;
+    width: 100%;
+    height: 120px;
+    padding-top: 60px; }
+  .about img {
+    display: block;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+    cursor: pointer; }
+  .about h3 {
+    margin-top: 20px;
+    text-align: center;
+    color: #B3B3B3;
+    font-family: 'DIN Alternate';
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: 2px;
+    cursor: pointer; }
+  .about h4 {
+    text-align: center;
+    color: #CCCCCC;
+    font-family: 'Avenir Next';
+    font-weight: 300;
+    font-size: 12px; }
+  .about footer {
+    margin: 40px auto 0;
+    text-align: center;
+    color: #B3B3B3;
+    font-family: 'Avenir Next';
+    font-weight: 400;
+    font-size: 14px; }
+    .about footer span {
+      margin-left: 3px;
+      color: #928BA9;
+      cursor: pointer;
+      text-decoration: underline; }
+
+.content {
+  margin: 20px 60px 0;
+  color: #808080;
+  font-family: 'Avenir Next';
+  font-weight: 300;
+  font-size: 14px; }
+
+/*# sourceMappingURL=About.css.map */

@@ -38,7 +38,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch, ownProps) {
   return {
     handleBack: () => {
-      dispatch(push('/images'));
+      dispatch(push('/main/images'));
     },
     handleSliderSmall: () => {
       dispatch({

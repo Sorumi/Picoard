@@ -37,7 +37,7 @@ export function* changeWindow({payload: size}) {
     payload: {}
   });
 
-  if (location.pathname === '/image') {
+  if (location.pathname === '/main/image') {
     yield put({
       type: 'image/refreshSize',
       payload: {}
@@ -59,7 +59,7 @@ export function* changeOffsetX({payload: x}) {
     payload: {}
   });
 
-  if (location.pathname === '/image') {
+  if (location.pathname === '/main/image') {
     yield put({
       type: 'image/refreshSize',
       payload: {}
@@ -73,7 +73,7 @@ export function *pressKey({payload: key}) {
   // console.log(key);
   const {location} = yield select(state => state.router);
 
-  if (location.pathname === '/images') {
+  if (location.pathname === '/main/images') {
     switch (key) {
       case 'ArrowUp':
         yield put({
@@ -90,7 +90,7 @@ export function *pressKey({payload: key}) {
       default:
     }
 
-  } else if (location.pathname === '/image') {
+  } else if (location.pathname === '/main/image') {
     switch (key) {
       case 'ArrowUp':
       case 'ArrowLeft':
@@ -117,7 +117,7 @@ export function *pressKey({payload: key}) {
 export function *pinchWindow({payload: {factor, total}}) {
   const {location} = yield select(state => state.router);
 
-  if (location.pathname === '/images') {
+  if (location.pathname === '/main/images') {
     const {ratio} = yield select(state => state.images);
     let newRatio = ratio - factor / PINCH_MAX;
     if (newRatio > 1) {
@@ -130,7 +130,7 @@ export function *pinchWindow({payload: {factor, total}}) {
       payload: newRatio
     });
 
-  } else if (location.pathname === '/image') {
+  } else if (location.pathname === '/main/image') {
     const {ratio} = yield select(state => state.image);
     let newRatio = ratio - factor / PINCH_MAX;
     if (newRatio > 1) {
@@ -153,11 +153,11 @@ export function *focusWindow() {
     payload: {},
   });
 
- if (location.pathname === '/image') {
+ if (location.pathname === '/main/image') {
     const {path, name} = yield select(state => state.image);
     const isExist = directoriesService.existDirectory(`${path}/${name}`);
     if (!isExist) {
-      yield put(push('/images'));
+      yield put(push('/main/images'));
     }
   }
 

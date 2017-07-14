@@ -1,14 +1,25 @@
 // @flow
 import {app, Menu, shell, BrowserWindow} from 'electron';
 
-let mainWindow: BrowserWindow;
+
 export default class MenuBuilder {
 
   loadMainWindow;
+  loadAboutWindow;
+  mainWindow: BrowserWindow;
+  aboutWindow: BrowserWindow;
 
-  constructor(mainWindow: BrowserWindow, loadMainWindow) {
-    this.mainWindow = mainWindow;
+  constructor(loadMainWindow, loadAboutWindow) {
     this.loadMainWindow = loadMainWindow;
+    this.loadAboutWindow = loadAboutWindow;
+  }
+
+  setMainWindow(mainWindow) {
+    this.mainWindow = mainWindow;
+  }
+
+  setAboutWindow(aboutWindow) {
+    this.aboutWindow = aboutWindow;
   }
 
   buildMenu() {
@@ -50,7 +61,16 @@ export default class MenuBuilder {
     const subMenuAbout = {
       label: 'Picoard',
       submenu: [
-        {label: 'About Picoard', selector: 'orderFrontStandardAboutPanel:'},
+        // {label: 'About Picoard', selector: 'orderFrontStandardAboutPanel:'},
+        {
+          label: 'About Picoard', click: () => {
+          if (this.aboutWindow) {
+            this.aboutWindow.focus();
+          } else {
+            this.loadAboutWindow();
+          }
+        }
+        },
         {type: 'separator'},
         // { label: 'Services', submenu: [] },
         // { type: 'separator' },
@@ -70,7 +90,9 @@ export default class MenuBuilder {
       submenu: [
         {
           label: 'New Directory', accelerator: 'Command+N', click: () => {
-          this.mainWindow.webContents.send('new-directory');
+          if (this.mainWindow) {
+            this.mainWindow.webContents.send('new-directory');
+          }
         }
         },
       ]
@@ -92,7 +114,7 @@ export default class MenuBuilder {
       submenu: [
         {
           label: 'Reload', accelerator: 'Command+R', click: () => {
-          console.log(this.mainWindow);
+          // console.log(this.mainWindow);
           if (this.mainWindow) {
             this.mainWindow.webContents.reload();
           } else {

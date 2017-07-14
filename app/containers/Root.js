@@ -13,7 +13,7 @@ export default function Root({ store, history }: RootType) {
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <Routes />
+        <Routes/>
       </ConnectedRouter>
     </Provider>
   );

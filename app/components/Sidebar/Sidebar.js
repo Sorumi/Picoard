@@ -140,7 +140,7 @@ function mapDispatchToProps(dispatch, ownProps) {
       });
     },
     handleClickDirectory: (index) => {
-      // dispatch(push('/images'));
+      // dispatch(push('/main/images'));
       dispatch({
         type: 'directories/activeDirectory',
         payload: index

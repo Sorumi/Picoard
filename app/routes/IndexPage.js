@@ -69,7 +69,7 @@ function mapDispatchToProps(dispatch, ownProps) {
           name
         }
       });
-      dispatch(push('/image'));
+      dispatch(push('/main/image'));
     },
     handleLoadMoreImage: () => {
       dispatch({

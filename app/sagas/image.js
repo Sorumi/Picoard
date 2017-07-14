@@ -1,7 +1,7 @@
 import {call, put, select} from 'redux-saga/effects'
 import sizeOf from 'image-size';
 import * as imagesService from '../service/images';
-import {TITLE_BAR_HEIGHT, CONTENT_TOP_HEIGHT, MIN_WIDTH, PER_RATIO} from '../constants'
+import {TITLE_BAR_HEIGHT, CONTENT_TOP_HEIGHT, MIN_WIDTH, MAX_WIDTH, PER_RATIO} from '../constants'
 
 import Electron from 'electron';
 const screen = Electron.screen.getPrimaryDisplay();
@@ -43,13 +43,14 @@ export function *fetchImage({payload: {path, name}}) {
   const wrapperWidth = size.width - sidebarWidth - offsetX - 40;
   const wrapperHeight = size.height - TITLE_BAR_HEIGHT - CONTENT_TOP_HEIGHT - 40;
 
-  const maxWidth = width > screenWidth || height > screenHeight ? width : width * 2;
-  const minWidth = width > MIN_WIDTH || height > MIN_WIDTH ? MIN_WIDTH : width;
-
-  const k = maxWidth - minWidth;
-
   const wrapperRatio = wrapperWidth / wrapperHeight;
   const imageRatio = width / height;
+
+  let maxWidth = width > screenWidth || height > screenHeight ? width : width * 2;
+  maxWidth = maxWidth < MAX_WIDTH  && maxWidth / imageRatio < MAX_WIDTH ? Math.max(MAX_WIDTH, MAX_WIDTH / imageRatio) : maxWidth;
+  let minWidth = width > MIN_WIDTH && height > MIN_WIDTH ? Math.min(MIN_WIDTH, MIN_WIDTH / imageRatio) : width;
+
+  const k = maxWidth - minWidth;
 
   let fitWidth;
   if (width > wrapperWidth || height > wrapperHeight) {
@@ -59,8 +60,6 @@ export function *fetchImage({payload: {path, name}}) {
   }
 
   let fitHeight = fitWidth / imageRatio;
-  // console.log('width:', width, wrapperWidth, 'height: ', height, wrapperHeight, 'fit: ',fitWidth);
-
   const marginTop = (wrapperHeight - fitHeight) / 2;
   const ratio = (fitWidth - minWidth ) / k;
 
@@ -125,16 +124,18 @@ export function *refreshSize() {
   const totalPath = `${path}/${name}`;
   let {width, height} = sizeOf(totalPath);
 
-  const maxWidth = width > screenWidth || height > screenHeight ? width : width * 2;
-  const minWidth = width > MIN_WIDTH || height > MIN_WIDTH ? MIN_WIDTH : width;
+  const imageRatio = width / height;
+
+  let maxWidth = width > screenWidth || height > screenHeight ? width : width * 2;
+  maxWidth = maxWidth < MAX_WIDTH  && maxWidth / imageRatio < MAX_WIDTH ? Math.max(MAX_WIDTH, MAX_WIDTH / imageRatio) : maxWidth;
+  let minWidth = width > MIN_WIDTH && height > MIN_WIDTH ? Math.min(MIN_WIDTH, MIN_WIDTH / imageRatio) : width;
 
   const k = maxWidth - minWidth;
+
   const imageWidth = k * ratio + minWidth;
 
-  const imageRatio = width / height;
   const wrapperHeight = size.height - TITLE_BAR_HEIGHT - CONTENT_TOP_HEIGHT - 40;
   const imageHeight = imageWidth / imageRatio;
-
 
   const marginTop = wrapperHeight > imageHeight ? (wrapperHeight - imageHeight) / 2 : 0;
 
