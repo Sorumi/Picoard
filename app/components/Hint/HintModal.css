@@ -1,0 +1,83 @@
+/*
+ * grid
+ */
+/*
+ * Fonts
+ */
+/*
+ * Colors
+ */
+.modal :global .ant-modal-body {
+  padding: 30px; }
+  .modal :global .ant-modal-body:after {
+    content: '';
+    display: block;
+    clear: both; }
+
+.icon {
+  font-size: 24px;
+  margin-right: 16px;
+  padding: 0 1px;
+  float: left; }
+  .icon.warning_icon, .icon.confirm_icon {
+    color: #F8D76E; }
+
+.title {
+  color: #646464;
+  font-weight: 600;
+  font-size: 16px; }
+
+.content {
+  margin-left: 42px;
+  font-size: 14px;
+  color: #808080;
+  margin-top: 20px; }
+
+.button_wrapper {
+  float: right;
+  margin-top: 30px; }
+  .button_wrapper button {
+    margin-left: 10px;
+    padding: 2px 10px;
+    border-radius: 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 14px;
+    font-weight: 300;
+    cursor: pointer;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s; }
+  .button_wrapper .save_button {
+    border-color: #F8D76E;
+    color: #F8D76E; }
+    .button_wrapper .save_button.primary {
+      color: #FFF;
+      background-color: #F8D76E; }
+      .button_wrapper .save_button.primary:hover {
+        color: #FFF;
+        background-color: #fae49f; }
+    .button_wrapper .save_button:hover {
+      color: #fae49f;
+      border-color: #fae49f; }
+  .button_wrapper .cancel_button {
+    border-color: #B3B3B3;
+    color: #B3B3B3; }
+    .button_wrapper .cancel_button.primary {
+      color: #FFF;
+      background-color: #B3B3B3; }
+      .button_wrapper .cancel_button.primary:hover {
+        color: #FFF;
+        background-color: #cdcdcd; }
+    .button_wrapper .cancel_button:hover {
+      color: #cdcdcd;
+      border-color: #cdcdcd; }
+
+.content .file {
+  font-size: 13px; }
+.content .text {
+  margin-top: 5px; }
+
+/*# sourceMappingURL=HintModal.css.map */

@@ -8,10 +8,13 @@ import * as imagesService from '../service/images';
 import MainLayout from '../components/MainLayout/MainLayout';
 import SideLayout from '../components/MainLayout/SideLayout';
 import Sidebar from '../components/Sidebar/Sidebar';
+import HintModal from '../components/Hint/HintModal';
+import ExistWarningModalContent from '../components/Hint/ExistWarningModalContent';
 
 class MainPage extends Component {
 
   componentWillMount() {
+    // Resize
     ipcRenderer.on('window-resize', (evt, data) => {
       const size = {
         // width: data[0],
@@ -22,37 +25,38 @@ class MainPage extends Component {
       this.props.handleChangeWindowSize(size);
     });
 
+    // Focus
+    ipcRenderer.on('window-focus', (evt) => {
+      this.props.handleFocusWindow();
+    });
+
+
     // let paths = ['/Users/Sorumi/Desktop/11\:111/Sea1.jpg', '/Users/Sorumi/Developer/Picoard/resources/icon.png'];
     // imagesService.setCopyFilesToClipboard(paths);
 
     const {handlePasteImages} = this.props;
 
-    ipcRenderer.on('window-focus', (evt) => {
-      this.props.handleFocusWindow();
-    });
-
-    ipcRenderer.on('cut', function () {
+    // Document
+    document.addEventListener("cut", (event) => {
       console.log('cut');
-    });
 
-    ipcRenderer.on('copy', function () {
+    }, false);
+
+    document.addEventListener("copy", (event) => {
       console.log('copy');
-    });
 
-    ipcRenderer.on('paste', function () {
+    }, false);
+
+    document.addEventListener("paste", (event) => {
       console.log('paste');
 
       let files = imagesService.getPasteFilesFromClipboard();
       console.log(files);
 
       handlePasteImages();
-    });
+    }, false);
 
-    ipcRenderer.on('select-all', function () {
-      console.log('select-all');
-    });
-
-    // zoom
+    // Zoom
     let deltaX = 0, deltaY = 0;
     const {handlePinch, handlePressKey} = this.props;
 
@@ -66,9 +70,17 @@ class MainPage extends Component {
       }
     });
 
-    // keydown
+    // Keydown
     document.addEventListener("keydown", function (e) {
-      handlePressKey(e.key);
+      if (e.metaKey) {
+        if (e.keyCode === 65 || e.keyCode === 97) { // 'A' or 'a'
+          e.preventDefault();
+          console.log('selectAll');
+        }
+      } else {
+        handlePressKey(e.key);
+      }
+
     });
   }
 
@@ -78,7 +90,6 @@ class MainPage extends Component {
       height: window.innerHeight,
     })
   }
-
 
 
   handleDropDirectories = (files) => {
@@ -94,10 +105,7 @@ class MainPage extends Component {
     const {children, existWarning} = this.props;
     return (
       <div>
-        <MainLayout
-          warning={existWarning.show}
-          // warningContent={}
-        >
+        <MainLayout>
           <SideLayout
             sidebar={<Sidebar/>}
             handleDropDirectories={this.handleDropDirectories}
@@ -105,6 +113,13 @@ class MainPage extends Component {
             {children}
           </SideLayout>
         </MainLayout>
+
+        <HintModal
+          visible={existWarning.show}
+          type="warning"
+          title="Failed to Copy"
+          content={<ExistWarningModalContent files={existWarning.files}/>}
+        />
       </div>
     );
   }

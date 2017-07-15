@@ -1,0 +1,84 @@
+@import "../../assets/scss/mixin";
+@import "../../assets/scss/variables";
+
+.modal {
+
+  :global {
+	.ant-modal-body {
+	  padding: 30px;
+	  @include clear-fix();
+	}
+  }
+}
+
+.icon {
+  font-size: 24px;
+  margin-right: 16px;
+  padding: 0 1px;
+  float: left;
+
+  &.warning_icon, &.confirm_icon {
+	color: $color-5;
+  }
+}
+.title {
+  color: $gray-color-ultra-dark;
+  font-weight: $font-weight-semi-bold;
+  font-size: 16px;
+}
+.content {
+  margin-left: 42px;
+  font-size: 14px;
+  color: $gray-color-dark;
+  margin-top: 20px;
+}
+
+@mixin button($color) {
+  border-color: $color;
+  color: $color;
+  &.primary {
+	color: $white-color;
+	background-color: $color;
+	&:hover {
+	  color: $white-color;
+	  background-color: lighten($color, 10%);
+	}
+  }
+  &:hover {
+	color: lighten($color, 10%);
+	border-color: lighten($color, 10%);
+  }
+
+}
+
+.button_wrapper {
+  float: right;
+  margin-top: 30px;
+  button {
+	margin-left: 10px;
+	padding: 2px 10px;
+	border-radius: 2px;
+	border-style: solid;
+	border-width: 1px;
+	font-size: 14px;
+	font-weight: $font-weight-light;
+	cursor: pointer;
+	@include transition(all .3s);
+  }
+
+  .save_button {
+	@include button($color-5);
+  }
+  .cancel_button {
+	@include button($gray-color);
+  }
+}
+
+.content {
+  .file {
+	font-size: 13px;
+  }
+  .text {
+	margin-top: 5px;
+  }
+}
