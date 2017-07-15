@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {ipcRenderer} from 'electron';
 
 import * as directoriesService from '../service/directories';
+import * as imagesService from '../service/images';
 
 import MainLayout from '../components/MainLayout/MainLayout';
 import SideLayout from '../components/MainLayout/SideLayout';
@@ -21,15 +22,39 @@ class MainPage extends Component {
       this.props.handleChangeWindowSize(size);
     });
 
+    // let paths = ['/Users/Sorumi/Desktop/11\:111/Sea1.jpg', '/Users/Sorumi/Developer/Picoard/resources/icon.png'];
+    // imagesService.setCopyFilesToClipboard(paths);
+
+    const {handlePasteImages} = this.props;
+
     ipcRenderer.on('window-focus', (evt) => {
       this.props.handleFocusWindow();
     });
 
+    ipcRenderer.on('cut', function () {
+      console.log('cut');
+    });
 
+    ipcRenderer.on('copy', function () {
+      console.log('copy');
+    });
+
+    ipcRenderer.on('paste', function () {
+      console.log('paste');
+
+      let files = imagesService.getPasteFilesFromClipboard();
+      console.log(files);
+
+      handlePasteImages();
+    });
+
+    ipcRenderer.on('select-all', function () {
+      console.log('select-all');
+    });
+
+    // zoom
     let deltaX = 0, deltaY = 0;
-
     const {handlePinch, handlePressKey} = this.props;
-
 
     document.addEventListener('mousewheel', function (e) {
       if (e.ctrlKey) {
@@ -41,6 +66,7 @@ class MainPage extends Component {
       }
     });
 
+    // keydown
     document.addEventListener("keydown", function (e) {
       handlePressKey(e.key);
     });
@@ -53,6 +79,8 @@ class MainPage extends Component {
     })
   }
 
+
+
   handleDropDirectories = (files) => {
     for (let i = 0; i < files.length; ++i) {
       const isDirectory = directoriesService.isDirectory(files[i].path);
@@ -63,10 +91,13 @@ class MainPage extends Component {
   };
 
   render() {
-    const {children} = this.props;
+    const {children, existWarning} = this.props;
     return (
       <div>
-        <MainLayout>
+        <MainLayout
+          warning={existWarning.show}
+          // warningContent={}
+        >
           <SideLayout
             sidebar={<Sidebar/>}
             handleDropDirectories={this.handleDropDirectories}
@@ -80,7 +111,10 @@ class MainPage extends Component {
 }
 
 function mapStateToProps(state) {
-  return {}
+  const {existWarning} = state.hint;
+  return {
+    existWarning,
+  };
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
@@ -118,6 +152,12 @@ function mapDispatchToProps(dispatch, ownProps) {
         payload: file
       });
     },
+    handlePasteImages: () => {
+      dispatch({
+        type: 'images/pasteImages',
+        payload: {}
+      });
+    }
   }
 }
 

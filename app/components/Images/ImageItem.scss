@@ -2,35 +2,30 @@
 @import "../../assets/scss/variables";
 
 .img {
+  @include box-sizing(content-box);
   display: block;
   margin: 0 auto;
-  padding: -3px;
-  border-radius: 2px;
+  //padding: -3px;
+  //border: solid 0 transparent;
+  border-radius: 3px;
   background-color: $gray-color-white;
-  overflow: hidden;
-  @include box-shadow(0 0 1px 0 $shadow-color);
-
+  //overflow: hidden;
   img {
-
+	border-radius: 2px;
+	@include box-shadow(0 0 1px 0 $shadow-color);
+  }
+  p {
+	position: absolute;
   }
 }
 
 .active {
-  @include box-shadow(0 2px 3px 0 $shadow-color);
-
-  //&:after { content: '';
-  //position: absolute;
-  //border-right: 2px green solid;
-  ////height: 200px;
-  ////width: 200px;
-  //transform: translateX(-50%);
+  margin: -4px;
+  border: solid 4px rgba(200, 200, 200, 0.6);
+  //&:before {
+  //display: block;
+  //content: '';
+  //margin: -3px;
   //}
-  //&:before { content: '';
-  //position: absolute;
-  //border-bottom: 2px green solid;
-  ////height: 200px;
-  ////width: 200px;
-  //transform: translateY(-50%);
-
 
 }

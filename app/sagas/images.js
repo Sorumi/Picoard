@@ -4,10 +4,7 @@ import sizeOf from 'image-size';
 import {TITLE_BAR_HEIGHT, CONTENT_TOP_HEIGHT} from '../constants'
 
 export function *activeImage({payload: name}) {
-  // const {images, activeImages} = yield select(state => state.images);
-  // if (!images) return;
 
-  // const index = images.indexOf(name);
   yield put({
     type: 'images/saveActiveImages',
     payload: [name]
@@ -17,21 +14,54 @@ export function *activeImage({payload: name}) {
 
 export function *addActiveImage({payload: name}) {
   const {images, activeImages} = yield select(state => state.images);
-  // if (!images) return;
 
-  // const index = images.indexOf(name);
-  const index = activeImages.indexOf(name);
-  let newActiveImages = activeImages;
+  let newActiveImages = [...activeImages];
+  const index = newActiveImages.indexOf(name);
   if (index === -1) {
     newActiveImages.push(name);
   } else {
-    newActiveImages.slice(index, 1);
+    newActiveImages.splice(index, 1);
   }
 
   yield put({
     type: 'images/saveActiveImages',
-    payload: newActiveImages
+    payload: newActiveImages,
   })
+}
+
+export function *pasteImages() {
+  const {path} = yield select(state => state.images);
+
+  if (path === null) return;
+
+  const files = yield call(imagesService.getPasteFilesFromClipboard);
+
+  let errorTarget = [];
+  for (let index in files) {
+    const file = files[index];
+    const isImage = yield call(imagesService.isImage, file.path, file.name);
+    const target = `${path}/${file.name}`;
+    if (isImage) {
+      const isExist = yield call(imagesService.isExist, target);
+      if (isExist) {
+        errorTarget.push(target);
+      } else {
+        yield call(imagesService.pasteFile, file.path, target);
+      }
+    }
+  }
+
+  yield *fetchImagesInPath({payload: path});
+
+  if (errorTarget.length > 0) {
+    yield put({
+      type: 'hint/saveExistWarning',
+      payload: {
+        show: true,
+        files: errorTarget,
+      },
+    });
+  }
 }
 
 export function* fetchImagesInPath({payload: path}) {
@@ -46,6 +76,11 @@ export function* fetchImagesInPath({payload: path}) {
     },
   });
 
+  yield put({
+    type: 'images/saveActiveImages',
+    payload: []
+  });
+
   if (path === null) {
     yield put({
       type: 'images/saveImageAndPath',
@@ -56,9 +91,7 @@ export function* fetchImagesInPath({payload: path}) {
     });
 
   } else {
-
     const images = yield call(imagesService.fetchImagesInPath, path);
-
 
     yield put({
       type: 'images/saveImageAndPath',

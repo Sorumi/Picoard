@@ -6,12 +6,14 @@ import window from './window';
 import directories from './directories';
 import images from './images';
 import image from './image'
+import hint from './hint';
 
 const rootReducer = combineReducers({
   window,
   directories,
   images,
   image,
+  hint,
   router,
 });
 

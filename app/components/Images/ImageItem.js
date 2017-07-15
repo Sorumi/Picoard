@@ -26,7 +26,6 @@ class ImageItem extends Component {
     // console.log(oldPath, newPath)
     if (newPath !== oldPath) {
       this.element.src = '';
-
       this.img.src = `file://${newPath}`;
     }
     return true;
@@ -37,16 +36,22 @@ class ImageItem extends Component {
     let className = styles.img;
     className = active ? className + ' ' + styles.active : className;
     return (
+     <div className={className}
+           style={{width:  width + 'px'} }
+        width={width}
+        height={height}
+      >
 
         <img
-          className={className}
+          // className={className}
           ref="img"
           draggable={false}
           width={width}
           height={height}
           onClick={onClick ? onClick : null}
         />
-      // </div>
+       <p>{active ? 'YES' : 'NO'}</p>
+       </div>
     )
   }
 }

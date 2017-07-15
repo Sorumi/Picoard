@@ -15,12 +15,10 @@
 }
 
 .item {
-  width: 100%;
-  margin-bottom: 20px;
+  display: table;
+  margin: 0 auto 20px;
   -webkit-user-select: none;
-
 }
-
 
 :global .col_1 {
   width: 100%;
