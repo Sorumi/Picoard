@@ -1,4 +1,5 @@
 import {call, put, select} from 'redux-saga/effects'
+import {push} from 'react-router-redux';
 import * as imagesService from '../service/images';
 import * as directoriesService from '../service/directories';
 import sizeOf from 'image-size';
@@ -107,6 +108,9 @@ export function *pasteImages() {
     if (image) {
       yield call(imagesService.pasteImage, image, path);
       yield *refetchImages();
+      if (location.pathname !== '/main/images') {
+        yield put(push('/main/images'));
+      }
     }
   } else {
     yield *pasteImageFiles({payload: files});
@@ -133,6 +137,9 @@ export function *pasteImageFiles({payload: files}) {
   }
 
   yield *refetchImages();
+  if (location.pathname !== '/main/images') {
+    yield put(push('/main/images'));
+  }
 
   if (errorTarget.length > 0) {
     // console.log(errorTarget);

@@ -113,37 +113,6 @@ export function *pressKey({payload: key}) {
 
 }
 
-// export function *pinchWindow({payload: factor}) {
-//   const {location} = yield select(state => state.router);
-//
-//   if (location.pathname === '/main/images') {
-//     const {ratio} = yield select(state => state.images);
-//     let newRatio = ratio - factor / PINCH_MAX;
-//     if (newRatio > 1) {
-//       newRatio = 1;
-//     } else if (newRatio < 0) {
-//       newRatio = 0;
-//     }
-//     yield put({
-//       type: 'images/changeRatio',
-//       payload: newRatio
-//     });
-//
-//   } else if (location.pathname === '/main/image') {
-//     const {ratio} = yield select(state => state.image);
-//     let newRatio = ratio - factor / PINCH_MAX;
-//     if (newRatio > 1) {
-//       newRatio = 1;
-//     } else if (newRatio < 0) {
-//       newRatio = 0;
-//     }
-//     yield put({
-//       type: 'image/changeRatio',
-//       payload: newRatio
-//     });
-//   }
-// }
-
 export function *focusWindow() {
   const {location} = yield select(state => state.router);
 

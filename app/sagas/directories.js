@@ -77,13 +77,7 @@ export function *reactiveDirectory() {
       type: 'images/refetchImages',
       payload: directory.path,
     });
-
-    const {location} = yield select(state => state.router);
-    if (location.pathname !== '/main/images') {
-      yield put(push('/main/images'));
-    }
   }
-
 }
 
 export function *moveActiveDirectory({payload: type}) {
