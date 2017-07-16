@@ -36,31 +36,43 @@ export function *pasteImages() {
 
   const files = yield call(imagesService.getPasteFilesFromClipboard);
 
-  let errorTarget = [];
-  for (let index in files) {
-    const file = files[index];
-    const isImage = yield call(imagesService.isImage, file.path, file.name);
-    const target = `${path}/${file.name}`;
-    if (isImage) {
-      const isExist = yield call(imagesService.isExist, target);
-      if (isExist) {
-        errorTarget.push(target);
-      } else {
-        yield call(imagesService.pasteFile, file.path, target);
+  if (files.length === 0) {
+    const image = yield call(imagesService.getImageFromClipboard);
+
+    if (image) {
+      yield call(imagesService.pasteImage, image, path);
+      yield *fetchImagesInPath({payload: path});
+    }
+
+  } else {
+
+    let errorTarget = [];
+    for (let index in files) {
+      const file = files[index];
+      const isImage = yield call(imagesService.isImage, file.path, file.name);
+      const target = `${path}/${file.name}`;
+      if (isImage) {
+        const isExist = yield call(imagesService.isExist, target);
+        if (isExist) {
+          errorTarget.push(target);
+        } else {
+          yield call(imagesService.pasteFile, file.path, target);
+        }
       }
     }
-  }
 
-  yield *fetchImagesInPath({payload: path});
+    yield *fetchImagesInPath({payload: path});
 
-  if (errorTarget.length > 0) {
-    yield put({
-      type: 'hint/saveExistWarning',
-      payload: {
-        show: true,
-        files: errorTarget,
-      },
-    });
+    if (errorTarget.length > 0) {
+      console.log(errorTarget)
+      yield put({
+        type: 'hint/saveExistWarning',
+        payload: {
+          show: true,
+          files: errorTarget,
+        },
+      });
+    }
   }
 }
 

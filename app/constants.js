@@ -1,5 +1,7 @@
 export const IMAGE_MATCH = /\.(jpe?g|png|gif|svg)$/;
 
+export const IMAGE_PREFIX = 'picoard_img_';
+
 export const WIN_SIZE = {
     width: 1200,
     height: 800

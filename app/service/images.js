@@ -1,9 +1,10 @@
-import {remote} from 'electron';
+import Store from '../utils/store';
+import {remote, clipboard} from 'electron';
 const $ = window.require('nodobjc');
 const fs = remote.require('fs');
 
 
-import {IMAGE_MATCH} from '../constants'
+import {IMAGE_MATCH, IMAGE_PREFIX} from '../constants'
 
 $.framework('Foundation');
 $.framework('AppKit');
@@ -25,13 +26,15 @@ export function fetchImagesInPath(path) {
   }
 }
 
-export function getPasteFilesFromClipboard() {
+export function getImageFromClipboard() {
+  const image = clipboard.readImage();
+  const isImage = !image.isEmpty();
 
-  function fetch(t) {
-    let dt = pb('dataForType', t);
-    let str = $.NSString('alloc')('initWithData', dt, 'encoding', $.NSUTF8StringEncoding);
-    return str('UTF8String');
-  }
+  console.log(isImage);
+  return isImage ? image.toPNG() : false;
+}
+
+export function getPasteFilesFromClipboard() {
 
   let pb = $.NSPasteboard('generalPasteboard');
 
@@ -44,8 +47,7 @@ export function getPasteFilesFromClipboard() {
     let tmpURL = $.NSURL('URLWithString', pathString);
     if (typeof tmpURL === "function") {
       let path = tmpURL('path')('UTF8String');
-      // let string = path;
-      let name = fetch($.NSPasteboardTypeString);
+      let name = path.replace(/^.*[\\\/]/, '');
       files.push({
         path,
         name,
@@ -71,7 +73,29 @@ export function setCopyFilesToClipboard(files) {
 
 
 export function pasteFile(source, target) {
-  const error = 'File Already Existed'
-  fs.existsSync(source);
   fs.createReadStream(source).pipe(fs.createWriteStream(target));
+}
+
+export function pasteImage(buffer, path) {
+  let name = getNextImage();
+
+  fs.writeFile(`${path}/${name}.png`, buffer, function (err) {
+    // console.log(err);
+  });
+}
+
+export function initNextImage() {
+  let has = Store.has('nextImage');
+  if (!has) {
+    Store.set('nextImage', 0);
+  }
+}
+
+export function getNextImage() {
+  let number = Store.get('nextImage');
+  number = (number + 1) % 1000;
+  Store.set('nextImage', number);
+  let formattedNumber = ("00" + number).slice(-3);
+  console.log(formattedNumber);
+  return IMAGE_PREFIX + formattedNumber;
 }

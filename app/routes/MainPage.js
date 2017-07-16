@@ -49,10 +49,6 @@ class MainPage extends Component {
 
     document.addEventListener("paste", (event) => {
       console.log('paste');
-
-      let files = imagesService.getPasteFilesFromClipboard();
-      console.log(files);
-
       handlePasteImages();
     }, false);
 
@@ -102,7 +98,7 @@ class MainPage extends Component {
   };
 
   render() {
-    const {children, existWarning} = this.props;
+    const {children, existWarning, handleCloseWarning} = this.props;
     return (
       <div>
         <MainLayout>
@@ -119,6 +115,8 @@ class MainPage extends Component {
           type="warning"
           title="Failed to Copy"
           content={<ExistWarningModalContent files={existWarning.files}/>}
+          onOk={handleCloseWarning}
+          onCancel={handleCloseWarning}
         />
       </div>
     );
@@ -171,6 +169,15 @@ function mapDispatchToProps(dispatch, ownProps) {
       dispatch({
         type: 'images/pasteImages',
         payload: {}
+      });
+    },
+    handleCloseWarning: () => {
+      dispatch({
+        type: 'hint/saveExistWarning',
+        payload: {
+          show: false,
+          files: [],
+        },
       });
     }
   }

@@ -12,7 +12,7 @@ export function addDirectory(path) {
 
   const directory = {
     color: 1,
-    name: path.substr(path.lastIndexOf('/') + 1),
+    name: path.replace(/^.*[\\\/]/, '').replace(/:/g, '/'),
     path,
   };
 
@@ -65,7 +65,7 @@ export function existDirectory(path) {
 }
 
 export function isDirectory(path) {
-  return  fs.lstatSync(path).isDirectory();
+  return fs.lstatSync(path).isDirectory();
 }
 export function getDirectoryByIndex(index) {
   let hasDirectories = Store.has('directories');

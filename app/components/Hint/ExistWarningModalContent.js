@@ -7,7 +7,9 @@ function ExistWarningModalContent({files}) {
   return (
     <div>
       {files.map(file =>
-        <p className={styles.file}>{`'${file}'`}</p>
+        <p key={file}
+           className={styles.file}
+        >{`'${file}'`}</p>
       )}
       {files.length > 1 ?
         <p className={styles.text}>Images Already Existed</p> :

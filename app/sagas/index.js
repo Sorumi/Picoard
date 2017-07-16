@@ -3,12 +3,15 @@
  */
 import {takeEvery, takeLatest} from 'redux-saga/effects'
 
+import * as initEffect from './init';
 import * as windowEffect from './window';
 import * as directoriesEffect from './directories';
 import * as imagesEffect from './images';
 import * as imageEffect from './image';
 
 function* saga() {
+  yield takeLatest("init", initEffect.init);
+
   yield takeLatest("window/changeWindow", windowEffect.changeWindow);
   yield takeLatest("window/changeOffsetX", windowEffect.changeOffsetX);
   yield takeLatest("window/pressKey", windowEffect.pressKey);

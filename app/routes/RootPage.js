@@ -7,9 +7,10 @@ import {push} from 'react-router-redux'
 class RootPage extends Component {
 
   componentWillMount() {
-    const {handlePushRoute} = this.props;
+    const {handlePushRoute, handleInitMain} = this.props;
 
     ipcRenderer.on('main', function () {
+      handleInitMain();
       handlePushRoute('/main/images');
     });
 
@@ -37,7 +38,12 @@ function mapDispatchToProps(dispatch, ownProps) {
   return {
     handlePushRoute: (route) => {
       dispatch(push(route));
-    }
+    },
+    handleInitMain: () => {
+      dispatch({
+        type: 'init'
+      })
+    },
   }
 }
 
