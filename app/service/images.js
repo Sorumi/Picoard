@@ -29,8 +29,7 @@ export function fetchImagesInPath(path) {
 export function getImageFromClipboard() {
   const image = clipboard.readImage();
   const isImage = !image.isEmpty();
-
-  console.log(isImage);
+  // console.log(isImage);
   return isImage ? image.toPNG() : false;
 }
 
@@ -84,6 +83,12 @@ export function pasteImage(buffer, path) {
   });
 }
 
+export function deleteFiles(files) {
+  files.forEach((file) => {
+    fs.unlinkSync(file);
+  })
+}
+
 export function initNextImage() {
   let has = Store.has('nextImage');
   if (!has) {
@@ -96,6 +101,5 @@ export function getNextImage() {
   number = (number + 1) % 1000;
   Store.set('nextImage', number);
   let formattedNumber = ("00" + number).slice(-3);
-  console.log(formattedNumber);
   return IMAGE_PREFIX + formattedNumber;
 }

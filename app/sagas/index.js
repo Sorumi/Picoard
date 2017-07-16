@@ -33,6 +33,8 @@ function* saga() {
   yield takeLatest("images/selectAllImages", imagesEffect.selectAllImages);
   yield takeLatest("images/deselectAllImages", imagesEffect.deselectAllImages);
   yield takeLatest("images/copyImages", imagesEffect.copyImages);
+  yield takeLatest("images/confirmDeleteImages", imagesEffect.confirmDeleteImages);
+  yield takeLatest("images/deleteImages", imagesEffect.deleteImages);
   yield takeLatest("images/pasteImages", imagesEffect.pasteImages);
   yield takeLatest("images/fetchImagesInPath", imagesEffect.fetchImagesInPath);
   yield takeLatest("images/normalRatio", imagesEffect.normalRatio);

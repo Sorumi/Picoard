@@ -6,6 +6,10 @@ const initialState = {
     existWarning: {
       show: false,
       files: [],
+    },
+    deleteConfirm: {
+      show: false,
+      files: []
     }
   }
 ;
@@ -23,6 +27,12 @@ function window(state = initialState, {type, payload}) {
       return {
         ...state,
         existWarning,
+      };
+    case 'saveDeleteConfirm':
+      const deleteConfirm = payload;
+      return {
+        ...state,
+        deleteConfirm,
       };
 
     default:

@@ -9,7 +9,7 @@ import MainLayout from '../components/MainLayout/MainLayout';
 import SideLayout from '../components/MainLayout/SideLayout';
 import Sidebar from '../components/Sidebar/Sidebar';
 import HintModal from '../components/Hint/HintModal';
-import ExistWarningModalContent from '../components/Hint/ExistWarningModalContent';
+import ModalContent from '../components/Hint/ModalContent';
 
 class MainPage extends Component {
 
@@ -30,25 +30,21 @@ class MainPage extends Component {
       this.props.handleFocusWindow();
     });
 
+    const {handleSelectAllImages, handleCopyImages, handlePasteImages, handleConfirmDeleteImages} = this.props;
 
-    // let paths = ['/Users/Sorumi/Desktop/11\:111/Sea1.jpg', '/Users/Sorumi/Developer/Picoard/resources/icon.png'];
-    // imagesService.setCopyFilesToClipboard(paths);
-
-    const {handleSelectAllImages, handleCopyImages, handlePasteImages} = this.props;
-
-    // Document
+    // Clipboard
     document.addEventListener("cut", (event) => {
-      console.log('cut');
+      // console.log('cut');
 
     }, false);
 
     document.addEventListener("copy", (event) => {
-      console.log('copy');
+      // console.log('copy');
       handleCopyImages();
     }, false);
 
     document.addEventListener("paste", (event) => {
-      console.log('paste');
+      // console.log('paste');
       handlePasteImages();
     }, false);
 
@@ -71,8 +67,12 @@ class MainPage extends Component {
       if (e.metaKey) {
         if (e.keyCode === 65 || e.keyCode === 97) { // 'A' or 'a'
           e.preventDefault();
-          console.log('selectAll');
+          // console.log('selectAll');
           handleSelectAllImages();
+        } else if (e.keyCode === 8) {
+          e.preventDefault();
+          console.log('delete');
+          handleConfirmDeleteImages();
         }
       } else {
         handlePressKey(e.key);
@@ -99,7 +99,7 @@ class MainPage extends Component {
   };
 
   render() {
-    const {children, existWarning, handleCloseWarning} = this.props;
+    const {children, existWarning, deleteConfirm, handleDeleteImages, handleCloseWarning, handleCloseConfirm} = this.props;
     return (
       <div>
         <MainLayout>
@@ -114,9 +114,25 @@ class MainPage extends Component {
           visible={existWarning.show}
           type="warning"
           title="Failed to Copy"
-          content={<ExistWarningModalContent files={existWarning.files}/>}
+          content={
+            <ModalContent
+              files={existWarning.files}
+              text={existWarning.files.length > 1 ? 'Images Already Existed' : 'Image Already Existed'}
+            />}
           onOk={handleCloseWarning}
           onCancel={handleCloseWarning}
+        />
+        <HintModal
+          visible={deleteConfirm.show}
+          type="confirm"
+          title="Do you Want to delete"
+          content={
+            <ModalContent
+              files={deleteConfirm.files}
+              text={deleteConfirm.files.length > 1 ? 'These Images ?' : 'This Image ?'}
+            />}
+          onOk={handleDeleteImages}
+          onCancel={handleCloseConfirm}
         />
       </div>
     );
@@ -124,9 +140,10 @@ class MainPage extends Component {
 }
 
 function mapStateToProps(state) {
-  const {existWarning} = state.hint;
+  const {existWarning, deleteConfirm} = state.hint;
   return {
     existWarning,
+    deleteConfirm,
   };
 }
 
@@ -183,9 +200,37 @@ function mapDispatchToProps(dispatch, ownProps) {
         payload: {}
       });
     },
+    handleDeleteImages: () => {
+      dispatch({
+        type: 'hint/saveDeleteConfirm',
+        payload: {
+          show: false,
+          files: [],
+        },
+      });
+      dispatch({
+        type: 'images/deleteImages',
+        payload: {}
+      });
+    },
+    handleConfirmDeleteImages: () => {
+      dispatch({
+        type: 'images/confirmDeleteImages',
+        payload: {},
+      });
+    },
     handleCloseWarning: () => {
       dispatch({
         type: 'hint/saveExistWarning',
+        payload: {
+          show: false,
+          files: [],
+        },
+      });
+    },
+    handleCloseConfirm: () => {
+      dispatch({
+        type: 'hint/saveDeleteConfirm',
         payload: {
           show: false,
           files: [],

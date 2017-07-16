@@ -10,7 +10,8 @@
 .menu {
   border: none; }
   .menu :global .ant-menu-item {
-    color: #808080; }
+    color: #808080;
+    background-color: #FFF; }
   .menu :global .ant-menu-item-active, .menu :global .ant-menu-item-selected {
     color: #808080;
     background-color: #EEEEEE; }

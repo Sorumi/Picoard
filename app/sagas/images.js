@@ -46,6 +46,32 @@ export function *deselectAllImages() {
   })
 }
 
+export function *confirmDeleteImages() {
+  const {path, selectImages} = yield select(state => state.images);
+  let files = [];
+  selectImages.forEach((file) => {
+    files.push(`${path}/${file}`)
+  });
+
+  yield put({
+    type: 'hint/saveDeleteConfirm',
+    payload: {
+      show: true,
+      files,
+    },
+  });
+}
+
+export function *deleteImages() {
+  const {path, selectImages} = yield select(state => state.images);
+  let files = [];
+  selectImages.forEach((file) => {
+    files.push(`${path}/${file}`)
+  });
+
+  yield call(imagesService.deleteFiles, files);
+  yield *fetchImagesInPath({payload: path});
+}
 
 export function *copyImages() {
   const {path, selectImages} = yield select(state => state.images);
