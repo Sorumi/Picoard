@@ -50,7 +50,7 @@ class ImageItem extends Component {
           height={height}
           onClick={onClick ? onClick : null}
         />
-       <p>{active ? 'YES' : 'NO'}</p>
+
        </div>
     )
   }

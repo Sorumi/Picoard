@@ -2,6 +2,7 @@ const namespace = 'images';
 
 const initialState = {
   path: null,
+  exist: false,
   images: [],
   selectImages: [],
 
@@ -28,11 +29,11 @@ function images(state = initialState, {type, payload}) {
   }
   switch (type) {
     case 'saveImageAndPath':
-      const {path, images} = payload;
+      const {path, exist, images} = payload;
       return {
         ...state,
-        name,
         path,
+        exist,
         images,
       };
     case 'saveListHeight':

@@ -71,7 +71,7 @@ class MainPage extends Component {
           handleSelectAllImages();
         } else if (e.keyCode === 8) {
           e.preventDefault();
-          console.log('delete');
+          // console.log('delete');
           handleConfirmDeleteImages();
         }
       } else {

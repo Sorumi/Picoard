@@ -53,20 +53,11 @@ export function* activeDirectory({payload: index}) {
   const directory = yield call(directoriesService.getDirectoryByIndex, index);
 
   if (directory) {
-    const isExist = yield call(directoriesService.existDirectory, directory.path);
-
-    if (!isExist) {
-      yield put({
-        type: 'images/fetchImagesInPath',
-        payload: null,
-      });
-      return;
-    }
-
     yield put({
       type: 'images/fetchImagesInPath',
       payload: directory.path,
     });
+
 
     const {location} = yield select(state => state.router);
     if (location.pathname !== '/main/images') {
@@ -77,7 +68,22 @@ export function* activeDirectory({payload: index}) {
 
 export function *reactiveDirectory() {
   const {currentDirIndex} = yield select(state => state.directories);
-  yield *activeDirectory({payload: currentDirIndex});
+
+  const directory = yield call(directoriesService.getDirectoryByIndex, currentDirIndex);
+
+  if (directory) {
+
+    yield put({
+      type: 'images/refetchImages',
+      payload: directory.path,
+    });
+
+    const {location} = yield select(state => state.router);
+    if (location.pathname !== '/main/images') {
+      yield put(push('/main/images'));
+    }
+  }
+
 }
 
 export function *moveActiveDirectory({payload: type}) {

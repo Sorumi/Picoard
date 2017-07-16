@@ -1,5 +1,6 @@
 import {call, put, select} from 'redux-saga/effects'
 import * as imagesService from '../service/images';
+import * as directoriesService from '../service/directories';
 import sizeOf from 'image-size';
 import {TITLE_BAR_HEIGHT, CONTENT_TOP_HEIGHT} from '../constants'
 
@@ -130,6 +131,52 @@ export function *pasteImages() {
   }
 }
 
+export function *refetchImages() {
+  const {path, selectImages} = yield select(state => state.images);
+
+  const exist = yield call(directoriesService.existDirectory, path);
+
+  if (!exist) {
+    yield put({
+      type: 'images/saveImageAndPath',
+      payload: {
+        path,
+        exist,
+        images: [],
+      },
+    });
+
+  } else {
+    const images = yield call(imagesService.fetchImagesInPath, path);
+
+    yield put({
+      type: 'images/saveImageAndPath',
+      payload: {
+        path,
+        exist,
+        images,
+      },
+    });
+
+    // Check select images
+    const newSelectImages = selectImages.filter((image) => images.indexOf(image) !== -1);
+
+    yield put({
+      type: 'images/saveSelectImages',
+      payload: newSelectImages
+    });
+
+  }
+
+  const {size} = yield select(state => state.window);
+  yield put({
+    type: 'images/saveListHeight',
+    payload: size.height - TITLE_BAR_HEIGHT - CONTENT_TOP_HEIGHT,
+  });
+
+  yield *refreshSize();
+}
+
 export function* fetchImagesInPath({payload: path}) {
 
   yield put({
@@ -142,16 +189,20 @@ export function* fetchImagesInPath({payload: path}) {
     },
   });
 
+  // Clear select images
   yield put({
     type: 'images/saveSelectImages',
     payload: []
   });
 
-  if (path === null) {
+  const exist = yield call(directoriesService.existDirectory, path);
+
+  if (!exist) {
     yield put({
       type: 'images/saveImageAndPath',
       payload: {
-        path: null,
+        path,
+        exist,
         images: [],
       },
     });
@@ -163,6 +214,7 @@ export function* fetchImagesInPath({payload: path}) {
       type: 'images/saveImageAndPath',
       payload: {
         path,
+        exist,
         images,
       },
     });
