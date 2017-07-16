@@ -99,7 +99,7 @@ class SideLayout extends Component {
   };
 
   render() {
-    const {sidebar, sidebarWidth, offsetX, bounds, children} = this.props;
+    const {sidebar, sidebarWidth, offsetX, bounds, children, empty} = this.props;
 
     const {drop} = this.state;
 
@@ -108,6 +108,7 @@ class SideLayout extends Component {
 
     let mainClassName = styles.main_wrapper;
     mainClassName = drop ? mainClassName + ' ' + styles.main_drop : mainClassName;
+
     return (
       <div className={styles.layout}>
 
@@ -125,6 +126,7 @@ class SideLayout extends Component {
               </div>
             </div> : null
           }
+          {empty && !drop ? <p className={styles.hint}>Drag directories to add</p> : null}
         </div>
 
         <div className={mainClassName}

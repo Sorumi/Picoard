@@ -15,13 +15,15 @@ class IndexPage extends Component {
   };
 
   render() {
-    const {path, imageWidth, isScroll, selectImages, showImages, size, sidebarWidth, offsetX, directories, currentDirIndex,
-      handlePinchContent, handleClickContent, handleClickImage, handleDoubleClickImage} = this.props;
+    const {
+      path, imageWidth, isScroll, selectImages, showImages, size, sidebarWidth, offsetX, directories, currentDirIndex,
+      handlePinchContent, handleClickContent, handleClickImage, handleDoubleClickImage
+    } = this.props;
     return (
       <ContentLayout
-        top={<ImagesTop
-          directory={directories[currentDirIndex]}
-        />}
+        top={ directories && directories.length > 0 ?
+          <ImagesTop directory={directories[currentDirIndex]}/> : null
+        }
         onContentClick={handleClickContent}
         onContentScroll={this.handleListScroll}
         onContentPinch={handlePinchContent}

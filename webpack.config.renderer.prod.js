@@ -183,4 +183,9 @@ export default merge.smart(baseConfig, {
       openAnalyzer: process.env.OPEN_ANALYZER === 'true'
     }),
   ],
+
+  externals: {
+    nodobjc: 'nodobjc'
+  },
+
 });

@@ -223,6 +223,10 @@ export default merge.smart(baseConfig, {
     }),
   ],
 
+  externals: {
+    nodobjc: 'nodobjc'
+  },
+
   devServer: {
     port,
     publicPath,

@@ -6,7 +6,7 @@
 #### An elegant way to organize your inspiration.
 
 
-<img src="img/screenshot1.png" height="800"/>
+<img src="img/screenshot1.png" width="800"/>
 
 <br/>
 

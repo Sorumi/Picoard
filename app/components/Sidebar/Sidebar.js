@@ -79,7 +79,8 @@ class Sidebar extends Component {
               currentIndex={currentDirIndex}
               editIndex={editDirIndex}
               editItem={editItem}
-            /> : null }
+            /> :null
+          }
         </div>
 
       </div>

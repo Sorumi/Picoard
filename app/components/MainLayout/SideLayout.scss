@@ -75,3 +75,14 @@
 	opacity: 0.3;
   }
 }
+
+.hint {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  color: $gray-color-dark;
+  font-size: 14px;
+  text-align: center;
+  @include vertical-align();
+}

@@ -95,4 +95,22 @@ button {
 .main_drop .main {
   opacity: 0.3; }
 
+.hint {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  color: #808080;
+  font-size: 14px;
+  text-align: center; }
+  .hint:before {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    font-size: 0; }
+  .hint > * {
+    vertical-align: middle;
+    font-size: 14px; }
+
 /*# sourceMappingURL=SideLayout.css.map */

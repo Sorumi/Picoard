@@ -3,12 +3,20 @@ import * as directoriesService from '../service/directories';
 import {push} from 'react-router-redux'
 
 export function* addDirectory({payload: path}) {
+  const {currentDirIndex, directories} = yield select(state => state.directories);
   yield call(directoriesService.addDirectory, path);
 
   yield put({
     type: 'directories/loadDirectories',
     payload: {},
   });
+
+
+  console.log('length', directories.length)
+
+  if (directories.length === 0) {
+    yield *activeDirectory({payload: currentDirIndex});
+  }
 }
 
 export function* removeDirectory({payload: index}) {
@@ -19,8 +27,19 @@ export function* removeDirectory({payload: index}) {
   let newCurrentDirIndex;
   const {currentDirIndex, directories} = yield select(state => state.directories);
 
-  if (currentDirIndex === index && index === directories.length) {
-    newCurrentDirIndex = directories.length - 1;
+  if (currentDirIndex === index && index === directories.length && index === 0) {
+
+    newCurrentDirIndex = 0;
+    yield put({
+      type: 'images/saveImageAndPath',
+      payload: {
+        path: null,
+        exist: false,
+        images: [],
+      },
+    });
+  } else if (currentDirIndex === index && index === directories.length) {
+    newCurrentDirIndex = currentDirIndex - 1;
   } else if (currentDirIndex === index) {
     newCurrentDirIndex = currentDirIndex
   } else if (currentDirIndex >= index) {

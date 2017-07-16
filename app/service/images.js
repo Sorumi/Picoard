@@ -1,6 +1,6 @@
 import Store from '../utils/store';
 import {remote, clipboard} from 'electron';
-const $ = window.require('nodobjc');
+const $ = require('nodobjc');
 const fs = remote.require('fs');
 
 

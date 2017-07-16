@@ -91,7 +91,8 @@ class MainPage extends Component {
   };
 
   render() {
-    const {children, existWarning, deleteConfirm, handleDeleteImages, handleCloseWarning, handleCloseConfirm} = this.props;
+    const {children, directories, existWarning, deleteConfirm, handleDeleteImages, handleCloseWarning, handleCloseConfirm} = this.props;
+
     return (
       <div>
         <MainLayout>
@@ -99,6 +100,7 @@ class MainPage extends Component {
             sidebar={<Sidebar/>}
             handleDropDirectories={this.handleDropDirectories}
             handleDropImages={this.handleDropImages}
+            empty={!directories || directories.length === 0}
           >
             {children}
           </SideLayout>
@@ -134,9 +136,11 @@ class MainPage extends Component {
 
 function mapStateToProps(state) {
   const {existWarning, deleteConfirm} = state.hint;
+  const {directories} = state.directories;
   return {
     existWarning,
     deleteConfirm,
+    directories
   };
 }
 
@@ -184,7 +188,7 @@ function mapDispatchToProps(dispatch, ownProps) {
         payload: {}
       });
     },
-    handlePasteImagesFromDrop:(files) => {
+    handlePasteImagesFromDrop: (files) => {
       dispatch({
         type: 'images/pasteImageFiles',
         payload: files

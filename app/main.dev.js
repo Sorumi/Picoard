@@ -45,7 +45,6 @@ const installExtensions = async () => {
 
 
 app.setName('Picoard');
-app.commandLine.appendSwitch('touch-events', 'enabled');
 
 /**
  * Add event listeners...
@@ -96,6 +95,18 @@ function loadMainWindow() {
   });
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
+  mainWindow.webContents.executeJavaScript(`
+    var path = require('path');
+    module.paths.push(path.resolve('node_modules'));
+    module.paths.push(path.resolve('../node_modules'));
+    module.paths.push(path.resolve(__dirname, '..', '..', 'electron', 'node_modules'));
+    module.paths.push(path.resolve(__dirname, '..', '..', 'electron.asar', 'node_modules'));
+    module.paths.push(path.resolve(__dirname, '..', '..', 'app', 'node_modules'));
+    module.paths.push(path.resolve(__dirname, '..', '..', 'app.asar', 'node_modules'));
+    path = undefined;
+  `);
+
+
   menuBuilder.setMainWindow(mainWindow);
   // @TODO: Use 'ready-to-show' event
   //        https://github.com/electron/electron/blob/master/docs/api/browser-window.md#using-ready-to-show-event
