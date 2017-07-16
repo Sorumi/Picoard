@@ -7,12 +7,40 @@ import styles from './ContentLayout.css';
 
 class ContentLayout extends Component {
 
+  componentDidMount() {
+    const {bothScroll, onContentPinch} = this.props;
+
+    const content = this.refs.content;
+    content.addEventListener('mousewheel', function (e) {
+      if (e.ctrlKey) {
+        onContentPinch(e.deltaY);
+      } else if (bothScroll) {
+        content.scrollLeft += e.deltaX;
+        content.scrollTop += e.deltaY;
+      }
+    });
+  }
+
+  handleContentScroll = () => {
+    const {offsetHeight, scrollTop, scrollHeight} = this.refs.content;
+    const {onContentScroll} = this.props;
+
+    const height = {
+      offsetHeight,
+      scrollHeight,
+      scrollTop,
+    };
+    if (onContentScroll) {
+      onContentScroll(height);
+    }
+  };
+
   render() {
 
-    const {top, children, onContentClick, onContentScroll, hideX, isScroll} = this.props;
+    const {top, children, onContentClick, hideX, isScroll} = this.props;
 
     let mainClassName = styles.main;
-    mainClassName = hideX ? mainClassName + ' ' +  styles.hide_x : mainClassName;
+    mainClassName = hideX ? mainClassName + ' ' + styles.hide_x : mainClassName;
     return (
       <div className={styles.layout}>
         <div className={styles.top}>
@@ -21,18 +49,7 @@ class ContentLayout extends Component {
         <div className={mainClassName}
              ref="content"
              onClick={onContentClick}
-             onScroll={() => {
-
-               const {offsetHeight, scrollTop, scrollHeight} = this.refs.content;
-               const height = {
-                 offsetHeight,
-                 scrollHeight,
-                 scrollTop,
-               };
-               if (onContentScroll) {
-                 onContentScroll(height);
-               }
-             }}>
+             onScroll={this.handleContentScroll}>
           <div
             style={{marginRight: isScroll ? -10 : 0}}>
             {children}

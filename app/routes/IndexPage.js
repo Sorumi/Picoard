@@ -15,7 +15,8 @@ class IndexPage extends Component {
   };
 
   render() {
-    const {path, imageWidth, isScroll, selectImages, showImages, size, sidebarWidth, offsetX, directories, currentDirIndex, handleClickContent, handleClickImage, handleDoubleClickImage} = this.props;
+    const {path, imageWidth, isScroll, selectImages, showImages, size, sidebarWidth, offsetX, directories, currentDirIndex,
+      handlePinchContent, handleClickContent, handleClickImage, handleDoubleClickImage} = this.props;
     return (
       <ContentLayout
         top={<ImagesTop
@@ -23,8 +24,10 @@ class IndexPage extends Component {
         />}
         onContentClick={handleClickContent}
         onContentScroll={this.handleListScroll}
+        onContentPinch={handlePinchContent}
         hideX={true}
         isScroll={isScroll}
+        bothScroll={false}
       >
         {showImages.columnImages ?
           <ImageList
@@ -70,6 +73,13 @@ function mapDispatchToProps(dispatch, ownProps) {
         type: 'images/deselectAllImages',
         payload: {}
       });
+    },
+    handlePinchContent: (factor) => {
+      dispatch({
+        type: 'images/pinchWindow',
+        payload: factor
+
+      })
     },
     handleClickImage: (metaKey, name) => {
       if (metaKey) {

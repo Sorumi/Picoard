@@ -1,16 +1,29 @@
 import {call, put, select} from 'redux-saga/effects'
 import sizeOf from 'image-size';
 import * as imagesService from '../service/images';
-import {TITLE_BAR_HEIGHT, CONTENT_TOP_HEIGHT, MIN_WIDTH, MAX_WIDTH, PER_RATIO} from '../constants'
+import {PINCH_MAX, TITLE_BAR_HEIGHT, CONTENT_TOP_HEIGHT, MIN_WIDTH, MAX_WIDTH, PER_RATIO} from '../constants'
 
 import Electron from 'electron';
 const screen = Electron.screen.getPrimaryDisplay();
 const {width: screenWidth, height: screenHeight} = screen.size;
 
+
+export function *pinchWindow({payload: factor}) {
+  const {ratio} = yield select(state => state.image);
+  let newRatio = ratio - factor / PINCH_MAX;
+  if (newRatio > 1) {
+    newRatio = 1;
+  } else if (newRatio < 0) {
+    newRatio = 0;
+  }
+  yield *changeRatio({payload: newRatio});
+
+}
+
 export function *moveFetchImage({payload: type}) {
   const {currentIndex, path} = yield select(state => state.image);
   const {images} = yield select(state => state.images);
-  // const images = yield call(imagesService.fetchImagesInPath, path);
+
   if (!images) return;
 
   const length = images.length;

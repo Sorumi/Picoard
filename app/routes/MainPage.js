@@ -48,21 +48,9 @@ class MainPage extends Component {
       handlePasteImages();
     }, false);
 
-    // Zoom
-    let deltaX = 0, deltaY = 0;
-    const {handlePinch, handlePressKey} = this.props;
-
-    document.addEventListener('mousewheel', function (e) {
-      if (e.ctrlKey) {
-        deltaY += e.deltaY;
-        handlePinch(e.deltaY, deltaY);
-      } else {
-        deltaX += e.deltaX;
-        deltaY += e.deltaY;
-      }
-    });
 
     // Keydown
+    const {handlePressKey} = this.props;
     document.addEventListener("keydown", function (e) {
       if (e.metaKey) {
         if (e.keyCode === 65 || e.keyCode === 97) { // 'A' or 'a'
@@ -98,6 +86,10 @@ class MainPage extends Component {
     }
   };
 
+  handleDropImages = (files) => {
+    this.props.handlePasteImagesFromDrop(files);
+  };
+
   render() {
     const {children, existWarning, deleteConfirm, handleDeleteImages, handleCloseWarning, handleCloseConfirm} = this.props;
     return (
@@ -106,6 +98,7 @@ class MainPage extends Component {
           <SideLayout
             sidebar={<Sidebar/>}
             handleDropDirectories={this.handleDropDirectories}
+            handleDropImages={this.handleDropImages}
           >
             {children}
           </SideLayout>
@@ -155,15 +148,6 @@ function mapDispatchToProps(dispatch, ownProps) {
         payload: size,
       })
     },
-    handlePinch: (factor, total) => {
-      dispatch({
-        type: 'window/pinchWindow',
-        payload: {
-          factor,
-          total
-        }
-      })
-    },
     handleFocusWindow: () => {
       dispatch({
         type: 'window/focusWindow',
@@ -198,6 +182,12 @@ function mapDispatchToProps(dispatch, ownProps) {
       dispatch({
         type: 'images/pasteImages',
         payload: {}
+      });
+    },
+    handlePasteImagesFromDrop:(files) => {
+      dispatch({
+        type: 'images/pasteImageFiles',
+        payload: files
       });
     },
     handleDeleteImages: () => {

@@ -2,7 +2,19 @@ import {call, put, select} from 'redux-saga/effects'
 import * as imagesService from '../service/images';
 import * as directoriesService from '../service/directories';
 import sizeOf from 'image-size';
-import {TITLE_BAR_HEIGHT, CONTENT_TOP_HEIGHT} from '../constants'
+import {PINCH_MAX, TITLE_BAR_HEIGHT, CONTENT_TOP_HEIGHT} from '../constants'
+
+export function *pinchWindow({payload: factor}) {
+  const {ratio} = yield select(state => state.images);
+  let newRatio = ratio - factor / PINCH_MAX;
+  if (newRatio > 1) {
+    newRatio = 1;
+  } else if (newRatio < 0) {
+    newRatio = 0;
+  }
+  yield *changeRatio({payload: newRatio});
+
+}
 
 export function *selectImage({payload: name}) {
 
@@ -71,7 +83,7 @@ export function *deleteImages() {
   });
 
   yield call(imagesService.deleteFiles, files);
-  yield *fetchImagesInPath({payload: path});
+  yield *refetchImages({payload: path});
 }
 
 export function *copyImages() {
@@ -86,48 +98,51 @@ export function *copyImages() {
 
 export function *pasteImages() {
   const {path} = yield select(state => state.images);
-
   if (path === null) return;
 
   const files = yield call(imagesService.getPasteFilesFromClipboard);
 
   if (files.length === 0) {
     const image = yield call(imagesService.getImageFromClipboard);
-
     if (image) {
       yield call(imagesService.pasteImage, image, path);
-      yield *fetchImagesInPath({payload: path});
+      yield *refetchImages();
     }
-
   } else {
+    yield *pasteImageFiles({payload: files});
+  }
+}
 
-    let errorTarget = [];
-    for (let index in files) {
-      const file = files[index];
-      const isImage = yield call(imagesService.isImage, file.path, file.name);
-      const target = `${path}/${file.name}`;
-      if (isImage) {
-        const isExist = yield call(imagesService.isExist, target);
-        if (isExist) {
-          errorTarget.push(target);
-        } else {
-          yield call(imagesService.pasteFile, file.path, target);
-        }
+export function *pasteImageFiles({payload: files}) {
+  const {path} = yield select(state => state.images);
+  if (path === null) return;
+
+  let errorTarget = [];
+  for (let index in files) {
+    const file = files[index];
+    const isImage = yield call(imagesService.isImage, file.path, file.name);
+    const target = `${path}/${file.name}`;
+    if (isImage) {
+      const isExist = yield call(imagesService.isExist, target);
+      if (isExist) {
+        errorTarget.push(target);
+      } else {
+        yield call(imagesService.pasteFile, file.path, target);
       }
     }
+  }
 
-    yield *fetchImagesInPath({payload: path});
+  yield *refetchImages();
 
-    if (errorTarget.length > 0) {
-      console.log(errorTarget)
-      yield put({
-        type: 'hint/saveExistWarning',
-        payload: {
-          show: true,
-          files: errorTarget,
-        },
-      });
-    }
+  if (errorTarget.length > 0) {
+    // console.log(errorTarget);
+    yield put({
+      type: 'hint/saveExistWarning',
+      payload: {
+        show: true,
+        files: errorTarget,
+      },
+    });
   }
 }
 

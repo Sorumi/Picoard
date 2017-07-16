@@ -5,9 +5,13 @@ const initialState = {
   currentIndex: null,
   path: null,
   name: null,
+
   imageWidth: 0,
   imageHeight:0,
   marginTop: 0,
+
+  scrollTop: 0,
+  scrollLeft: 0,
 };
 
 function directories(state = initialState, {type, payload}) {

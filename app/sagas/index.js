@@ -15,7 +15,6 @@ function* saga() {
   yield takeLatest("window/changeWindow", windowEffect.changeWindow);
   yield takeLatest("window/changeOffsetX", windowEffect.changeOffsetX);
   yield takeLatest("window/pressKey", windowEffect.pressKey);
-  yield takeLatest("window/pinchWindow", windowEffect.pinchWindow);
   yield takeLatest("window/focusWindow", windowEffect.focusWindow);
 
   yield takeLatest("directories/addDirectory", directoriesEffect.addDirectory);
@@ -28,6 +27,7 @@ function* saga() {
   yield takeLatest("directories/editDirectory", directoriesEffect.editDirectory);
   yield takeLatest("directories/saveDirectory", directoriesEffect.saveDirectory);
 
+  yield takeEvery("images/pinchWindow", imagesEffect.pinchWindow);
   yield takeLatest("images/selectImage", imagesEffect.selectImage);
   yield takeLatest("images/addSelectImage", imagesEffect.addSelectImage);
   yield takeLatest("images/selectAllImages", imagesEffect.selectAllImages);
@@ -36,6 +36,7 @@ function* saga() {
   yield takeLatest("images/confirmDeleteImages", imagesEffect.confirmDeleteImages);
   yield takeLatest("images/deleteImages", imagesEffect.deleteImages);
   yield takeLatest("images/pasteImages", imagesEffect.pasteImages);
+  yield takeLatest("images/pasteImageFiles", imagesEffect.pasteImageFiles);
   yield takeLatest("images/refetchImages", imagesEffect.refetchImages);
   yield takeLatest("images/fetchImagesInPath", imagesEffect.fetchImagesInPath);
   yield takeLatest("images/normalRatio", imagesEffect.normalRatio);
@@ -45,6 +46,7 @@ function* saga() {
   yield takeLatest("images/loadShowImages", imagesEffect.loadShowImages);
   yield takeLatest("images/loadMoreShowImages", imagesEffect.loadMoreShowImages);
 
+  yield takeEvery("image/pinchWindow", imageEffect.pinchWindow);
   yield takeLatest("image/moveFetchImage", imageEffect.moveFetchImage);
   yield takeLatest("image/fetchImage", imageEffect.fetchImage);
   yield takeLatest("image/normalRatio", imageEffect.normalRatio);

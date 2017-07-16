@@ -121,16 +121,6 @@ function loadMainWindow() {
     event.sender.send('window-focus')
   });
 
-  // scroll event
-  // mainWindow.on('scroll-touch-begin', function (event) {
-  //   event.sender.send('scroll-begin');
-  //   console.log('scroll-touch-begin', event)
-  // });
-  //
-  // mainWindow.on('scroll-touch-end', function (event) {
-  //   event.sender.send('scroll-end');
-  //   console.log('scroll-touch-end', event)
-  // });
 
 }
 

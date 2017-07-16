@@ -13,12 +13,14 @@ import ImageWrapper from '../components/Image/ImageWrapper';
 class ImagePage extends Component {
 
   render() {
-    const {path, name, imageWidth, imageHeight, marginTop} = this.props;
+    const {path, name, imageWidth, imageHeight, marginTop, handlePinchContent} = this.props;
     return (
 
       <ContentLayout
         top={<ImageTop/>}
         hideX={false}
+        bothScroll={true}
+        onContentPinch={handlePinchContent}
       >
         {path && name ?
           <ImageWrapper
@@ -46,7 +48,15 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
-  return {}
+  return {
+    handlePinchContent: (factor) => {
+      dispatch({
+        type: 'image/pinchWindow',
+        payload: factor
+
+      })
+    },
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ImagePage)
