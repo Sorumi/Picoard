@@ -116,6 +116,10 @@ class SideLayout extends Component {
           className={sidebarClassName}
           style={{width: sidebarWidth + offsetX}}
         >
+          {empty && !drop ?
+            <div className={styles.hint}>
+              <p>Drag directories to add</p>
+            </div> : null}
           <div className={styles.sidebar}>
             {sidebar}
           </div>
@@ -126,10 +130,7 @@ class SideLayout extends Component {
             </div>
             </div> : null
             }
-          {empty && !drop ?
-            <div className={styles.hint}>
-              <p>Drag directories to add</p>
-            </div> : null}
+
         </div>
 
         <div className={mainClassName}

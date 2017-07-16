@@ -8,7 +8,7 @@ const fs = remote.require('fs');
 
 export function addDirectory(path) {
   const isDirectory = fs.lstatSync(path).isDirectory();
-  if (!isDirectory) return;
+  if (!isDirectory) return false;
 
   const directory = {
     color: 1,
@@ -29,7 +29,10 @@ export function addDirectory(path) {
     const newDirectories = [directory];
     Store.set('directories', newDirectories);
   }
+
+  return true;
 }
+
 
 export function removeDirectory(index) {
   let hasDirectories = Store.has('directories');

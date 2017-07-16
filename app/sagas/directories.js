@@ -4,17 +4,16 @@ import {push} from 'react-router-redux'
 
 export function* addDirectory({payload: path}) {
   const {currentDirIndex, directories} = yield select(state => state.directories);
-  yield call(directoriesService.addDirectory, path);
+  const isSuccess = yield call(directoriesService.addDirectory, path);
+
+  if (!isSuccess) return;
 
   yield put({
     type: 'directories/loadDirectories',
     payload: {},
   });
 
-
-  console.log('length', directories.length)
-
-  if (directories.length === 0) {
+  if (!directories || directories.length === 0) {
     yield *activeDirectory({payload: currentDirIndex});
   }
 }
