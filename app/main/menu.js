@@ -106,8 +106,17 @@ export default class MenuBuilder {
         // {label: 'Cut', accelerator: 'Command+X', selector: 'cut:'},
         {label: 'Copy', accelerator: 'Command+C', selector: 'copy:'},
         {label: 'Paste', accelerator: 'Command+V', selector: 'paste:'},
-        {label: 'Delete', accelerator: 'Command+Delete', selector: 'de;ete:'},
-        {label: 'Select All', accelerator: 'Command+A', selector: 'selectAll:'},
+        {label: 'Delete', accelerator: 'Command+Delete', selector: 'de;ete:', click: () => {
+          if (this.mainWindow) {
+            this.mainWindow.webContents.send('delete');
+          }
+        }},
+
+        {label: 'Select All', accelerator: 'Command+A', selector: 'selectAll:', click: () => {
+          if (this.mainWindow) {
+            this.mainWindow.webContents.send('selectAll');
+          }
+        }},
       ]
     };
     const subMenuViewDev = {

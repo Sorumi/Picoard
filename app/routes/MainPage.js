@@ -48,6 +48,15 @@ class MainPage extends Component {
       handlePasteImages();
     }, false);
 
+    ipcRenderer.on('delete', () => {
+      console.log('delete');
+      handleConfirmDeleteImages();
+    });
+
+    ipcRenderer.on('selectAll', () => {
+      console.log('selectAll');
+      handleSelectAllImages();
+    });
 
     // Keydown
     const {handlePressKey} = this.props;

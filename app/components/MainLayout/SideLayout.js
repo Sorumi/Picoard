@@ -121,12 +121,15 @@ class SideLayout extends Component {
           </div>
           {drop ?
             <div className={styles.drop}>
-              <div className={styles.drop_child}>
-                Drag directories to add
-              </div>
+            <div className={styles.drop_child}>
+            <p>Drag directories to add</p>
+            </div>
             </div> : null
-          }
-          {empty && !drop ? <p className={styles.hint}>Drag directories to add</p> : null}
+            }
+          {empty && !drop ?
+            <div className={styles.hint}>
+              <p>Drag directories to add</p>
+            </div> : null}
         </div>
 
         <div className={mainClassName}
@@ -138,7 +141,7 @@ class SideLayout extends Component {
           {drop ?
             <div className={styles.drop}>
               <div className={styles.drop_child}>
-                Drag images to copy
+                <p>Drag images to copy</p>
               </div>
             </div> : null
           }
