@@ -64,7 +64,7 @@ export function setCopyFilesToClipboard(files) {
   let changeCount = pasteboard('clearContents');
   let array = $.NSMutableArray('alloc')('init');
 
-  files.forEach(function (file) {
+  files.forEach((file) => {
     let string = $.NSString('stringWithUTF8String', file);
     array('addObject', $.NSURL('alloc')('initFileURLWithPath', string));
   });

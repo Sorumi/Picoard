@@ -29,6 +29,16 @@ export function *addActiveImage({payload: name}) {
   })
 }
 
+export function *copyImages() {
+  const {path, activeImages} = yield select(state => state.images);
+  let files = [];
+  activeImages.forEach((file) => {
+    files.push(`${path}/${file}`)
+  });
+
+  yield call(imagesService.setCopyFilesToClipboard, files);
+}
+
 export function *pasteImages() {
   const {path} = yield select(state => state.images);
 

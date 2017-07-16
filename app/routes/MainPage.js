@@ -34,7 +34,7 @@ class MainPage extends Component {
     // let paths = ['/Users/Sorumi/Desktop/11\:111/Sea1.jpg', '/Users/Sorumi/Developer/Picoard/resources/icon.png'];
     // imagesService.setCopyFilesToClipboard(paths);
 
-    const {handlePasteImages} = this.props;
+    const {handleCopyImages, handlePasteImages} = this.props;
 
     // Document
     document.addEventListener("cut", (event) => {
@@ -44,7 +44,7 @@ class MainPage extends Component {
 
     document.addEventListener("copy", (event) => {
       console.log('copy');
-
+      handleCopyImages();
     }, false);
 
     document.addEventListener("paste", (event) => {
@@ -163,6 +163,12 @@ function mapDispatchToProps(dispatch, ownProps) {
       dispatch({
         type: 'directories/addDirectory',
         payload: file
+      });
+    },
+    handleCopyImages: () => {
+      dispatch({
+        type: 'images/copyImages',
+        payload: {}
       });
     },
     handlePasteImages: () => {
