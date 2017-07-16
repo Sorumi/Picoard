@@ -3,7 +3,7 @@ import ImageItem from './ImageItem';
 
 import styles from './ImageList.css';
 
-function ImageList({path, columnImages, activeImages, imageWidth, onClickImage, onDoubleClickImage}) {
+function ImageList({path, columnImages, selectImages, imageWidth, onClickImage, onDoubleClickImage}) {
 
   const column = columnImages.length;
 
@@ -13,9 +13,8 @@ function ImageList({path, columnImages, activeImages, imageWidth, onClickImage, 
     delay = delay || 250;
 
     return function (event) {
-
+      event.stopPropagation();
       const metaKey = event.metaKey;
-
       if (!timeoutID) {
         timeoutID = setTimeout(() => {
           onClick(metaKey);
@@ -45,7 +44,7 @@ function ImageList({path, columnImages, activeImages, imageWidth, onClickImage, 
             >
 
               <ImageItem
-                active={activeImages.indexOf(image) !== -1}
+                active={selectImages.indexOf(image) !== -1}
                 path={`${path}/${image}`}
                 width={imageWidth}
                 onClick={handleClickImage(

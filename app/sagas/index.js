@@ -28,8 +28,10 @@ function* saga() {
   yield takeLatest("directories/editDirectory", directoriesEffect.editDirectory);
   yield takeLatest("directories/saveDirectory", directoriesEffect.saveDirectory);
 
-  yield takeLatest("images/activeImage", imagesEffect.activeImage);
-  yield takeLatest("images/addActiveImage", imagesEffect.addActiveImage);
+  yield takeLatest("images/selectImage", imagesEffect.selectImage);
+  yield takeLatest("images/addSelectImage", imagesEffect.addSelectImage);
+  yield takeLatest("images/selectAllImages", imagesEffect.selectAllImages);
+  yield takeLatest("images/deselectAllImages", imagesEffect.deselectAllImages);
   yield takeLatest("images/copyImages", imagesEffect.copyImages);
   yield takeLatest("images/pasteImages", imagesEffect.pasteImages);
   yield takeLatest("images/fetchImagesInPath", imagesEffect.fetchImagesInPath);

@@ -9,7 +9,7 @@ class ContentLayout extends Component {
 
   render() {
 
-    const {top, children, onContentScroll, hideX, isScroll} = this.props;
+    const {top, children, onContentClick, onContentScroll, hideX, isScroll} = this.props;
 
     let mainClassName = styles.main;
     mainClassName = hideX ? mainClassName + ' ' +  styles.hide_x : mainClassName;
@@ -20,6 +20,7 @@ class ContentLayout extends Component {
         </div>
         <div className={mainClassName}
              ref="content"
+             onClick={onContentClick}
              onScroll={() => {
 
                const {offsetHeight, scrollTop, scrollHeight} = this.refs.content;

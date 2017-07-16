@@ -34,7 +34,7 @@ class MainPage extends Component {
     // let paths = ['/Users/Sorumi/Desktop/11\:111/Sea1.jpg', '/Users/Sorumi/Developer/Picoard/resources/icon.png'];
     // imagesService.setCopyFilesToClipboard(paths);
 
-    const {handleCopyImages, handlePasteImages} = this.props;
+    const {handleSelectAllImages, handleCopyImages, handlePasteImages} = this.props;
 
     // Document
     document.addEventListener("cut", (event) => {
@@ -72,6 +72,7 @@ class MainPage extends Component {
         if (e.keyCode === 65 || e.keyCode === 97) { // 'A' or 'a'
           e.preventDefault();
           console.log('selectAll');
+          handleSelectAllImages();
         }
       } else {
         handlePressKey(e.key);
@@ -109,7 +110,6 @@ class MainPage extends Component {
             {children}
           </SideLayout>
         </MainLayout>
-
         <HintModal
           visible={existWarning.show}
           type="warning"
@@ -163,6 +163,12 @@ function mapDispatchToProps(dispatch, ownProps) {
       dispatch({
         type: 'directories/addDirectory',
         payload: file
+      });
+    },
+    handleSelectAllImages: () => {
+      dispatch({
+        type: 'images/selectAllImages',
+        payload: {}
       });
     },
     handleCopyImages: () => {

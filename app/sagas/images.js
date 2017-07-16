@@ -3,36 +3,54 @@ import * as imagesService from '../service/images';
 import sizeOf from 'image-size';
 import {TITLE_BAR_HEIGHT, CONTENT_TOP_HEIGHT} from '../constants'
 
-export function *activeImage({payload: name}) {
+export function *selectImage({payload: name}) {
 
   yield put({
-    type: 'images/saveActiveImages',
+    type: 'images/saveSelectImages',
     payload: [name]
   })
 
 }
 
-export function *addActiveImage({payload: name}) {
-  const {images, activeImages} = yield select(state => state.images);
+export function *addSelectImage({payload: name}) {
+  const {images, selectImages} = yield select(state => state.images);
 
-  let newActiveImages = [...activeImages];
-  const index = newActiveImages.indexOf(name);
+  let newSelectImages = [...selectImages];
+  const index = newSelectImages.indexOf(name);
   if (index === -1) {
-    newActiveImages.push(name);
+    newSelectImages.push(name);
   } else {
-    newActiveImages.splice(index, 1);
+    newSelectImages.splice(index, 1);
   }
 
   yield put({
-    type: 'images/saveActiveImages',
-    payload: newActiveImages,
+    type: 'images/saveSelectImages',
+    payload: newSelectImages,
   })
 }
 
+export function *selectAllImages() {
+  const {images} = yield select(state => state.images);
+
+  yield put({
+    type: 'images/saveSelectImages',
+    payload: [...images],
+  })
+}
+
+export function *deselectAllImages() {
+
+  yield put({
+    type: 'images/saveSelectImages',
+    payload: [],
+  })
+}
+
+
 export function *copyImages() {
-  const {path, activeImages} = yield select(state => state.images);
+  const {path, selectImages} = yield select(state => state.images);
   let files = [];
-  activeImages.forEach((file) => {
+  selectImages.forEach((file) => {
     files.push(`${path}/${file}`)
   });
 
@@ -99,7 +117,7 @@ export function* fetchImagesInPath({payload: path}) {
   });
 
   yield put({
-    type: 'images/saveActiveImages',
+    type: 'images/saveSelectImages',
     payload: []
   });
 

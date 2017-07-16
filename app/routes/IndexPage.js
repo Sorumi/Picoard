@@ -15,19 +15,20 @@ class IndexPage extends Component {
   };
 
   render() {
-    const {path, imageWidth, isScroll, activeImages, showImages, size, sidebarWidth, offsetX, directories, currentDirIndex, handleClickImage, handleDoubleClickImage} = this.props;
+    const {path, imageWidth, isScroll, selectImages, showImages, size, sidebarWidth, offsetX, directories, currentDirIndex, handleClickContent, handleClickImage, handleDoubleClickImage} = this.props;
     return (
       <ContentLayout
         top={<ImagesTop
           directory={directories[currentDirIndex]}
         />}
+        onContentClick={handleClickContent}
         onContentScroll={this.handleListScroll}
         hideX={true}
         isScroll={isScroll}
       >
         {showImages.columnImages ?
           <ImageList
-            activeImages={activeImages}
+            selectImages={selectImages}
             path={path}
             columnImages={showImages.columnImages}
             width={size.width - sidebarWidth - offsetX}
@@ -43,7 +44,7 @@ class IndexPage extends Component {
 }
 
 function mapStateToProps(state) {
-  const {path, images, activeImages, column, imageWidth, isScroll, showImages} = state.images;
+  const {path, images, selectImages, column, imageWidth, isScroll, showImages} = state.images;
   const {size, sidebarWidth, offsetX} = state.window;
   const {directories, currentDirIndex} = state.directories;
   return {
@@ -52,7 +53,7 @@ function mapStateToProps(state) {
     sidebarWidth,
     offsetX,
     images,
-    activeImages,
+    selectImages,
     column,
     imageWidth,
     isScroll,
@@ -64,19 +65,22 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
+    handleClickContent: () => {
+      dispatch({
+        type: 'images/deselectAllImages',
+        payload: {}
+      });
+    },
     handleClickImage: (metaKey, name) => {
-
       if (metaKey) {
         dispatch({
-          type: 'images/addActiveImage',
+          type: 'images/addSelectImage',
           payload: name
-
         });
       } else {
         dispatch({
-          type: 'images/activeImage',
+          type: 'images/selectImage',
           payload: name
-
         });
       }
     },
