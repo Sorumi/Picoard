@@ -1,0 +1,160 @@
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+body {
+  background-color: $gray-color-white;
+}
+
+header {
+  width: 100%;
+  padding: 100px 20px;
+  background-color: $white-color;
+
+  p {
+    margin-top: 80px;
+    line-height: 1.4em;
+    color: $gray-color-ultra-dark;
+    font-size: 1em;
+    font-weight: $font-weight-ultra-light;
+  }
+
+}
+
+main {
+  padding: 100px 20px;
+
+  .screenshot {
+    display: table;
+    margin: 0 auto;
+    max-width: 100%;
+  }
+}
+
+footer {
+  width: 100%;
+  padding: 100px 20px;
+  background-color: $white-color;
+}
+
+.icon {
+  display: table;
+  margin: 0 auto;
+}
+
+h1 {
+  margin-top: 20px;
+  text-align: center;
+  letter-spacing: 2px;
+  color: $gray-color;
+  font-size: 1.25em;
+  font-weight: $font-weight-normal;
+
+}
+
+.feature-wrapper {
+  padding-top: 200px;
+  font-size: 0;
+}
+
+.feature {
+  display: inline-block;
+  vertical-align: top;
+  min-width: 300px;
+  width: 50%;
+  height: 300px;
+  padding: 0 5%;
+  font-size: 16px;
+
+  .img-wrapper {
+    height: 40px;
+  }
+  img {
+    display: table;
+    margin: 0 auto;
+  }
+
+  h5 {
+    margin-top: 10px;
+    text-align: center;
+    color: $theme-color;
+    font-size: 0.95em;
+    font-weight: $font-weight-normal;
+  }
+
+  p {
+    margin-top: 20px;
+    line-height: 1.4em;
+    text-align: center;
+    color: $gray-color-ultra-dark;
+    font-size: 1.025em;
+    //font-weight: $font-weight-normal;
+  }
+}
+
+a.download {
+  display: table;
+  margin: 40px auto 0;
+  padding: 10px 50px;
+  color: $white-color;
+  background-color: $theme-color;
+  font-size: 1em;
+  font-weight: $font-weight-light;
+  text-decoration: none;
+  cursor: pointer;
+  @include transition(all .3s);
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+a.github {
+  display: table;
+  margin: 20px auto 0;
+  color: $theme-color;
+  font-size: 0.8em;
+  font-weight: $font-weight-light;
+  cursor: pointer;
+  @include transition(all .3s);
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+footer {
+  .icon {
+    width: 60px;
+  }
+  h1 {
+    font-size: 1em;
+  }
+  p {
+    display: table;
+    margin: 40px auto 0;
+    line-height: 0.8em;
+    color: $gray-color;
+    font-size: 1em;
+    font-weight: $font-weight-light;
+  }
+  a {
+    color: $theme-color;
+    font-weight: $font-weight-light;
+    @include transition(all .3s);
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+}
+
+@media (max-width: 760px) {
+  .feature {
+    display: table;
+    margin: 0 auto;
+    //vertical-align: top;
+    max-width: 320px;
+    width: 100%;
+  }
+}

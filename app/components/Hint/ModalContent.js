@@ -5,9 +5,6 @@ import {MAX_FILE_LENGTH} from '../../constants';
 import styles from './HintModal.css';
 
 class ModalContent extends Component {
-// function ModalContent({files, text}) {
-
-  // const filesArray = files > MAX_FILE_LENGTH ? files.slice(0, 10) : files;
 
   shouldComponentUpdate(nextProps) {
     return nextProps.update;

@@ -15,7 +15,7 @@ A simple app to collect your images, photos and screenshots. You can organize yo
 
 - Connect to your local directories. Convenient for management.
 - Marvelous **waterfall layout**. Easy to scale.
-- Various image formats supported, includes PNG, JPG, GIF, SVG.
+- Various image formats supported, includes PNG, JPG, GIF, BMP & SVG.
 - **Drag and drop** to easy add directories. **Shortcuts** to fast copy and paste images.
 - Simple and smooth interface. 
 
