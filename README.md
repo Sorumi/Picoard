@@ -11,8 +11,6 @@ A simple app to collect your images, photos and screenshots. You can organize yo
 
 <img src="img/screenshot1.png" width="800"/>
 
-
-
 ## Features
 
 - Connect to your local directories. Convenient for management.

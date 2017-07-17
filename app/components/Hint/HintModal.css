@@ -76,7 +76,8 @@
       border-color: #cdcdcd; }
 
 .content .file {
-  font-size: 13px; }
+  font-size: 13px;
+  word-break: break-all; }
 .content .text {
   margin-top: 5px; }
 
