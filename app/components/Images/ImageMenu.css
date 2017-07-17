@@ -22,7 +22,7 @@
   .menu :global .ant-menu-item-active, .menu :global .ant-menu-item-selected {
     color: #808080;
     background-color: #EEEEEE; }
-  .menu :global .ant-menu-item-disabled {
+  .menu :global .ant-menu-item-disabled button {
     cursor: default; }
   .menu button {
     width: 100%;

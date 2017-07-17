@@ -28,7 +28,9 @@ function DirectoryMenu({onClick, onClickOpen, onClickEdit, onClickRemove, exist 
       }
       {exist ? null :
         <MenuItem key="2" disabled>
+          <p>
           This directory does not exist!
+          </p>
         </MenuItem>
       }
 

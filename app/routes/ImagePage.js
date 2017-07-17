@@ -14,10 +14,12 @@ import {TITLE_BAR_HEIGHT, CONTENT_TOP_HEIGHT} from '../constants'
 class ImagePage extends Component {
 
   render() {
-    const {path, name, imageWidth, imageHeight, marginTop,
-      size, sidebarWidth, offsetX, scroll,
+    const {
+      path, name, imageWidth, imageHeight, marginTop,
+      size, sidebarWidth, offsetX, scroll, menu,
       handleContentScroll, handlePinchContent,
-      handleCopyImages, handleConfirmDeleteImages} = this.props;
+      handleOpenMenu, handleCopyImages, handleConfirmDeleteImages
+    } = this.props;
     return (
 
       <ContentLayout
@@ -29,6 +31,7 @@ class ImagePage extends Component {
       >
         {path && name ?
           <ImageWrapper
+            menu={menu}
             path={`${path}/${name}`}
             imageWidth={imageWidth}
             imageHeight={imageHeight}
@@ -37,6 +40,7 @@ class ImagePage extends Component {
             height={size.height - TITLE_BAR_HEIGHT - CONTENT_TOP_HEIGHT}
             sidebarWidth={sidebarWidth + offsetX}
             scroll={scroll}
+            onOpenMenu={handleOpenMenu}
             onClickImagesCopy={handleCopyImages}
             onClickImagesDelete={handleConfirmDeleteImages}
           /> : null
@@ -50,6 +54,7 @@ class ImagePage extends Component {
 function mapStateToProps(state) {
   const {path, name, imageWidth, imageHeight, marginTop} = state.image;
   const {size, sidebarWidth, offsetX, scroll} = state.window;
+  const {menu} = state.images;
   return {
     path,
     name,
@@ -59,7 +64,8 @@ function mapStateToProps(state) {
     size,
     sidebarWidth,
     offsetX,
-    scroll
+    scroll,
+    menu
   }
 }
 
@@ -72,7 +78,7 @@ function mapDispatchToProps(dispatch, ownProps) {
 
       })
     },
-    handleContentScroll:(data) => {
+    handleContentScroll: (data) => {
       dispatch({
         type: 'window/saveScroll',
         payload: {
@@ -80,6 +86,12 @@ function mapDispatchToProps(dispatch, ownProps) {
           left: data.scrollLeft,
         }
       })
+    },
+    handleOpenMenu: () => {
+      dispatch({
+        type: 'images/canAll',
+        payload: {}
+      });
     },
     handleCopyImages: () => {
       dispatch({

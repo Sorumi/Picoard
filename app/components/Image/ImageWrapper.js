@@ -19,12 +19,16 @@ class ImageWrapper extends Component {
     };
   }
 
-  handleCloseMenu = () => {
+  handleCloseMenu = (event) => {
+    if (this.state.menuVisible && event) {
+      event.stopPropagation();
+    }
     this.setState({menuVisible: false});
   };
 
   handleImageMenu = (event, image) => {
     // this.props.onRightClickImage(image);
+    this.props.onOpenMenu();
     this.calculateMenuPosition(event);
   };
 
@@ -51,7 +55,7 @@ class ImageWrapper extends Component {
 
   render() {
     const {
-      path, imageWidth, imageHeight, marginTop,
+      path, imageWidth, imageHeight, marginTop, menu,
       onClickImagesCopy, onClickImagesDelete
     } = this.props;
     const {menuVisible, menuX, menuY} = this.state;
@@ -76,6 +80,7 @@ class ImageWrapper extends Component {
           style={{top: menuY + 'px', left: menuX + 'px'}}
           onClickOutside={this.handleCloseMenu}>
           <ImageMenu
+            enabled={menu}
             type="small"
             width={IMAGE_MENU_WIDTH}
             visible={menuVisible}

@@ -8,7 +8,7 @@ import styles from './ImageList.css';
 import {TITLE_BAR_HEIGHT, CONTENT_TOP_HEIGHT, IMAGE_MENU_WIDTH, IMAGE_MENU_HEIGHT} from '../../constants'
 
 class ImageList extends Component {
-// function ImageList({path, columnImages, selectImages, imageWidth, onClickImage, onDoubleClickImage, onImageMenu}) {
+
   timeoutID = null;
 
   constructor() {
@@ -31,25 +31,28 @@ class ImageList extends Component {
           onClick(metaKey);
           self.timeoutID = null
         }, delay);
-        // console.log(timeoutID)
       } else {
         self.timeoutID = clearTimeout(self.timeoutID);
-        console.log('d');
         onDoubleClick();
       }
     };
   };
 
-  handleCloseMenu = () => {
+  handleCloseMenu = (event) => {
+    if (this.state.menuVisible && event) {
+      event.stopPropagation();
+    }
     this.setState({menuVisible: false});
   };
 
   handleImageMenu = (event, image) => {
     this.props.onRightClickImage(image);
+    this.props.onOpenMenu();
     this.calculateMenuPosition(event);
   };
 
   handleBlankMenu = (event) => {
+    this.props.onOpenMenu();
     this.calculateMenuPosition(event);
   };
 
@@ -75,7 +78,7 @@ class ImageList extends Component {
 
   render() {
     const {
-      path, columnImages, selectImages, imageWidth,
+      path, columnImages, selectImages, imageWidth, menu,
       onClickImage, onDoubleClickImage, onBlankClick,
       onClickImagesCopy, onClickImagesPaste, onClickImagesDelete, onClickImagesSelectAll
     } = this.props;
@@ -122,6 +125,7 @@ class ImageList extends Component {
           style={{top: menuY + 'px', left: menuX + 'px'}}
           onClickOutside={this.handleCloseMenu}>
           <ImageMenu
+            enabled={menu}
             width={100}
             visible={menuVisible}
             onClick={this.handleCloseMenu}

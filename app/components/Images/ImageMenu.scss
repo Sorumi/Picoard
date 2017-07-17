@@ -19,7 +19,9 @@
 	  background-color: $gray-color-ultra-light;
 	}
 	.ant-menu-item-disabled {
-	  cursor: default;
+	  button {
+		cursor: default;
+	  }
 	}
   }
 

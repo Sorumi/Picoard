@@ -28,6 +28,7 @@ function* saga() {
   yield takeLatest("directories/saveDirectory", directoriesEffect.saveDirectory);
 
   yield takeEvery("images/pinchWindow", imagesEffect.pinchWindow);
+  yield takeLatest("images/canAll", imagesEffect.canAll);
   yield takeLatest("images/selectImage", imagesEffect.selectImage);
   yield takeLatest("images/addSelectImage", imagesEffect.addSelectImage);
   yield takeLatest("images/toggleSelectImage", imagesEffect.toggleSelectImage);

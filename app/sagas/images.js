@@ -75,6 +75,71 @@ export function *deselectAllImages() {
   })
 }
 
+export function *canAll() {
+  const copyAndDelete = yield *canCopyAndDelete();
+  const paste = yield *canPaste();
+  const selectAll = yield *canSelectAll();
+
+  const menu = {
+    copy: copyAndDelete,
+    paste,
+    delete: copyAndDelete,
+    selectAll,
+  };
+  console.log(menu);
+  yield put({
+    type: 'images/saveMenu',
+    payload: menu
+  });
+}
+
+function *canCopyAndDelete() {
+  const {location} = yield select(state => state.router);
+
+  if (location.pathname === '/main/image') {
+    return true;
+  } else if (location.pathname === '/main/images') {
+    const {selectImages} = yield select(state => state.images);
+    return selectImages.length > 0
+  }
+  return false;
+}
+
+function *canPaste() {
+  const {location} = yield select(state => state.router);
+
+  if (location.pathname === '/main/images') {
+    const {path, exist} = yield select(state => state.images);
+    if (path === null || !exist) return false;
+
+    const files = yield call(imagesService.getPasteFilesFromClipboard);
+
+    if (files.length === 0) {
+      const image = yield call(imagesService.getImageFromClipboard);
+      return image !== false;
+
+    } else {
+      let can = false;
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        can = yield call(imagesService.isImage, file.path, file.name);
+        if (can) break;
+      }
+      return can;
+    }
+  }
+  return false;
+}
+
+function *canSelectAll() {
+  const {location} = yield select(state => state.router);
+  if (location.pathname === '/main/images') {
+    const {images} = yield select(state => state.images);
+    return images.length > 0
+  }
+  return false;
+}
+
 export function *confirmDeleteImages() {
   const {location} = yield select(state => state.router);
 
@@ -136,8 +201,8 @@ export function *copyImages() {
 }
 
 export function *pasteImages() {
-  const {path} = yield select(state => state.images);
-  if (path === null) return;
+  const {path, exist} = yield select(state => state.images);
+  if (path === null || !exist) return;
 
   const files = yield call(imagesService.getPasteFilesFromClipboard);
 
@@ -156,8 +221,8 @@ export function *pasteImages() {
 }
 
 export function *pasteImageFiles({payload: files}) {
-  const {path} = yield select(state => state.images);
-  if (path === null) return;
+  const {path, exist} = yield select(state => state.images);
+  if (path === null || !exist) return;
 
   let errorTarget = [];
   for (let index in files) {

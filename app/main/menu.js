@@ -57,13 +57,39 @@ export default class MenuBuilder {
     });
   }
 
+  findMenuItem(key) {
+    const menu = Menu.getApplicationMenu()
+    if (!menu) return;
+
+    let menuItem;
+    menu.items.forEach(function (item) {
+      if (item.submenu) {
+        item.submenu.items.forEach((item) => {
+          if (item.key === key) {
+            menuItem = item
+          }
+        })
+      }
+    });
+    return menuItem;
+  }
+
+  setMenuItemVisibleAndEnabled(key, {visible, enabled}) {
+    let menuItem = this.findMenuItem(key);
+    if (menuItem) {
+      if (visible) menuItem.visible = visible;
+      if (enabled) menuItem.enabled = enabled;
+    }
+  }
+
   buildDarwinTemplate() {
+    const name = app.getName();
     const subMenuAbout = {
-      label: 'Picoard',
+      label: name,
       submenu: [
         // {label: 'About Picoard', selector: 'orderFrontStandardAboutPanel:'},
         {
-          label: 'About Picoard', click: () => {
+          label: `About ${name}`, click: () => {
           if (this.aboutWindow) {
             this.aboutWindow.focus();
           } else {
@@ -74,7 +100,7 @@ export default class MenuBuilder {
         {type: 'separator'},
         // { label: 'Services', submenu: [] },
         // { type: 'separator' },
-        {label: 'Hide Picoard', accelerator: 'Command+H', selector: 'hide:'},
+        {label: `Hide ${name}`, accelerator: 'Command+H', selector: 'hide:'},
         {label: 'Hide Others', accelerator: 'Command+Shift+H', selector: 'hideOtherApplications:'},
         {label: 'Show All', selector: 'unhideAllApplications:'},
         {type: 'separator'},
@@ -104,19 +130,23 @@ export default class MenuBuilder {
         // {label: 'Redo', accelerator: 'Shift+Command+Z', selector: 'redo:'},
         // {type: 'separator'},
         // {label: 'Cut', accelerator: 'Command+X', selector: 'cut:'},
-        {label: 'Copy', accelerator: 'Command+C', selector: 'copy:'},
-        {label: 'Paste', accelerator: 'Command+V', selector: 'paste:'},
-        {label: 'Delete', accelerator: 'Command+Delete', selector: 'de;ete:', click: () => {
+        {label: 'Copy', key: 'copy', accelerator: 'Command+C', selector: 'copy:'},
+        {label: 'Paste', key: 'paste', accelerator: 'Command+V', selector: 'paste:'},
+        {
+          label: 'Delete', key: 'delete', accelerator: 'Command+Delete', selector: 'de;ete:', click: () => {
           if (this.mainWindow) {
             this.mainWindow.webContents.send('delete');
           }
-        }},
+        }
+        },
 
-        {label: 'Select All', accelerator: 'Command+A', selector: 'selectAll:', click: () => {
+        {
+          label: 'Select All', key: 'selectAll', accelerator: 'Command+A', selector: 'selectAll:', click: () => {
           if (this.mainWindow) {
             this.mainWindow.webContents.send('selectAll');
           }
-        }},
+        }
+        },
       ]
     };
     const subMenuViewDev = {

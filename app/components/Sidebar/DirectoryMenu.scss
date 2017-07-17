@@ -19,9 +19,12 @@
 	}
   }
 
-  button {
+  button, p {
 	width: 100%;
 	padding: 0 16px;
+	text-align: left;
+  }
+  button {
 	cursor: pointer;
   }
 }

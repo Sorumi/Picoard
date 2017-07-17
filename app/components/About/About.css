@@ -27,7 +27,8 @@
     margin: 0 auto;
     cursor: pointer; }
   .about h3 {
-    margin-top: 20px;
+    display: table;
+    margin: 20px auto 0;
     text-align: center;
     color: #B3B3B3;
     font-family: 'DIN Alternate';

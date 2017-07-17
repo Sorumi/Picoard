@@ -23,7 +23,6 @@ const initialState = {
     paste: false,
     delete: false,
     selectAll: false,
-
   }
 };
 
@@ -86,6 +85,13 @@ function images(state = initialState, {type, payload}) {
         ...state,
         selectImages,
       };
+    case 'saveMenu':
+      const menu = payload;
+      return {
+        ...state,
+        menu,
+      };
+
     default:
       return state;
   }

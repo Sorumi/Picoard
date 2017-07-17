@@ -18,9 +18,11 @@
     background-color: #EEEEEE; }
   .menu :global .ant-menu-item-disabled {
     cursor: default; }
-  .menu button {
+  .menu button, .menu p {
     width: 100%;
     padding: 0 16px;
+    text-align: left; }
+  .menu button {
     cursor: pointer; }
 
 /*# sourceMappingURL=DirectoryMenu.css.map */

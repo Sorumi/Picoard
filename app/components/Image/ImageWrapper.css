@@ -15,6 +15,7 @@
   -webkit-user-select: none; }
 
 .menu {
+  z-index: 3;
   position: absolute;
   border-radius: 3px;
   overflow: hidden;

@@ -41,7 +41,6 @@ class ImageItem extends Component {
            width={width}
            height={height}
       >
-
         <img
           // className={className}
           ref="img"
