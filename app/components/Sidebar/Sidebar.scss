@@ -28,3 +28,50 @@
 }
 
 
+.drop {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  padding: 10px;
+  pointer-events: none;
+  background-color: rgba(0, 0, 0, 0.03);
+
+  .drop_child {
+	width: 100%;
+	height: 100%;
+	border: dashed 1px $gray-color;
+	color: $gray-color-dark;
+	font-size: 14px;
+	text-align: center;
+	p {
+	  top: 50%;
+	  left: 50%;
+	  display: table;
+	  transform: translate(-50%, -50%);
+	}
+  }
+}
+
+.sidebar_drop {
+  .part {
+	opacity: 0.3;
+  }
+}
+
+.hint {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  padding: 10px;
+  color: $gray-color-light;
+  font-size: 14px;
+  text-align: center;
+  p {
+	top: 50%;
+	left: 50%;
+	display: table;
+	transform: translate(-50%, -50%);
+  }
+}

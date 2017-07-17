@@ -102,7 +102,7 @@ class MainPage extends Component {
   };
 
   render() {
-    const {children, directories, existWarning, deleteConfirm, handleDeleteImages, handleCloseWarning, handleCloseConfirm} = this.props;
+    const {children, existWarning, deleteConfirm, handleDeleteImages, handleCloseWarning, handleCloseConfirm} = this.props;
 
     return (
       <div>
@@ -111,7 +111,6 @@ class MainPage extends Component {
             sidebar={<Sidebar/>}
             handleDropDirectories={this.handleDropDirectories}
             handleDropImages={this.handleDropImages}
-            empty={!directories || directories.length === 0}
           >
             {children}
           </SideLayout>
@@ -155,7 +154,6 @@ function mapStateToProps(state) {
     location,
     existWarning,
     deleteConfirm,
-    directories
   };
 }
 

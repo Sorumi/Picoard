@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, cloneElement} from 'react';
 import {connect} from 'react-redux'
 import Draggable from 'react-draggable';
 
@@ -17,6 +17,7 @@ class SideLayout extends Component {
 
   componentWillMount() {
     const self = this;
+    const {handleChangeDrop} = this.props;
 
     window.ondragenter = function (e) {
       e.preventDefault();
@@ -30,10 +31,7 @@ class SideLayout extends Component {
       console.log('over');
       e.dataTransfer.dropEffect = 'copy';
 
-
-      self.setState({
-        drop: true,
-      });
+      handleChangeDrop(true);
       return false;
     };
 
@@ -41,12 +39,9 @@ class SideLayout extends Component {
       e.preventDefault();
 
       console.log('hover');
-      self.setState({
-        drop: false,
-      });
+      handleChangeDrop(false);
 
       self.handleFileDrop(e);
-
       return false;
     };
 
@@ -54,10 +49,8 @@ class SideLayout extends Component {
       e.preventDefault();
 
       console.log('leave');
+      handleChangeDrop(false);
 
-      self.setState({
-        drop: false,
-      });
       return false;
     };
   }
@@ -99,53 +92,23 @@ class SideLayout extends Component {
   };
 
   render() {
-    const {sidebar, sidebarWidth, offsetX, bounds, children, empty} = this.props;
+    const {sidebar, sidebarWidth, offsetX, bounds, children} = this.props;
 
-    const {drop} = this.state;
-
-    let sidebarClassName = styles.sidebar_wrapper;
-    sidebarClassName = drop ? sidebarClassName + ' ' + styles.siderbar_drop : sidebarClassName;
-
-    let mainClassName = styles.main_wrapper;
-    mainClassName = drop ? mainClassName + ' ' + styles.main_drop : mainClassName;
 
     return (
       <div className={styles.layout}>
 
         <div
-          className={sidebarClassName}
+          className={styles.sidebar}
           style={{width: sidebarWidth + offsetX}}
         >
-          {empty && !drop ?
-            <div className={styles.hint}>
-              <p>Drag directories to add</p>
-            </div> : null}
-          <div className={styles.sidebar}>
-            {sidebar}
-          </div>
-          {drop ?
-            <div className={styles.drop}>
-            <div className={styles.drop_child}>
-            <p>Drag directories to add</p>
-            </div>
-            </div> : null
-            }
-
+          {sidebar}
         </div>
 
-        <div className={mainClassName}
+        <div className={styles.main}
              style={{marginLeft: sidebarWidth + offsetX}}
         >
-          <div className={styles.main}>
-            {children}
-          </div>
-          {drop ?
-            <div className={styles.drop}>
-              <div className={styles.drop_child}>
-                <p>Drag images to copy</p>
-              </div>
-            </div> : null
-          }
+          {children}
         </div>
 
         <Draggable
@@ -167,12 +130,13 @@ class SideLayout extends Component {
 }
 
 function mapStateToProps(state) {
-  const {size, sidebarWidth, offsetX, bounds} = state.window;
+  const {size, sidebarWidth, offsetX, bounds, drop} = state.window;
   return {
     size,
     sidebarWidth,
     offsetX,
-    bounds
+    bounds,
+    drop
   };
 }
 
@@ -182,6 +146,12 @@ function mapDispatchToProps(dispatch, ownProps) {
       dispatch({
         type: 'window/changeOffsetX',
         payload: x
+      })
+    },
+    handleChangeDrop: (drop) => {
+      dispatch({
+        type: 'window/saveDrop',
+        payload: drop
       })
     },
 

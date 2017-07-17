@@ -8,6 +8,8 @@ import ContentLayout from '../components/MainLayout/ContentLayout';
 import ImagesTop from '../components/Images/ImagesTop';
 import ImageList from '../components/Images/ImageList';
 
+import MainPage from './MainPage';
+
 class IndexPage extends Component {
 
   handleListScroll = (data) => {
@@ -19,12 +21,17 @@ class IndexPage extends Component {
 
   render() {
     const {
-      path, imageWidth, isScroll, selectImages, showImages, menu, size, sidebarWidth, offsetX, scroll, directories, currentDirIndex,
+      path, exist, imageWidth, isScroll, selectImages, showImages, menu, size, sidebarWidth, offsetX, scroll, drop, directories, currentDirIndex,
       handlePinchContent, handleOpenMenu, handleClickBlank, handleClickImage, handleDoubleClickImage, handleRightClickImage,
       handleCopyImages, handlePasteImages, handleConfirmDeleteImages, handleSelectAllImages
     } = this.props;
+
+    const error = directories  && directories.length > 0 && !directories[currentDirIndex].exist;
     return (
+
       <ContentLayout
+        drop={drop}
+        error={error}
         top={ directories && directories.length > 0 ?
           <ImagesTop directory={directories[currentDirIndex]}/> : null
         }
@@ -57,20 +64,23 @@ class IndexPage extends Component {
           /> : null
         }
       </ContentLayout>
+
     );
   }
 }
 
 function mapStateToProps(state) {
-  const {path, images, selectImages, column, imageWidth, isScroll, showImages, menu} = state.images;
-  const {size, sidebarWidth, offsetX, scroll} = state.window;
+  const {path, exist, images, selectImages, column, imageWidth, isScroll, showImages, menu} = state.images;
+  const {size, sidebarWidth, offsetX, scroll, drop} = state.window;
   const {directories, currentDirIndex} = state.directories;
   return {
     path,
+    exist,
     size,
     sidebarWidth,
     offsetX,
     scroll,
+    drop,
     images,
     selectImages,
     column,

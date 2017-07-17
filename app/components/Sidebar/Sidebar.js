@@ -47,13 +47,25 @@ class Sidebar extends Component {
 
   render() {
     const {
-      directories, currentDirIndex, editDirIndex, editItem,
+      drop, directories, currentDirIndex, editDirIndex, editItem,
       handleClickDirectory, handleEditDirectory, handleChangeEditDirectory, handleRemoveDirectory, handleSaveDirectory, handleCancelDirectory
     } = this.props;
 
+    const empty = !directories || directories.length === 0;
+
+    let sidebarClassName = styles.sidebar;
+    sidebarClassName = drop ? sidebarClassName + ' ' + styles.sidebar_drop : sidebarClassName;
+
     return (
 
-      <div className={styles.sidebar}>
+      <div className={sidebarClassName}>
+
+        {empty && !drop ?
+          <div className={styles.hint}>
+            <p>Drag directories to add</p>
+          </div> : null
+        }
+
         <div className={styles.part}>
           <div className={styles.title}>
             <h5>Directory</h5>
@@ -79,9 +91,17 @@ class Sidebar extends Component {
               currentIndex={currentDirIndex}
               editIndex={editDirIndex}
               editItem={editItem}
-            /> :null
+            /> : null
           }
         </div>
+
+        {drop ?
+          <div className={styles.drop}>
+            <div className={styles.drop_child}>
+              <p>Drag directories to add</p>
+            </div>
+          </div> : null
+        }
 
       </div>
     );
@@ -89,8 +109,11 @@ class Sidebar extends Component {
 }
 
 function mapStateToProps(state) {
+  const {drop} = state.window;
   const {directories, currentDirIndex, editDirIndex, editItem} = state.directories;
+
   return {
+    drop,
     directories,
     currentDirIndex,
     editDirIndex,

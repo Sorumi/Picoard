@@ -33,6 +33,7 @@ class ImageList extends Component {
         }, delay);
       } else {
         self.timeoutID = clearTimeout(self.timeoutID);
+        console.log('db')
         onDoubleClick();
       }
     };

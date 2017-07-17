@@ -13,7 +13,8 @@ const initialState = {
   scroll: {
     top: 0,
     left: 0,
-  }
+  },
+  drop: false,
 };
 
 function window(state = initialState, {type, payload}) {
@@ -45,7 +46,12 @@ function window(state = initialState, {type, payload}) {
         ...state,
         scroll,
       };
-
+    case 'saveDrop':
+      const drop = payload;
+      return {
+        ...state,
+        drop,
+      };
     default:
       return state;
   }

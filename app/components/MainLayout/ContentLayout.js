@@ -38,12 +38,24 @@ class ContentLayout extends Component {
 
   render() {
 
-    const {top, children, hideX, isScroll} = this.props;
+    const {top, children, drop, hideX, isScroll, error} = this.props;
+
+    let layoutClassName = styles.layout;
+    layoutClassName = drop ? layoutClassName + ' ' + styles.layout_drop : layoutClassName;
 
     let mainClassName = styles.main;
     mainClassName = hideX ? mainClassName + ' ' + styles.hide_x : mainClassName;
+
+
     return (
-      <div className={styles.layout}>
+      <div className={layoutClassName}>
+
+        {error && !drop ?
+        <div className={styles.hint}>
+        <p>This directory does not exist!</p>
+        </div> : null
+        }
+
         <div className={styles.top}>
           {top}
         </div>
@@ -55,6 +67,15 @@ class ContentLayout extends Component {
             {children}
           </div>
         </div>
+
+        {drop ?
+          <div className={styles.drop}>
+            <div className={styles.drop_child}>
+              <p>Drag images to copy</p>
+            </div>
+          </div> : null
+        }
+
       </div>
     );
   }

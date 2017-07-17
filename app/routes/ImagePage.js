@@ -9,6 +9,8 @@ import ContentLayout from '../components/MainLayout/ContentLayout';
 import ImageTop from '../components/Image/ImageTop';
 import ImageWrapper from '../components/Image/ImageWrapper';
 
+import MainPage from './MainPage';
+
 import {TITLE_BAR_HEIGHT, CONTENT_TOP_HEIGHT} from '../constants'
 
 class ImagePage extends Component {
@@ -21,7 +23,6 @@ class ImagePage extends Component {
       handleOpenMenu, handleCopyImages, handleConfirmDeleteImages
     } = this.props;
     return (
-
       <ContentLayout
         top={<ImageTop/>}
         hideX={false}
@@ -46,7 +47,6 @@ class ImagePage extends Component {
           /> : null
         }
       </ContentLayout>
-
     );
   }
 }

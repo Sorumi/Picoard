@@ -22,6 +22,9 @@ export default () => (
 
     <RootPage>
       <Route path="/about" component={AboutPage}/>
+
+      {/*<Route path={`${match.url}/images`} component={IndexPage}/>*/}
+      {/*<Route path={`${match.url}/image`} component={ImagePage}/>*/}
       <Route path="/main" component={Main}/>
 
     </RootPage>

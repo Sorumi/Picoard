@@ -11,6 +11,13 @@
   background-color: transparent;
   color: #B3B3B3;
   outline: none;
-  cursor: pointer; }
+  cursor: pointer;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s; }
+  .add_button:hover {
+    opacity: 0.7; }
 
 /*# sourceMappingURL=DirectoryAddButton.css.map */
