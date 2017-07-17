@@ -81,6 +81,7 @@ export function *confirmDeleteImages() {
   let files = [];
   if (location.pathname === '/main/images') {
     const {path, selectImages} = yield select(state => state.images);
+    if (selectImages.length === 0) return;
     selectImages.forEach((file) => {
       files.push(`${path}/${file}`)
     });
@@ -100,7 +101,7 @@ export function *confirmDeleteImages() {
 }
 
 export function *deleteImages() {
-  const {path} = yield select(state => state.images);
+  // const {path} = yield select(state => state.images);
   const {deleteConfirm} = yield select(state => state.hint);
   let {files} = deleteConfirm;
 
@@ -189,6 +190,7 @@ export function *pasteImageFiles({payload: files}) {
 
 // refresh after delete & paste
 function *refresh() {
+  const {location} = yield select(state => state.router);
   yield put({
     type: 'directories/loadDirectories',
     payload: {},

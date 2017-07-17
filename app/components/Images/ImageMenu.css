@@ -16,6 +16,7 @@
   transition: all 0.3s; }
   .menu :global .ant-menu-item {
     height: 30px;
+    padding: 0;
     color: #808080;
     background-color: #FFF; }
   .menu :global .ant-menu-item-active, .menu :global .ant-menu-item-selected {
@@ -24,7 +25,10 @@
   .menu :global .ant-menu-item-disabled {
     cursor: default; }
   .menu button {
+    width: 100%;
+    padding: 0 16px;
     line-height: 30px;
+    text-align: left;
     vertical-align: top;
     cursor: pointer; }
 

@@ -9,8 +9,10 @@
   :global {
 	.ant-menu-item {
 	  height: 30px;
+	  padding: 0;
 	  color: $gray-color-dark;
 	  background-color: $white-color;
+
 	}
 	.ant-menu-item-active, .ant-menu-item-selected {
 	  color: $gray-color-dark;
@@ -22,7 +24,10 @@
   }
 
   button {
+	width: 100%;
+	padding: 0 16px;
 	line-height: 30px;
+	text-align: left;
 	vertical-align: top;
 	cursor: pointer;
   }

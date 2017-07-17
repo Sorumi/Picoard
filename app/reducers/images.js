@@ -12,11 +12,18 @@ const initialState = {
   isScroll: false,
   listHeight: 700,
 
-  showImages : {
+  showImages: {
     lastIndex: 0,
     columnHeight: [],
     columnImages: [],
-    // columnIndex: [],
+  },
+
+  menu: {
+    copy: false,
+    paste: false,
+    delete: false,
+    selectAll: false,
+
   }
 };
 
