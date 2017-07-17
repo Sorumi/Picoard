@@ -28,7 +28,7 @@ A simple app to collect your images, photos and screenshots. You can organize yo
 
 ## Downloads
 
-- macOS: [click here to download]()
+- macOS: [click here to download](https://github.com/Sorumi/Picoard/releases/download/v1.0.0/Picoard-1.0.0.dmg)
 
 ## Thanks
 
