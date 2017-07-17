@@ -22,22 +22,23 @@ class ContentLayout extends Component {
   }
 
   handleContentScroll = () => {
-    const {offsetHeight, scrollTop, scrollHeight} = this.refs.content;
+    const {offsetHeight, scrollTop, scrollLeft, scrollHeight} = this.refs.content;
     const {onContentScroll} = this.props;
 
-    const height = {
+    const data = {
       offsetHeight,
       scrollHeight,
       scrollTop,
+      scrollLeft,
     };
     if (onContentScroll) {
-      onContentScroll(height);
+      onContentScroll(data);
     }
   };
 
   render() {
 
-    const {top, children, onContentClick, hideX, isScroll} = this.props;
+    const {top, children, hideX, isScroll} = this.props;
 
     let mainClassName = styles.main;
     mainClassName = hideX ? mainClassName + ' ' + styles.hide_x : mainClassName;
@@ -48,9 +49,8 @@ class ContentLayout extends Component {
         </div>
         <div className={mainClassName}
              ref="content"
-             onClick={onContentClick}
              onScroll={this.handleContentScroll}>
-          <div
+          <div className={styles.content_wrapper}
             style={{marginRight: isScroll ? -10 : 0}}>
             {children}
           </div>

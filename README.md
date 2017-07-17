@@ -5,10 +5,13 @@
 
 #### An elegant way to organize your inspiration.
 
+<br/>
+
+A simple app to collect your images, photos and screenshots. You can organize your inspiration and ideas in an elegant way.
 
 <img src="img/screenshot1.png" width="800"/>
 
-<br/>
+
 
 ## Features
 

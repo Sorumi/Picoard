@@ -1,0 +1,29 @@
+@import "../../assets/scss/mixin";
+@import "../../assets/scss/variables";
+
+.menu {
+  border: none;
+  //display: table;
+  @include transition(all .3s);
+
+  :global {
+	.ant-menu-item {
+	  height: 30px;
+	  color: $gray-color-dark;
+	  background-color: $white-color;
+	}
+	.ant-menu-item-active, .ant-menu-item-selected {
+	  color: $gray-color-dark;
+	  background-color: $gray-color-ultra-light;
+	}
+	.ant-menu-item-disabled {
+	  cursor: default;
+	}
+  }
+
+  button {
+	line-height: 30px;
+	vertical-align: top;
+	cursor: pointer;
+  }
+}

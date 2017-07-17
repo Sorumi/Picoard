@@ -9,3 +9,11 @@
   -webkit-user-select: none;
 
 }
+
+.menu {
+  position: absolute;
+  border-radius: 3px;
+  overflow: hidden;
+  @include box-shadow(0 0 2px 0 $shadow-color)
+
+}

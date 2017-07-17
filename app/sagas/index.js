@@ -30,6 +30,7 @@ function* saga() {
   yield takeEvery("images/pinchWindow", imagesEffect.pinchWindow);
   yield takeLatest("images/selectImage", imagesEffect.selectImage);
   yield takeLatest("images/addSelectImage", imagesEffect.addSelectImage);
+  yield takeLatest("images/toggleSelectImage", imagesEffect.toggleSelectImage);
   yield takeLatest("images/selectAllImages", imagesEffect.selectAllImages);
   yield takeLatest("images/deselectAllImages", imagesEffect.deselectAllImages);
   yield takeLatest("images/copyImages", imagesEffect.copyImages);

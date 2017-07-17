@@ -1,0 +1,31 @@
+/*
+ * grid
+ */
+/*
+ * Fonts
+ */
+/*
+ * Colors
+ */
+.menu {
+  border: none;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s; }
+  .menu :global .ant-menu-item {
+    height: 30px;
+    color: #808080;
+    background-color: #FFF; }
+  .menu :global .ant-menu-item-active, .menu :global .ant-menu-item-selected {
+    color: #808080;
+    background-color: #EEEEEE; }
+  .menu :global .ant-menu-item-disabled {
+    cursor: default; }
+  .menu button {
+    line-height: 30px;
+    vertical-align: top;
+    cursor: pointer; }
+
+/*# sourceMappingURL=ImageMenu.css.map */

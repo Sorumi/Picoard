@@ -33,6 +33,21 @@ export function *addSelectImage({payload: name}) {
   const index = newSelectImages.indexOf(name);
   if (index === -1) {
     newSelectImages.push(name);
+  }
+
+  yield put({
+    type: 'images/saveSelectImages',
+    payload: newSelectImages,
+  })
+}
+
+export function *toggleSelectImage({payload: name}) {
+  const {images, selectImages} = yield select(state => state.images);
+
+  let newSelectImages = [...selectImages];
+  const index = newSelectImages.indexOf(name);
+  if (index === -1) {
+    newSelectImages.push(name);
   } else {
     newSelectImages.splice(index, 1);
   }
@@ -61,11 +76,19 @@ export function *deselectAllImages() {
 }
 
 export function *confirmDeleteImages() {
-  const {path, selectImages} = yield select(state => state.images);
+  const {location} = yield select(state => state.router);
+
   let files = [];
-  selectImages.forEach((file) => {
-    files.push(`${path}/${file}`)
-  });
+  if (location.pathname === '/main/images') {
+    const {path, selectImages} = yield select(state => state.images);
+    selectImages.forEach((file) => {
+      files.push(`${path}/${file}`)
+    });
+
+  } else if (location.pathname === '/main/image') {
+    const {path, name} = yield select(state => state.image);
+    files.push(`${path}/${name}`)
+  }
 
   yield put({
     type: 'hint/saveDeleteConfirm',
@@ -77,22 +100,36 @@ export function *confirmDeleteImages() {
 }
 
 export function *deleteImages() {
-  const {path, selectImages} = yield select(state => state.images);
-  let files = [];
-  selectImages.forEach((file) => {
-    files.push(`${path}/${file}`)
-  });
+  const {path} = yield select(state => state.images);
+  const {deleteConfirm} = yield select(state => state.hint);
+  let {files} = deleteConfirm;
 
   yield call(imagesService.deleteFiles, files);
-  yield *refetchImages({payload: path});
+  yield put({
+    type: 'hint/saveDeleteConfirm',
+    payload: {
+      show: false,
+      files: [],
+    },
+  });
+
+  yield *refresh();
 }
 
 export function *copyImages() {
-  const {path, selectImages} = yield select(state => state.images);
+  const {location} = yield select(state => state.router);
+
   let files = [];
-  selectImages.forEach((file) => {
-    files.push(`${path}/${file}`)
-  });
+  if (location.pathname === '/main/images') {
+    const {path, selectImages} = yield select(state => state.images);
+    selectImages.forEach((file) => {
+      files.push(`${path}/${file}`)
+    });
+
+  } else if (location.pathname === '/main/image') {
+    const {path, name} = yield select(state => state.image);
+    files.push(`${path}/${name}`)
+  }
 
   yield call(imagesService.setCopyFilesToClipboard, files);
 }
@@ -104,15 +141,15 @@ export function *pasteImages() {
   const files = yield call(imagesService.getPasteFilesFromClipboard);
 
   if (files.length === 0) {
+    // is not file
     const image = yield call(imagesService.getImageFromClipboard);
     if (image) {
       yield call(imagesService.pasteImage, image, path);
-      yield *refetchImages();
-      if (location.pathname !== '/main/images') {
-        yield put(push('/main/images'));
-      }
+
+      yield *refresh();
     }
   } else {
+    // is file
     yield *pasteImageFiles({payload: files});
   }
 }
@@ -136,10 +173,7 @@ export function *pasteImageFiles({payload: files}) {
     }
   }
 
-  yield *refetchImages();
-  if (location.pathname !== '/main/images') {
-    yield put(push('/main/images'));
-  }
+  yield *refresh();
 
   if (errorTarget.length > 0) {
     // console.log(errorTarget);
@@ -150,6 +184,18 @@ export function *pasteImageFiles({payload: files}) {
         files: errorTarget,
       },
     });
+  }
+}
+
+// refresh after delete & paste
+function *refresh() {
+  yield put({
+    type: 'directories/loadDirectories',
+    payload: {},
+  });
+  yield *refetchImages();
+  if (location.pathname !== '/main/images') {
+    yield put(push('/main/images'));
   }
 }
 

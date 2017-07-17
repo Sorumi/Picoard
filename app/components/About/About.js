@@ -31,7 +31,7 @@ function About() {
         </h4>
 
         <p className={styles.content}>
-          An app to collect your images, photos, screenshots.
+          A simple app to collect your images, photos and screenshots.
           You can organize your inspiration and ideas in an elegant way.
         </p>
         <footer>

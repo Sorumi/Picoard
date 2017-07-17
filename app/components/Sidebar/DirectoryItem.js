@@ -9,7 +9,7 @@ import styles from './DirectoryItem.css';
 
 class DirectoryItem extends Component {
 
-  constructor(props) {
+  constructor() {
     super();
     this.state = {
       menuVisible: false,
@@ -18,14 +18,12 @@ class DirectoryItem extends Component {
 
   }
 
-
   handleMenuVisibleChange = (flag) => {
     this.setState({menuVisible: flag});
   };
 
   handleMenuClick = (e) => {
     this.setState({menuVisible: false});
-
   };
 
   handleColorSelectClick = (e) => {
@@ -160,8 +158,7 @@ class DirectoryItem extends Component {
                   onClickOpen={onClickOpen}
                   onClickEdit={onClickEdit}
                   onClickRemove={onClickRemove}
-                />
-                }
+                />}
                 trigger={['click']}
                 onVisibleChange={this.handleMenuVisibleChange}
                 visible={this.state.menuVisible}

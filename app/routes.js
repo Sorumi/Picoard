@@ -18,8 +18,6 @@ const Main = ({ match }) => (
 );
 
 export default () => (
-
-
   <Switch>
 
     <RootPage>

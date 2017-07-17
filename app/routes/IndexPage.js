@@ -2,29 +2,32 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {push} from 'react-router-redux'
 
+import {TITLE_BAR_HEIGHT, CONTENT_TOP_HEIGHT} from '../constants'
+
 import ContentLayout from '../components/MainLayout/ContentLayout';
 import ImagesTop from '../components/Images/ImagesTop';
 import ImageList from '../components/Images/ImageList';
 
 class IndexPage extends Component {
 
-  handleListScroll = (height) => {
-    if (height.scrollTop + height.offsetHeight === height.scrollHeight) {
+  handleListScroll = (data) => {
+    if (data.scrollTop + data.offsetHeight === data.scrollHeight) {
       this.props.handleLoadMoreImage();
     }
+    this.props.handleContentScroll(data);
   };
 
   render() {
     const {
-      path, imageWidth, isScroll, selectImages, showImages, size, sidebarWidth, offsetX, directories, currentDirIndex,
-      handlePinchContent, handleClickContent, handleClickImage, handleDoubleClickImage
+      path, imageWidth, isScroll, selectImages, showImages, size, sidebarWidth, offsetX, scroll, directories, currentDirIndex,
+      handlePinchContent, handleClickBlank, handleClickImage, handleDoubleClickImage, handleRightClickImage,
+      handleCopyImages, handlePasteImages, handleConfirmDeleteImages, handleSelectAllImages
     } = this.props;
     return (
       <ContentLayout
         top={ directories && directories.length > 0 ?
           <ImagesTop directory={directories[currentDirIndex]}/> : null
         }
-        onContentClick={handleClickContent}
         onContentScroll={this.handleListScroll}
         onContentPinch={handlePinchContent}
         hideX={true}
@@ -33,14 +36,22 @@ class IndexPage extends Component {
       >
         {showImages.columnImages ?
           <ImageList
+            sidebarWidth={sidebarWidth + offsetX}
+            scroll={scroll}
             selectImages={selectImages}
             path={path}
             columnImages={showImages.columnImages}
             width={size.width - sidebarWidth - offsetX}
-            height={size.height - 120}
+            height={size.height - TITLE_BAR_HEIGHT - CONTENT_TOP_HEIGHT}
             imageWidth={imageWidth}
             onClickImage={handleClickImage}
             onDoubleClickImage={handleDoubleClickImage}
+            onRightClickImage={handleRightClickImage}
+            onBlankClick={handleClickBlank}
+            onClickImagesCopy={handleCopyImages}
+            onClickImagesPaste={handlePasteImages}
+            onClickImagesDelete={handleConfirmDeleteImages}
+            onClickImagesSelectAll={handleSelectAllImages}
           /> : null
         }
       </ContentLayout>
@@ -50,13 +61,14 @@ class IndexPage extends Component {
 
 function mapStateToProps(state) {
   const {path, images, selectImages, column, imageWidth, isScroll, showImages} = state.images;
-  const {size, sidebarWidth, offsetX} = state.window;
+  const {size, sidebarWidth, offsetX, scroll} = state.window;
   const {directories, currentDirIndex} = state.directories;
   return {
     path,
     size,
     sidebarWidth,
     offsetX,
+    scroll,
     images,
     selectImages,
     column,
@@ -70,11 +82,21 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    handleClickContent: () => {
+    handleClickBlank: () => {
       dispatch({
         type: 'images/deselectAllImages',
         payload: {}
       });
+    },
+    handleContentScroll: (data) => {
+      dispatch({
+        type: 'window/saveScroll',
+        payload: {
+          top: data.scrollTop,
+          left: data.scrollLeft,
+        }
+
+      })
     },
     handlePinchContent: (factor) => {
       dispatch({
@@ -86,7 +108,7 @@ function mapDispatchToProps(dispatch, ownProps) {
     handleClickImage: (metaKey, name) => {
       if (metaKey) {
         dispatch({
-          type: 'images/addSelectImage',
+          type: 'images/toggleSelectImage',
           payload: name
         });
       } else {
@@ -106,11 +128,41 @@ function mapDispatchToProps(dispatch, ownProps) {
       });
       dispatch(push('/main/image'));
     },
+    handleRightClickImage: (name) => {
+      dispatch({
+        type: 'images/addSelectImage',
+        payload: name
+      });
+    },
     handleLoadMoreImage: () => {
       dispatch({
         type: 'images/loadMoreShowImages',
         payload: {},
       })
+    },
+    handleCopyImages: () => {
+      dispatch({
+        type: 'images/copyImages',
+        payload: {}
+      });
+    },
+    handlePasteImages: () => {
+      dispatch({
+        type: 'images/pasteImages',
+        payload: {}
+      });
+    },
+    handleConfirmDeleteImages: () => {
+      dispatch({
+        type: 'images/confirmDeleteImages',
+        payload: {},
+      });
+    },
+    handleSelectAllImages: () => {
+      dispatch({
+        type: 'images/selectAllImages',
+        payload: {}
+      });
     }
   }
 }

@@ -54,7 +54,6 @@ export function* removeDirectory({payload: index}) {
 
 export function* loadDirectories() {
   const directories = yield call(directoriesService.loadDirectories);
-  // console.log(directories);
   yield put({
     type: 'directories/saveDirectories',
     payload: directories,

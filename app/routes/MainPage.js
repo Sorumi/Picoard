@@ -30,7 +30,7 @@ class MainPage extends Component {
       this.props.handleFocusWindow();
     });
 
-    const {handleSelectAllImages, handleCopyImages, handlePasteImages, handleConfirmDeleteImages} = this.props;
+    const {location, handleSelectAllImages, handleCopyImages, handlePasteImages, handleConfirmDeleteImages} = this.props;
 
     // Clipboard
     document.addEventListener("cut", (event) => {
@@ -49,26 +49,28 @@ class MainPage extends Component {
     }, false);
 
     ipcRenderer.on('delete', () => {
-      console.log('delete');
       handleConfirmDeleteImages();
     });
 
     ipcRenderer.on('selectAll', () => {
-      console.log('selectAll');
-      handleSelectAllImages();
+      if (location.pathname === '/main/images') {
+        handleSelectAllImages();
+      }
     });
 
     // Keydown
     const {handlePressKey} = this.props;
     document.addEventListener("keydown", function (e) {
       if (e.metaKey) {
+        // Select All
         if (e.keyCode === 65 || e.keyCode === 97) { // 'A' or 'a'
           e.preventDefault();
-          // console.log('selectAll');
-          handleSelectAllImages();
+          if (location.pathname === '/main/images') {
+            handleSelectAllImages();
+          }
+          // Delete
         } else if (e.keyCode === 8) {
           e.preventDefault();
-          // console.log('delete');
           handleConfirmDeleteImages();
         }
       } else {
@@ -144,9 +146,11 @@ class MainPage extends Component {
 }
 
 function mapStateToProps(state) {
+  const {location} = state.router;
   const {existWarning, deleteConfirm} = state.hint;
   const {directories} = state.directories;
   return {
+    location,
     existWarning,
     deleteConfirm,
     directories
@@ -203,23 +207,16 @@ function mapDispatchToProps(dispatch, ownProps) {
         payload: files
       });
     },
-    handleDeleteImages: () => {
-      dispatch({
-        type: 'hint/saveDeleteConfirm',
-        payload: {
-          show: false,
-          files: [],
-        },
-      });
-      dispatch({
-        type: 'images/deleteImages',
-        payload: {}
-      });
-    },
     handleConfirmDeleteImages: () => {
       dispatch({
         type: 'images/confirmDeleteImages',
         payload: {},
+      });
+    },
+    handleDeleteImages: () => {
+      dispatch({
+        type: 'images/deleteImages',
+        payload: {}
       });
     },
     handleCloseWarning: () => {

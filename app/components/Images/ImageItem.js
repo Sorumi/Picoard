@@ -32,14 +32,14 @@ class ImageItem extends Component {
   }
 
   render() {
-    const {active, width, height, onClick} = this.props;
+    const {active, width, height, onClick, onContextMenu} = this.props;
     let className = styles.img;
     className = active ? className + ' ' + styles.active : className;
     return (
-     <div className={className}
-           style={{width:  width + 'px'} }
-        width={width}
-        height={height}
+      <div className={className}
+           style={{width: width + 'px'} }
+           width={width}
+           height={height}
       >
 
         <img
@@ -49,9 +49,14 @@ class ImageItem extends Component {
           width={width}
           height={height}
           onClick={onClick ? onClick : null}
+          onContextMenu={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            onContextMenu(event)
+          }}
         />
 
-       </div>
+      </div>
     )
   }
 }

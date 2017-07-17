@@ -9,6 +9,9 @@ export const WIN_SIZE = {
 
 export const TITLE_BAR_HEIGHT = 40;
 export const CONTENT_TOP_HEIGHT = 60;
+export const IMAGE_MENU_WIDTH = 100;
+export const IMAGE_MENU_HEIGHT = 120;
+export const IMAGE_MENU_SMALL_HEIGHT = 60;
 
 export const SIDEBAR_DEFAULT_RATIO = 0.25;
 export const SIDEBAR_MIN_RATIO = 0.2;

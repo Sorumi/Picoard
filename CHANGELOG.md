@@ -1,4 +1,4 @@
-### 1.0.0 (2017.7.13)
+### v1.0.0 (2017.7.17)
 
 #### Features
 - Connect to your local directories. Convenient for management.

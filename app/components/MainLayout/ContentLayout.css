@@ -20,8 +20,8 @@
 .main {
   position: absolute;
   width: 100%;
-  margin-top: 50px;
-  padding-top: 10px;
+  margin-top: 55px;
+  padding-top: 5px;
   top: 0;
   bottom: 0;
   overflow: auto; }
@@ -36,5 +36,8 @@
   .main::-webkit-scrollbar-track {
     background: transparent;
     border-radius: 20px; }
+
+.content_wrapper {
+  height: 100%; }
 
 /*# sourceMappingURL=ContentLayout.css.map */
