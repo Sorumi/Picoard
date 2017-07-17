@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {ipcRenderer} from 'electron';
 
 import * as directoriesService from '../service/directories';
-import * as imagesService from '../service/images';
+
 
 import MainLayout from '../components/MainLayout/MainLayout';
 import SideLayout from '../components/MainLayout/SideLayout';
@@ -122,8 +122,9 @@ class MainPage extends Component {
           title="Failed to Copy"
           content={
             <ModalContent
+              update={existWarning.show}
               files={existWarning.files}
-              text={existWarning.files.length > 1 ? 'Images Already Existed' : 'Image Already Existed'}
+              text={existWarning.files.length > 1 ? existWarning.files.length + ' Images Already Existed' : existWarning.files.length + ' Image Already Existed'}
             />}
           onOk={handleCloseWarning}
           onCancel={handleCloseWarning}
@@ -134,8 +135,9 @@ class MainPage extends Component {
           title="Do you Want to delete"
           content={
             <ModalContent
+              update={deleteConfirm.show}
               files={deleteConfirm.files}
-              text={deleteConfirm.files.length > 1 ? 'These Images ?' : 'This Image ?'}
+              text={deleteConfirm.files.length > 1 ? deleteConfirm.files.length + ' Images ?' : deleteConfirm.files.length + ' Image ?'}
             />}
           onOk={handleDeleteImages}
           onCancel={handleCloseConfirm}

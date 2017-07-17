@@ -22,3 +22,5 @@ export const MAX_WIDTH = 800;
 export const PINCH_MAX = 300;
 
 export const PER_RATIO = 0.2;
+
+export const MAX_FILE_LENGTH = 10;

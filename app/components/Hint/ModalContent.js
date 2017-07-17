@@ -1,19 +1,32 @@
-import React from 'react';
+import React, {Component} from 'react';
+
+import {MAX_FILE_LENGTH} from '../../constants';
 
 import styles from './HintModal.css';
 
-function ModalContent({files, text}) {
+class ModalContent extends Component {
+// function ModalContent({files, text}) {
 
-  return (
-    <div>
-      {files.map(file =>
-        <p key={file}
-           className={styles.file}
-        >{`'${file}'`}</p>
-      )}
-      <p className={styles.text}>{text}</p>
-    </div>
-  )
+  // const filesArray = files > MAX_FILE_LENGTH ? files.slice(0, 10) : files;
+
+  shouldComponentUpdate(nextProps) {
+    return nextProps.update;
+  }
+
+  render() {
+    const {files, text} = this.props;
+    return (
+      <div>
+        {files.slice(0, 10).map(file =>
+          <p key={file}
+             className={styles.file}
+          >{`'${file}'`}</p>
+        )}
+        {files.length > MAX_FILE_LENGTH ? <p key="more" className={styles.file}>……</p> : null}
+        <p key="text" className={styles.text}>{text}</p>
+      </div>
+    )
+  }
 }
 
 export default ModalContent;
